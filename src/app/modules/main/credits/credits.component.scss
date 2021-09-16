@@ -1,0 +1,200 @@
+.inner-content {
+    padding: 20px 80px;
+
+    h5 {
+        font-size: 21px;
+        font-weight: bold;
+        color: #BBBBBB;
+    }
+
+    input.form-control,
+    textarea {
+        background: #444;
+        border-radius: 10px;
+        border: 0;
+        box-shadow: 0 0 5px #222;
+        min-height: 50px;
+        color: #ddd;
+    }
+
+    .form-label {
+        color: #DDDDDD;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    textarea{
+        min-height: 200px;
+        color: #ddd;
+    }
+
+    .outline-btn {
+        height: 46px;
+        line-height: 46px;
+    }
+
+  
+}
+
+.reach-out-btn .btn {
+    border-radius: 30px;
+    font-size: 14px;
+    padding-left: 20px;
+    line-height: 20px !important;
+    padding-right: 20px;
+}
+
+.card.price-card {
+    background: #444444;
+    padding: 15px;
+    border-radius: 8px;
+
+     p.price {
+        font-weight: bold;
+        color: #fff;
+        margin: 0;
+        
+    }
+
+    span.discount {
+        font-size: 14px;
+        color: #ADCBFA;
+        margin-bottom: 10px;
+        display: block;
+    }
+}
+
+.service-box {
+    background: #444444;
+    border-radius: 10px;
+    box-shadow: 0 0 5px #222;
+}
+
+.service-details .row {
+    margin: 0;
+}
+
+.service-details {
+     .row:nth-child(2n+1) {
+    background: #666666;
+    padding: 8px;
+    font-size: 12px;
+    color: #fff;
+}
+
+.row:nth-child(2n+2) {
+    background: #555555;
+    padding: 8px;
+    font-size: 12px;
+    color: #fff;
+}
+
+.col-md-4 {
+    text-align: center;
+}
+
+}
+
+
+.service-header {
+display: flex;
+.left {
+    display: flex;
+    width: 70%;
+    font-size: 18px;
+    padding: 20px 20px 15px;
+    color: #EEEEEE;
+    font-weight: bold;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    font-size: 20px;
+    padding: 20px;
+    color: #EEEEEE;
+    font-weight: bold;
+    text-align: right;
+}
+}
+
+span.popular-lebel {
+font-size: 12px;
+font-weight: bold;
+background: #59AD24;
+border-radius: 10px;
+padding: 5px 15px;
+margin-right: 15px;
+top: -4px;
+text-transform: uppercase;
+position: relative;
+}
+
+.btn-get-sample {
+padding: 20px;
+text-align: center;
+
+button.btn.default-btn.gs-btn {
+    font-size: 14px;
+    font-weight: bold;
+    color: #05206A;
+}
+
+button.btn.default-btn.gs-btn:hover {
+    color: #ADCBFA;
+}
+
+
+}
+
+.service-header {
+    .left{
+        width: 50%;
+    }
+
+    .right{
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+.reach-out-btn.text-right {
+    text-align: center !important;
+    margin: 0 auto;
+}
+
+.service-header .left {
+    font-size: 16px;
+    padding: 20px 15px 15px;
+
+    span.popular-lebel {
+        font-size: 11px;
+        padding: 2px 12px;
+        margin-right: 10px;
+    }
+}
+
+.service-header .right {
+        font-size: 20px;
+        padding: 20px 15px 20px 10px;
+}
+
+.card.price-card {
+    margin-bottom: 20px;
+}
+.reach-out-btn .btn {
+    width: 85%;
+    margin-top: 20px;
+}
+
+.row.btn-field {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.service-box {
+    padding-bottom: 15px;
+}
+
+}

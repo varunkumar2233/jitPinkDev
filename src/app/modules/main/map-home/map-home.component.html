@@ -1,0 +1,294 @@
+<div class="container-fluid">
+  <div class="cart-panel">
+    <div class="row">
+      <div class="col-md-12 m-0 p-0">
+        <div class="col-md-8">
+          <h3>Crime Index Reports</h3>
+        </div>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 mainClassto ">
+        <div class="inner-box">
+          <div class="map-form-field col-md-8">
+            <div class="row top-field">
+              <div class="col-md-9 col-6">
+                <div #geocoderContainer>
+                </div>
+
+                <!-- <div class="search-field">
+                            <div class="input-group has-validation">
+                              <input class="form-control" placeholder="Search"  [(ngModel)]="addressselected"
+                               [typeahead]="address"
+                               class="form-control"
+                              >
+                                  <div class="input-group-postpend search-icon">
+                                    <span><i class="ion-ios-search"></i></span>
+                                  </div>
+                              </div>
+                          </div> -->
+              </div>
+
+            </div>
+
+            <!-- <ng-container *ngIf="isAnyReportAvaible"> -->
+
+            <div class="index-report-available-box" *ngIf=isAnyReportAvaible>
+              <div class="card">
+                <div class="card-header">
+                  Crime Index Reports Available
+                  <span class="cross" (click)="hideSearch()">X</span>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="image">
+                        <img src="assets/images/{{selectedCountryCode}}.png" />
+                      </div>
+                    </div>
+
+                    <div class="col-md-8">
+                      <p *ngIf=isBothReportAvaible>Two different options</p>
+                      <p *ngIf=!isBothReportAvaible>One Option</p>
+                      <p class="notification-text"><small>* This is a paid report</small></p>
+                      <button (click)="onExploreReports()" class="btn default-btn">Explore</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- </ng-container> -->
+          </div>
+          <div id="map" class="map-container"> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="report-panel" id="report-pane-section" *ngIf="rows.length">
+    <div class="report-details">
+      <div class="row">
+        <div class="col-md-12">
+          <h4>My Reports</h4>
+        </div>
+      </div>
+      <div class="report-inner-box">
+        <div class="row top-field">
+          <!-- <div class="col-md-2">
+                  <div class="filter">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"  [(ngModel)]="bindedTwoWays" data-toggle="dropdown">
+                          Filter
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item">Country</a>
+                        </div>
+                      </div>
+                  </div>
+              </div> -->
+          <div class="col-md-3">
+            <div class="btn-group custom-select-dropdown" dropdown>
+              <button id="customDropdown" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                aria-controls="dropdown-basic">
+                {{ selectedCountry ? selectedCountry.name : 'Select Country' }} <span class="caret"></span>
+              </button>
+              <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                <ng-container *ngFor="let contVal of countries">
+                  <li (click)="onCountrySelection(contVal) " role="menuitem">
+                    <a class="dropdown-item">{{contVal.name}}</a>
+                  </li>
+                </ng-container>
+              </ul>
+
+            </div>
+          </div>
+          <div class="col-md-7">
+            <div class="search-field">
+              <div class="input-group has-validation">
+                <input type="search" class="form-control" [(ngModel)]="filterTerm" placeholder="search">
+                <div class="input-group-postpend">
+                  <span class="input-group-text"><i class="ion-ios-search"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="view-report">
+              <button (click)="downloadexl()" class="btn"><img src="assets/images/excel-icon.svg"></button>
+            </div>
+          </div>
+        </div>
+        <div class="reports-grid-view">
+          <table class="table reports-table">
+            <thead>
+              <tr>
+                <!-- <th *ngFor="let column of headers" scope="col">
+                  {{column}}
+                </th> -->
+                <th style="width: 50%;" scope="col">
+                  Location
+                </th>
+                <th style="width: 15%;" scope="col">
+                  Type
+                </th>
+                <th style="width: 15%;" scope="col">
+                  Date
+                </th>
+                <th style="width: 20%; text-align: right;" scope="col">
+                  Preview
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let row of rows | filter:filterTerm">
+                <tr [ngClass]="{'highlightTR': row.is_seen===false}">
+                  <td style="width: 50%;">{{row.address}}</td>
+                  <!-- <td>{{row.is_seen}}</td> -->
+                  <!-- <td>no idea</td> -->
+                  <td style="width: 15%;">{{row.report_type}}</td>
+                  <td style="width: 15%;">{{row.timestamp | date: 'yyyy/MM/dd'}}</td>
+                  <td style="width: 20%; text-align: right;" class="action-icon">
+                    <span class="newIcon">New</span>
+                    <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url)"
+                      class="download-icon" src="assets/images/icon-download.svg" />
+                    <img *ngIf="row.download_url" class="view-icon" src="assets/images/icon-view.svg" />
+                    <!-- <img *ngIf="row.download_url" class="delete-icon" src="assets/images/icon-delet.svg" /> -->
+                    <!-- show error icon asigned to varun -->
+                    <img *ngIf="row.is_failed" class="download-icon" src="error" />
+                    <!-- show loading icon asigned to varun -->
+                    <img *ngIf="(!row.download_url && !row.is_failed)" class="view-icon" src="loadig" />
+
+                  </td>
+                </tr>
+              </ng-container>
+              <tr *ngIf="myReportListStaging?.length==0">
+                No Records Found.
+              </tr>
+
+
+              <!-- <tr>
+                <td>100 Miami St, Miami, …</td>
+                <td>1.1x</td>
+                <td>Platinum</td>
+                <td>01/01/21</td>
+
+                <td class="action-icon">
+                    <img class="download-icon" src="assets/images/icon-download.svg" />
+                    <img class="view-icon" src="assets/images/icon-view.svg" />
+                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
+                </td>
+              </tr> -->
+
+              <!-- <tr>
+                <td>100 Miami St, Miami, …</td>
+                <td>1.1x</td>
+                <td>Platinum</td>
+                <td>01/01/21</td>
+
+                <td class="action-icon">
+                    <img class="download-icon" src="assets/images/icon-download.svg" />
+                    <img class="view-icon" src="assets/images/icon-view.svg" />
+                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
+                </td>
+              </tr>
+
+              <tr>
+                <td>100 Miami St, Miami, …</td>
+                <td>1.1x</td>
+                <td>Platinum</td>
+                <td>01/01/21</td>
+
+                <td class="action-icon">
+                    <img class="download-icon" src="assets/images/icon-download.svg" />
+                    <img class="view-icon" src="assets/images/icon-view.svg" />
+                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
+                </td>
+              </tr>
+
+              <tr>
+                <td>100 Miami St, Miami, …</td>
+                <td>1.1x</td>
+                <td>Platinum</td>
+                <td>01/01/21</td>
+
+                <td class="action-icon">
+                    <img class="download-icon" src="assets/images/icon-download.svg" />
+                    <img class="view-icon" src="assets/images/icon-view.svg" />
+                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
+                </td>
+              </tr> -->
+
+              <!-- <tr>
+                <td>100 Miami St, Miami, …</td>
+                <td>1.1x</td>
+                <td>Platinum</td>
+                <td>01/01/21</td>
+
+                <td class="action-icon">
+                    <img class="download-icon" src="assets/images/icon-download.svg" />
+                    <img class="view-icon" src="assets/images/icon-view.svg" />
+                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
+                </td>
+              </tr>
+
+              <tr>
+                <td>100 Miami St, Miami, …</td>
+                <td>1.1x</td>
+                <td>Platinum</td>
+                <td>01/01/21</td>
+
+                <td class="action-icon">
+                    <img class="download-icon" src="assets/images/icon-download.svg" />
+                    <img class="view-icon" src="assets/images/icon-view.svg" />
+                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
+                </td>
+              </tr>
+
+              <tr>
+                <td>100 Miami St, Miami, …</td>
+                <td>1.1x</td>
+                <td>Platinum</td>
+                <td>01/01/21</td>
+
+                <td class="action-icon">
+                    <img class="download-icon" src="assets/images/icon-download.svg" />
+                    <img class="view-icon" src="assets/images/icon-view.svg" />
+                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
+                </td>
+              </tr>
+
+              <tr>
+                <td>100 Miami St, Miami, …</td>
+                <td>1.1x</td>
+                <td>Platinum</td>
+                <td>01/01/21</td>
+
+                <td class="action-icon">
+                    <img class="download-icon" src="assets/images/icon-download.svg" />
+                    <img class="view-icon" src="assets/images/icon-view.svg" />
+                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
+                </td>
+              </tr>
+
+              <tr>
+                <td>100 Miami St, Miami, …</td>
+                <td>1.1x</td>
+                <td>Platinum</td>
+                <td>01/01/21</td>
+
+                <td class="action-icon">
+                    <img class="download-icon" src="assets/images/icon-download.svg" />
+                    <img class="view-icon" src="assets/images/icon-view.svg" />
+                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
+                </td>
+              </tr> -->
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

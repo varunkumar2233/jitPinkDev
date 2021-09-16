@@ -1,0 +1,174 @@
+<div class="row">
+    <div class="col-md-12">
+        <h3>Purchased Reports</h3>
+        <cross></cross>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="inner-box credits-field">
+            <div class="inner-content">
+
+                <!-- <div class="row">
+                    <div class="col-md-4">
+                       
+                      <div class="card">
+                          <div class="card-title">
+                            <p class="set-title">Overview</p>
+                          </div>
+                          <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Total Purchased
+                                  <span class="badge">8</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Platinum
+                                  <span class="badge">5</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Standard
+                                  <span class="badge">3</span>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Total Savings
+                                  <span class="badge">$1,000.00</span>
+                                </li>
+                              </ul>
+                          </div>
+                        </div>
+                     
+                    </div>
+                    <div class="col-md-8">
+                       
+
+                            <div class="card">
+                                <div class="card-title">
+                                  <p class="set-title no-border">Credits</p>
+                                </div>
+                                <div class="card-body">
+                                   <div class="inner-card">
+                                       <p><strong>Platinum</strong></p>
+                                       <div class="card">
+                                        <p><span>Available - 6 Credits</span><br><br>
+
+                                        Total–19 Credits<br>
+                                        Used–13 Credits</p>
+                                       </div>
+                                   </div>
+                                   <ul class="list-group">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Total Savings
+                                      <span class="badge">$600.00</span>
+                                    </li>
+                                   </ul>
+                                </div>
+                            </div>
+                        
+                            <div class="card">
+                                <div class="card-title">
+                                  <p class="set-title no-border">Credits</p>
+                                </div>
+                                <div class="card-body">
+                                   <div class="inner-card">
+                                       <p><strong>Standard</strong></p>
+                                       <div class="card">
+                                        <p><span>Available - 8 Credits</span><br><br>
+
+                                        Total–11 Credits<br>
+                                        Used–13 Credits</p>
+                                       </div>
+                                   </div>
+                                   <ul class="list-group">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Total Savings
+                                      <span class="badge">$400.00</span>
+                                    </li>
+                                   </ul>
+                                </div>
+                            </div>
+                    </div>
+
+                </div> -->
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="report-panel">
+                            <div class="report-details">
+                                <div class="row">
+                                  <div class="col-md-12">
+                                      <h4>Purchase History</h4>
+                                  </div>
+                                </div>
+                                <div class="report-inner-box">
+                                 <div class="row top-field">
+                                    <div class="col-md-3 col-6">
+                                        <div class="filter">
+                                          <div class="dropdown">
+                                              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+                                                Filter
+                                              </button>
+                                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item">Type</a>
+                                                <a class="dropdown-item">Date</a>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="search-field">
+                                          <div class="input-group has-validation">
+                                             
+                                            <input type="search" class="form-control" [(ngModel)]="filterTerm" placeholder="search">
+                                              <div class="input-group-postpend">
+                                                  <span class="input-group-text"><i class="ion-ios-search"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                 </div>
+                              <div class="reports-grid-view">
+                                <table class="table purchasedReports">
+                                  <thead>
+                                    <tr>
+                                      <th>Type</th>
+                                      <th>Date</th>
+                                      <th>Amount</th>
+                                      <th class="action-icon">Action</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <ng-container *ngFor="let row of rows | filter:filterTerm">
+                                    <tr>
+                                      <td style="width: 10%;">{{row.product}}</td>
+                                      <!-- <td>{{row.is_seen}}</td> -->
+                                      <!-- <td>no idea</td> -->
+                                      <td style="width: 10%;">{{row.date | date: 'yyyy/MM/dd'}}</td>
+                                      <td style="width: 10%;">{{row.amount.formatted}}</td>
+                                      <td style="width: 10%; text-align: right;" class="action-icon">
+                                        <img (click)="displayInvoice(row.order_id)" class="view-icon" src="assets/images/icon-view.svg" />
+                    
+                                      </td>
+                                    </tr>
+                                    </ng-container>
+                                    <tr *ngIf="rows?.length==0">
+                                      No Records Found.
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>

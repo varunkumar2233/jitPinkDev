@@ -1,0 +1,48 @@
+<div class="header">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand"><img src="assets/images/pLogoWhite.png"></a>
+         
+          <div class="navbar-right">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li *ngIf="!isUserLoggedin" class="nav-item">
+                <button type="button" (click)="SingnIn();" class="btn d-none d-lg-block only-text-btn sign-in-btn">Sign In</button>
+              </li>
+              <li class="nav-item">
+                <button type="button" (click)="SingnUp();" class="btn d-none d-lg-block default-btn sign-up-btn">Sign Up</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+</div>
+<div class="middle-field">
+<div class="container text-center text-white">
+<div class="row">
+<div class="col-md-12">
+  <div >
+  <h1> 
+  Pinkerton Risk Portal
+ </h1>
+</div>
+  
+<p class="bpara">Comprehensive risk technology to navigate incoming threats</p>
+<div class="button-field">
+  <button (click)="SingnUp()" class="btn default-btn">Sign Up with Email</button>
+  <button (click)="SingnIn();" class="btn d-lg-none default-btn only-text-btn">Sign In with Email</button>
+</div>
+</div>
+    </div>
+</div>
+</div>
+
+<div class="bottom-field">
+    <div class="container text-center">
+    <div class="row">
+    <div class="col-md-12">
+        <app-map-on-home></app-map-on-home>
+    </div>
+    </div>
+    </div>
+</div>
+    

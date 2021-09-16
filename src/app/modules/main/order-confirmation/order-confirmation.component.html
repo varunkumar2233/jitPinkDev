@@ -1,0 +1,257 @@
+<div class="container">
+    <div class="cart-panel">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Order Confirmation</h3>
+                <cross></cross>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="inner-box">
+
+                    <div class="tab-content" id="myTabContent">
+
+                        <div class="tab-pane-add" id="confirmation" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <br>
+                                    <h4>Confirmation</h4>
+                                    <p><small>Thank you for your order!</small></p>
+                                    <p><strong>Your Order ID - {{order_ID}}</strong></p>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="card order-summary">
+                                        <div class="card-body">
+                                            <div class="card-title">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="item-title">
+                                                            Order Summary
+                                                        </div>
+                                                    </div>
+        
+                                                </div>
+                                            </div>
+                                            <div class="item-field">
+                                                <div class="row row-item">
+                                                    <div class="col-md-7 col-6">
+                                                        <div class="item-left">
+                                                            Subtotal
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5 col-6">
+                                                        <div class="item-right text-right">
+                                                            <strong> $ {{paymentData?.subtotal}}</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+        
+                                                <div class="row">
+                                                    <div class="col-md-7 col-6">
+                                                        <div class="item-left">
+                                                            Tax
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5 col-6">
+                                                        <div class="item-right text-right">
+                                                            <strong>{{paymentData?.tax}}</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="item-field promo-field">
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-6 pr-0">
+                                                                <div class="item-left">
+                                                                    Promo code:
+                                                                </div>
+        
+                                                                <div class="item-left">
+                                                                    Credit:
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 col-6 pl-0">
+                                                                <div class="item-right text-right">
+                                                                    <strong>Promo code</strong>
+                                                                </div>
+                                                                <div class="item-right text-right">
+                                                                    <strong>Credit amount</strong>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+        
+                                            <div class="sub-total">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-6">
+                                                        Estimated total
+                                                    </div>
+                                                    <div class="col-md-6 col-6 text-right">
+                                                        <strong>${{paymentData?.total}}</strong>
+                                                    </div>
+                                                </div>
+        
+                                            </div>
+        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="row">
+                                <div class="col-md-7">
+                                    <div class="card">
+                                       <div class="card-body">
+                                        <div class="card-title">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="item-title">
+                                                        Billing Information
+                                                    </div>
+                                                </div>
+                                            </div>                                          
+                                        </div>
+                                     <div class="item-field border-bottom-none">
+                                      
+                                        <div class="row row-item">
+                                            <div class="col-md-7 col-6">
+                                                <div class="item-left">
+                                                    Name
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5 col-6">
+                                                <div class="item-right text-right">
+                                                    <strong>Name</strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row row-item">
+                                            <div class="col-md-7 col-6">
+                                                <div class="item-left">
+                                                    Country
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5 col-6">
+                                                <div class="item-right text-right">
+                                                    <strong>Country</strong>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row row-item">
+                                            <div class="col-md-7 col-6">
+                                                <div class="item-left">
+                                                    Address
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5 col-6">
+                                                <div class="item-right text-right">
+                                                    <strong>Address</strong>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row row-item">
+                                            <div class="col-md-7 col-6">
+                                                <div class="item-left">
+                                                    City
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5 col-6">
+                                                <div class="item-right text-right">
+                                                    <strong>City</strong>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row row-item">
+                                            <div class="col-md-7 col-6">
+                                                <div class="item-left">
+                                                    State/Region
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5 col-6">
+                                                <div class="item-right text-right">
+                                                    <strong>State/Region</strong>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row row-item">
+                                            <div class="col-md-7 col-6">
+                                                <div class="item-left">
+                                                    Zip/Postal Code
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5 col-6">
+                                                <div class="item-right text-right">
+                                                    <strong>Zip/Postal Code</strong>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                      </div>
+                                       </div> 
+
+                                     </div> -->
+
+                            <!-- <div class="card">
+                                        <div class="card-body">
+                                         <div class="card-title">
+                                             <div class="row">
+                                                 <div class="col-md-12">
+                                                     <div class="item-title">
+                                                         Payment Method
+                                                     </div>
+                                                 </div>
+                                             </div>                                          
+                                         </div>
+                                      <div class="item-field border-bottom-none">
+                                       
+                                         <div class="row row-item">
+                                             <div class="col-md-3 col-3">
+                                                 <div class="item-left">
+                                                     Visa
+                                                 </div>
+                                             </div>
+                                             <div class="col-md-9 col-9">
+                                                 <div class="row">
+                                                <div class="item-left col-md-6 col-4 pr-0 text-right">
+                                                    <strong>7777</strong>
+                                                </div>
+                                                 <div class="item-right col-md-6 col-8 text-right">
+                                                     <strong>Exp 02/2022</strong>
+                                                 </div>
+                                                </div>
+                                             </div>
+                                         </div>
+                                          
+ 
+                                       </div>
+                                        </div> 
+ 
+                                      </div> -->
+
+
+
+
+
+
+                        </div>
+
+                        
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+
+    </div>

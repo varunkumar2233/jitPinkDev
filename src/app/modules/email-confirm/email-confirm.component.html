@@ -1,0 +1,32 @@
+<div class="login-wrapper">
+    <div class="login-container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="img-Container">
+            <img src="/assets/images/pinkerton_logo.png" alt="PINKERTON LOGO" />
+          </div>
+          <label class="login-htext">{{status}}</label>
+        </div>
+        <div class="col-sm-12">
+            <div class="app-loader-wrapper">
+                <div class="app-loader-spinner">
+                    <img *ngIf='!hasError' alt="loader" src="assets/images/pageloader-white.gif" />
+                  
+                </div>
+              </div>
+        </div>
+      </div>
+
+
+<div *ngIf='hasError'>
+      <div class="row">
+        <label class="form-label">Email</label>
+        <input type="text" id="email" name="email" placeholder="email"  class="form-control"  #email/>
+      <div class="mb-2 mt-4">
+        <button (click)="onSubmit(email.value)" class="btn default-btn outline-btn">Generate Code</button>
+    </div>
+    </div>
+
+    </div>
+  </div>
+</div>

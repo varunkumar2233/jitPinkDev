@@ -1,0 +1,180 @@
+<div class="container">
+    <div class="cart-panel">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Cart</h3>
+                <ng-container class="cross"></ng-container>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="inner-box">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="cart" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <br>
+                                    <h4>You have <span class="count">{{this.itemCount}}</span> items in your cart</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="card-title">
+                                                <div class="row">
+                                                    <div class="col-md-8 col-6">
+                                                        <div class="item-title">
+                                                            Item
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 col-6">
+                                                        <div class="price-title text-right">
+                                                            Price
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item-field" *ngFor="let report of cartList">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="img">
+                                                            <img src="{{report.preview_img}}" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="item-details">
+                                                            <p *ngIf="report.id!=0">Crime Index Report</p>
+                                                            <p *ngIf="report.id==0">Credits</p>
+                                                            <p *ngIf="report.id!=0" class="format">Format: PDF</p>
+                                                            <p class="typeofreport">{{report.report_type}}</p>
+                                                            <!-- <p class="quantity">Quantity <span>-</span>
+                                                                <strong>1</strong><span>+</span>
+                                                            </p> -->
+                                                            <p *ngIf="report.id==0" class=""><a> Quantity
+                                                                    {{report.quantity}}</a></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="price-detail">
+                                                            <p class="price">$ {{report.price | number}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="sub-total text-right">
+                                                <span>Subtotal<strong>${{totalAmount}}</strong></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="card order-summary">
+                                        <div class="card-body">
+                                            <div class="card-title">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="item-title">
+                                                            Order Summary
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item-field">
+                                                <div class="row row-item">
+                                                    <div class="col-md-7 col-6">
+                                                        <div class="item-left">
+                                                            Subtotal
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5 col-6">
+                                                        <div class="item-right text-right">
+                                                            <strong>$ {{totalAmount}}</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="row">
+                                                    <div class="col-md-7 col-6">
+                                                        <div class="item-left">
+                                                            Tax
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5 col-6">
+                                                        <div class="item-right text-right">
+                                                            <strong>0</strong>
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                                <div class="row">
+                                                    <div class="col-md-12 col-12 taxLocation">
+                                                        <small>Tax applicable depending on billing
+                                                            address</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="sub-total">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-6">
+                                                        Estimated total
+                                                    </div>
+                                                    <div class="col-md-6 col-6 text-right">
+                                                        <strong>$ {{totalAmount}}</strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <hr>
+                                </div>
+                            </div>
+
+                            <form [formGroup]="termsConditionForm" (ngSubmit)="checkoutfinal()">
+                                <div class="row tc-checkbox-field">
+                                    <div class="col-md-12">
+                                        <div class="form-check pl-2">
+                                            <input id="checkForterms" class="form-check-input"
+                                                (change)="termsConditionCheck($event)" type="checkbox"
+                                                formControlName="has_agreed_tos"
+                                                [ngClass]="{ 'is-invalid': submitted && f.has_agreed_tos.errors }">
+                                            <label class="form-check-label" for="checkForterms">
+                                                By checking this box you have agreed with our Terms of Services and
+                                                Privacy
+                                                Policy
+                                            </label>
+                                            <br>
+                                            <div *ngIf="submitted && f.has_agreed_tos.errors" class="invalid-feedback">
+                                                <div>Please first check that you have read and understand the <a
+                                                        href='https://riskportal.pinkerton.com/pages/terms'
+                                                        target="_self">terms &amp; conditions</a></div>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 mt-2 text-left">
+                                        <div class="back"><i class="ion-ios-arrow-back"></i>Back</div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <button class="default-btn btn float-right">Checkout</button>
+                                    </div>
+                                </div>
+                            </form>
+
+
+
+                            <div class="row">
+
+
+                                <!-- <div class="col-md-4 text-left">
+                                    <div class=""><button (click)="checkoutfinal();" class="default-btn btn">Checkout</button></div>    
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>

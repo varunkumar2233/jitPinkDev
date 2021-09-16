@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="col-md-12">
+        <h3>Credit</h3>
+        <cross></cross>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="inner-box credits-field">
+            <div class="inner-content">
+                <div class="row">
+                    <div class="col-md-12 mb-2">
+                        <h5>Get in Contact</h5>
+                    </div>
+                </div>
+
+                <form [formGroup]="reachusForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Name</label>
+                        <input formControlName="name" type="text" class="form-control" placeholder="name">
+
+                        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                            <div *ngIf="f.name.errors.required">Name is required</div>
+                        </div>
+
+                    </div>
+                
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Company</label>
+                        <input  formControlName="company" type="text" class="form-control" placeholder="company">
+
+                        <div *ngIf="submitted && f.company.errors" class="invalid-feedback">
+                            <div *ngIf="f.company.errors.required">Company is required</div>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="text" class="form-control" formControlName="email" placeholder="email">
+
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Email is required</div>
+                        </div>
+
+                    </div>
+                
+                    <div class="col-md-12 mb-3 messages-field">
+                        <label class="form-label">Message</label>
+                        <textarea formControlName="message" class="form-control" placeholder="type your message here …"></textarea>
+                        <div *ngIf="submitted && f.message.errors" class="invalid-feedback">
+                            <div *ngIf="f.message.errors.required">Message is required</div>
+                        </div>
+
+                    </div>
+                
+                    <div class="col-md-12 mt-2">
+                    <button class="btn default-btn outline-btn">Send</button>
+                    </div>
+                    </div>
+                    </form>
+                </div>
+                </div>
+                </div>
+                </div>
+                
+
+
+
+
+
+

@@ -1,0 +1,62 @@
+.logo img {
+    margin-left: -20px;
+}
+
+.header {
+    padding: 35px 0;
+
+}
+
+nav.navbar {
+    padding: 0;
+    .navbar-right {
+        margin-top: -50px;
+    }
+    li.nav-item {
+        margin-left: 20px;
+    }
+}
+.middle-field h1 {
+    text-transform: uppercase;
+    font-size: 42px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.bottom-field {
+    padding-top: 100px;
+    img {
+        width: 100%;
+    }
+}
+
+.bpara{
+    font-size: 22px;
+}
+.button-field{
+    margin-top: 25px;
+}
+@media (max-width: 768px) {
+    a.navbar-brand {
+        padding-left: 10px;
+    }
+    .middle-field h1 {  
+        font-size: 21px;
+        font-weight: bold;
+    }
+
+    .button-field {
+        margin-top: 40px;
+    }
+
+    button.only-text-btn {
+        color: #ADCBFA;
+        margin-top: 10px;
+    }
+
+    .bottom-field {
+        padding-top: 35px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+ }

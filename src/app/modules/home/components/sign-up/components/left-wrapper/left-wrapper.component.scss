@@ -1,0 +1,61 @@
+.left-panel {
+    padding: 50px;
+    color: #fff;
+    .logo img {
+        margin-left: -20px;
+    }
+    h1 {
+        text-transform: uppercase;
+        font-size: 42px;
+        font-weight: bold;
+        letter-spacing: 3px;
+    }
+
+    p {
+        font-size: 22px;
+        line-height: 26px;
+        color: #CCCCCC;
+    }
+
+    .blank-height {
+        height: 100px;
+    }
+    .bottom-link {
+        position: absolute;
+        bottom: 20px;
+        a.link {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-family: arial;
+            text-decoration: none;
+            color: #fff;
+        }
+    }
+
+}
+
+@media screen and (max-width: 767px) {
+    .left-panel{
+        padding: 30px;
+        color: #fff;
+        .blank-height {
+            height: 20px;
+        }
+
+        h1 {
+            font-size: 30px;
+            margin-top: 0;
+             text-align: center;
+        }
+
+        p {
+            font-size: 15px;
+            line-height: 20px;
+            line-height: 20px;
+            text-align: center;
+        }
+    }
+
+  
+
+}

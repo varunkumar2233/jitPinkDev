@@ -1,0 +1,130 @@
+<div class="header">
+  <nav class="navbar navbar-expand-lg navbar-light pl-0 pr-0">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/main"><img src="./assets/images/main-logo.svg"></a>
+
+      <ul class="navbar-nav float-right">
+        <li class="nav-item home d-md-none"><i class="ion-md-home"></i></li>
+        <li class="nav-item dropdown">
+
+          <div class="btn-group" dropdown>
+            <button id="button-basic" dropdownToggle type="button" class="btn dropdown-toggle"
+              aria-controls="dropdown-basic">
+              <i class="ion-md-person icon"></i> <i class="ion-ios-arrow-down"></i>
+            </button>
+
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+              <div class="dropdown-box">
+                <li role="menuitem"><a routerLink="purchasedReports" class="dropdown-item"
+                    routerLinkActive="active-link">Report Purchases</a></li>
+                <li role="menuitem"><a routerLink="creditBalance" class="dropdown-item"
+                    routerLinkActive="active-link">Credit Balances</a></li>
+                <li role="menuitem"><a routerLink="profileAccountSetting" routerLinkActive="active-link"
+                    class="dropdown-item">Profile</a></li>
+
+                <li role="menuitem"><a (click)="onClick()" class="dropdown-item">Log Out</a>
+                </li>
+              </div>
+            </ul>
+
+          </div>
+
+        </li>
+        <li class="nav-item">
+          <div class="btn-group" dropdown>
+            <button dropdownToggle type="button" class="btn dropdown-toggle" aria-controls="dropdown-basic">
+              <i class="ion-md-notifications icon"></i> <i class="ion-ios-arrow-down"></i>
+            </button>
+            <div *dropdownMenu class="dropdown-menu">
+              <div class="dropdown-box">
+                <div class="list" *ngFor="let notificationListData of userNotificationList">
+
+
+                  <!-- <div class="hoverItem" (click) ="onNotification_followup(unReadNotifications)">
+                    <h5>You have {{numberofUnSeenNotifications}} new reports available. 
+                      Please click here to view them</h5>
+                      <div class="dropdown-divider"></div>
+                  </div>
+                  <div (click)="openWelcomeScreen()" class="hoverItem">
+                    <h5>Welcome to Pinkerton's Risk Portal</h5>
+                    <p> With just a few steps you will be able to navigate your way throughout the portal</p>
+                    <p><small>1m</small></p>
+                    <div class="dropdown-divider"></div>
+                  </div> -->
+
+                  <ng-container *ngIf="notificationListData.type == 'welcome_message'">
+                    <div (click)="openWelcomeScreen()" class="hoverItem">
+                      <h5>{{notificationListData.title}}</h5>
+                      <p>{{notificationListData.body}}</p>
+                      <div class="dropdown-divider"></div>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="notificationListData.type == 'new_reports'">
+                    <div class="hoverItem" (click)="onNotification_followup(notificationListData)">
+                      <h5>{{notificationListData.title}}</h5>
+                      <p>{{notificationListData.body}}</p>
+                      <div class="dropdown-divider"></div>
+                    </div>
+                  </ng-container>
+
+
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+          <!-- <a class="nav-link"><i class="ion-md-notifications icon"></i> <i class="ion-ios-arrow-down"></i></a> -->
+        </li>
+        <li class="nav-item cart-item">
+          <div class="btn-group" dropdown>
+            <button dropdownToggle type="button" id="auto_trigger" class="btn dropdown-toggle" aria-controls="dropdown-basic">
+              <i class="ion-md-cart icon"></i><span class="badge cart-count" *ngIf="itemCount">{{itemCount}}</span>
+            </button>
+            <div *ngIf="itemCount">
+              <div *dropdownMenu class="dropdown-menu cartSection">
+                <div class="dropdown-box">
+                  <!-- <div class="list">
+                        <span class="cross-icon"><i class="ion-ios-close"></i></span>
+                      <h4>Crime Index Report</h4>
+                      <p>Platinum</p>
+                      <p class="price">$1,000</p>
+                    </div> -->
+                  <div class="list" *ngFor="let report of cartList">
+                    <div class="hoverItem">
+                      <span class="" (click)="deleteReportFromCart(report.id,report.report_type)">
+                        <i class="ion-ios-close"></i></span>
+                      <h5 *ngIf="report.id!=0">Crime Index Report</h5>
+                      <p *ngIf="report.id!=0">{{report.address}}</p>
+                      <h5 *ngIf="report.id==0">Credits</h5>
+                      <p *ngIf="report.id==0">{{report.quantity}}
+                        <span *ngIf="report.report_type=='standard_credits'">Standard Credits</span>
+                        <span *ngIf="report.report_type=='platinum_credits'">Platinum Credits</span>
+                      </p>
+                      <p class="typeofreport" *ngIf="report.id!=0">{{report.report_type}} <span
+                          class="d-none">{{report.quantity}}</span> </p>
+                      <p class="price">$ {{report.price}}</p>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                  </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <div class="list">
+                  <div class="row ml-0 mr-0   mt-1 mb-2 subtotal-list">
+                    <div class="col-md-8">
+                      <h4 class="subtotal">Subtotal ( {{itemCount}} items)</h4>
+                    </div>
+                    <div class="col-md-4 price">$ {{totalAmount}}</div><br>
+                    <div class="col-md-4 viewcartbtn">
+                      <button (click)="viewcart()" class="btn default-btn">VIEW CART</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

@@ -1,0 +1,55 @@
+.nav {
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    .dropdown a {
+        font-size: 14px !important;
+        color: #fff;
+    }
+
+    li a:hover {
+        color:#ADCBFA !important;
+    }
+
+    li a {
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px 0;
+        display: block;
+        cursor: pointer;
+       
+        i.ion-ios-arrow-down {
+            padding-left: 5px;
+        }
+        
+    }
+
+   
+    a[aria-expanded="true"] {
+        color: #ADCBFA;
+    i:before {
+        transform: rotate(180deg);
+        color: #ADCBFA;
+    }
+}
+}
+
+.left-footer {
+    position: absolute;
+    bottom: 80px;
+    a {
+        display: block;
+        font-size: 12px;
+        padding: 5px 0;
+        color: #DDDDDD;
+        cursor: pointer;
+    }
+    .copyright {
+        font-size: 12px;
+        color: #DDDDDD;
+        // line-height: 20px;
+        padding-top: 30px;
+    }
+}

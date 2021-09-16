@@ -1,0 +1,42 @@
+.left-panel {
+    border-radius: 10px 0 0 10px !important;
+}
+
+button.close.pull-right {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    box-shadow: none;
+    opacity: 1;
+    text-shadow: none;
+    font-size: 18px;
+    color: #fff;
+    z-index: 99999;
+}
+
+ol {
+    display: block;
+    padding: 0 0 0 26px;
+    list-style: none;
+    overflow: hidden;
+    counter-reset: numList;
+}
+ol li {
+    position: relative
+}
+ol li:before {
+    counter-increment: numList;
+    content: counter(numList);
+    
+    float: left;
+    position: absolute;
+    left: -26px;
+    font: bold 12px arial;
+    text-align: center;
+    color: #05206A;
+    line-height: 18px;
+    width: 18px; height: 18px;
+    background: #ADCBFA;
+     -moz-border-radius: 999px;
+    border-radius: 999px
+}

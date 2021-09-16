@@ -1,0 +1,50 @@
+.right-content {
+    background: #444;
+    padding: 50px;
+    min-height: 300px;
+}
+
+.col-md-9.col-lg-9.pl-0.pr-0 {
+    padding: 0;
+}
+
+.left-content {
+    padding: 20px 0;
+}
+
+.wrapper {
+    background: #444;
+    height: 100vh;
+}
+
+.main-header {
+    position: fixed;
+    background: #000;
+    width: 100%;
+    padding: 0 5%;
+    z-index: 999;
+    border-bottom: 1px solid #707070;
+}
+
+.content {
+    padding-top: 69px;
+}
+
+.left-main-panel {
+    position: fixed;
+    height: 100vh;
+    background: #000;
+    padding-left: 6%;
+}
+
+.right-main-panel {
+    margin-left: 25%;
+}
+
+
+
+@media screen and (max-width: 767px) {
+.right-main-panel {
+    margin-left: 0;
+}
+}

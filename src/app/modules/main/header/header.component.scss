@@ -1,0 +1,216 @@
+.header {
+    .navbar{
+        background-color: #000;
+        color: #fff;
+         img {
+            max-width: 375px;
+        }
+    }
+    .dropdown-toggle::after {
+        display: none;
+    }
+.nav-item .btn-group > button {
+    background: none;
+    border: 0;
+    color: #fff;
+   
+}
+
+.dropdown-menu {
+    padding: 0;
+    margin: 0;
+    background-color: #222222;
+    border: 0;
+    border-radius: 8px;
+    box-shadow: 0 0 5px #222222;
+    li:last-child a {
+        border: 0 !important;
+    }
+
+    li:first-child a.dropdown-item:hover {
+        border-radius: 8px 8px 0 0 !important;
+    }
+
+    li:last-child a.dropdown-item:hover {
+        border-radius: 0 0 8px 8px  !important;
+    }
+
+.dropdown-item {
+    padding: 15px;
+    font-size: 16px;
+    color: #ddd;
+    border-bottom: 1px solid #444;
+    cursor: pointer;
+ }
+
+}
+
+a.nav-link.cart-icon {
+    padding: 12px 10px;
+     i {
+    color: #fff;
+}
+}
+
+.nav-item .icon {
+    font-size: 25px;
+}
+
+i.ion-ios-arrow-down {
+    font-size: 15px;
+    position: relative;
+    display: inline-block;
+    top: -3px;
+    padding-left: 5px;
+}
+
+ .nav-link {
+    padding-right: 10px;
+    padding-left: 10px;
+    cursor: pointer;
+}
+}
+
+.show .icon,
+.show i {
+   color: #ADCBFA;
+}
+
+.show .cart-count {
+    background-color: #ADCBFA;
+}
+
+.dropdown,
+.btn-group {
+    position: inherit;
+}
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+    position: absolute;
+    right: 0 !important;
+    max-width: 280px;
+    left: auto !important;
+    min-width: 280px;
+    top: 58px !important;
+}
+
+.list {
+    padding: 0px;
+    position: relative;
+    
+    h4 {
+        font-size: 16px;
+        color: #EEEEEE;
+        font-weight: bold;
+    }
+    h5 {
+        font-size: 14px;
+        color: #EEEEEE;
+        font-weight: bold;
+    }
+    p {
+        font-size: 14px;
+        color: #BBBBBB;
+        margin-bottom: 5px;
+    }
+
+    p.price {
+        font-size: 16px;
+        font-weight: bold;
+        color: #EEEEEE;
+    }
+}
+
+i.ion-ios-close {
+    position: absolute;
+    right: 20px;
+    font-size: 30px;
+    top: 7px;
+    color: #ddd !important;
+}
+.dropdown-box {
+    max-height: 275px;
+    overflow: auto;
+ .dropdown-divider {
+        margin: 0;
+        border-top: 1px solid #aaa;
+    }
+
+button.btn.default-btn {
+    margin: 0px 15px 20px;
+}
+}
+
+span.cross-icon {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 25px;
+  i {
+    color: #BBBBBB;
+  }
+}
+
+.subtotal-list {
+    color: #DDDDDD;
+    .price {
+        font-size: 16px;
+        font-weight: bold;
+        color: #EEEEEE;
+    }
+}
+
+span.badge.cart-count {
+    background: #fff;
+    color: #333;
+    border-radius: 50%;
+    top: -5px;
+    left: 8px;
+    width: 20px;
+    font-size: 14px;
+    height: 20px;
+    font-weight: bold;
+    line-height: 20px;
+    padding: 0;
+}
+@media screen and (max-width: 767px) {
+    .navbar-expand-lg .navbar-nav .dropdown-menu {
+        max-width: 90% !important;
+        left: 5% !important;
+        min-width: 90%;
+        top: 140px !important;
+    }
+    
+    i.ion-ios-arrow-down {
+        display: none !important;
+    }
+
+    .nav-item .btn-group {
+        position: inherit;
+    }
+    
+    }
+
+    .hoverItem{
+        cursor: pointer;
+        padding: 15px;
+        
+    }
+    .hoverItem:hover{
+        background-color: #ADCBFA;
+        border-radius: 5px;
+    }
+    .hoverItem:hover>h5,.hoverItem:hover>p{
+        background-color: #ADCBFA;
+        color: #05206A !important;
+    }
+    // .cartSection{
+    //     padding: 10px !important;
+    // }
+    .cartSection h6{
+        color: #fff;
+    }
+ .viewcartbtn button.default-btn{
+     height: 40px;
+     white-space: nowrap;
+     line-height: 40px;
+ }

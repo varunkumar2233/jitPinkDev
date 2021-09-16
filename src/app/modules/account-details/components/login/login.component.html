@@ -1,0 +1,35 @@
+<div class="login-panel">
+  <p class="not-member">Not a member? <a routerLink="/signup" class="sign-up-link">Sign up now</a></p>
+  <div class="form-field">
+      <h3>Sign In</h3>
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="text" placeholder="email" class="form-control">   
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" placeholder="password" class="form-control">   
+      </div>
+      <div class="form-group clear-both">
+      <!-- <div class="form-check float-left">
+        <input type="checkbox" checked class="form-check-input">
+        <label class="form-check-label">Remember Me</label>
+    </div> -->
+    <div class="form-check float-right">
+    <label class="form-check-label forgot-password" routerLink="/forgotpassword" >Forgot Password?</label>
+    </div>
+   
+      </div>
+      <div class="mb-3">
+        <button (click)="gotoHome()" class="btn default-btn outline-btn">Sign In</button>
+    </div>
+    <div class="mb-3 or-field">
+        <span>Or</span>
+    </div>
+
+    <div class="mb-3">
+        <button class="btn default-btn">Sign In with Google</button>
+    </div>
+  </div>
+ 
+</div>

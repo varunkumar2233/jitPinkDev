@@ -1,0 +1,121 @@
+<div class="wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4">
+        <left-wrapper></left-wrapper>
+      </div>
+      <div class="col-md-8 pr-0 grey-bg">
+        <div class="login-panel">
+          <p ng class="not-member">Already a member?
+            <button type="button" (click)="SingnIn();" class="btn only-text-btn sign-in-btn">Sign In</button>
+          </p>
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="form-field">
+              <h3>Sign Up</h3>
+              <div class="form-row">
+                <div class="mb-3 col">
+                  <label class="form-label">First Name</label>
+                  <input formControlName="first_name" type="text" placeholder="first name" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }">
+                  <div *ngIf="submitted && f.first_name.errors" class="invalid-feedback">
+                    <div *ngIf="f.first_name.errors.required">First Name is required</div>
+                  </div>
+                </div>
+                <div class="mb-3 col">
+                  <label class="form-label">Last Name</label>
+                  <input formControlName="last_name" type="text" placeholder="last name" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }">
+                  <div *ngIf="submitted && f.last_name.errors" class="invalid-feedback">
+                    <div *ngIf="f.last_name.errors.required">Last Name is required</div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="mb-3 form-group phone">
+                  <label class="form-label">Phone Number</label>
+                  <div class="phoneBox">
+                    <ngx-intl-tel-input [ngClass]="{ 'is-invalid':  f.phone.invalid }"
+                      [cssClass]="'custom form-control'" [preferredCountries]="preferredCountries"
+                      [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                      [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                      [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.UnitedStates" [maxLength]="15"
+                      [phoneValidation]="true" [separateDialCode]="true" [numberFormat]="PhoneNumberFormat.National"
+                      name="phone" formControlName="phone">
+                    </ngx-intl-tel-input>
+                  </div>
+                  <div *ngIf="submitted && f.phone.errors" class="phone-invalid-feedback">
+                    <div *ngIf="f.phone.errors.required">Phone no is required</div>
+                    <div *ngIf="!f.phone.errors.required && f.phone.invalid">Phone no is invalid for selected country
+                    </div>
+                  </div>
+                  <!-- <input formControlName="phone" type="text" placeholder="phone number" class="form-control" 
+                    [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">-->
+
+                </div>
+              </div>
+              <div class="mb-3 form-group">
+                <label class="form-label">Email</label>
+                <input formControlName="email" type="text" placeholder="email" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                  <div *ngIf="f.email.errors.required">Email is required</div>
+                  <div *ngIf="f.email.errors.email">Please enter valid email</div>
+                </div>
+              </div>
+              <div class="mb-3 form-group">
+                <label class="form-label">Password</label>
+                <input formControlName="password" type="password" placeholder="Password" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                  <div *ngIf="f.password.errors.minLength">Minimum length should be 8</div>
+
+                  <div *ngIf="f.password.errors.pattern">Use 8 to 30 digits, combination of uppercase, lowercase and
+                    special characters</div>
+                  <div *ngIf="f.password.errors.required">Password is required</div>
+
+                </div>
+              </div>
+              <div class="mb-3">
+                <div class="form-check">
+                  <!-- <input type="checkbox" class="form-check-input">
+                  <label class="form-check-label">Remember Me</label> -->
+                  
+                  <!-- <div class="g-recaptcha" data-sitekey="6LcXPzIcAAAAADL_C4eIRc1TLJ39kaAv6hnsqcZR"></div> -->
+                </div>
+              </div>
+              <!-- <div class="mb-3">
+                <div class="form-check tandconreg">
+                  <input type="checkbox" formControlName="has_agreed_tos" class="form-check-input" [ngClass]="{ 'is-invalid': submitted && f.has_agreed_tos.errors }">
+                  <label class="form-check-label">By checking this box you have agreed with our Terms of Services,
+                    Privacy Policy,
+                    and defect notification settings</label>
+                    <div *ngIf="submitted && f.has_agreed_tos.errors" class="invalid-feedback">
+                      <div *ngIf="f.has_agreed_tos.errors.required">Accept T & C is required</div>
+                  </div>
+                </div>
+              </div> -->
+              <div class="mb-3">
+                <button class="btn default-btn outline-btn" [disabled]=isSignUpClicked>
+                  <span *ngIf="isSignUpClicked" class="spinner-border spinner-border-sm"></span>
+                  Sign Up
+
+                </button>
+              </div>
+              <!-- <div class="mb-3 or-field">
+                <span>Or</span>
+              </div>
+
+              <div class="mb-3">
+                <button class="btn default-btn">Sign Up with Google</button>
+              </div> -->
+            </div>
+          </form>
+
+        </div>
+
+
+        <!-- <footer></footer> -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,106 @@
+.wrapper {
+  height: 100vh;
+  .grey-bg {
+    background: #444;
+  }
+
+  .login-panel {
+    background: #444;
+    color: #fff;
+    padding: 50px 80px;
+  }
+
+  .form-field {
+    padding: 80px;
+  }
+
+  p.not-member {
+    text-align: right;
+  }
+
+  a.sign-up-link {
+    color: #adcbfa !important;
+  }
+
+  .form-control {
+    background-color: #e8f0fd;
+  }
+
+  .form-field h3 {
+    text-transform: uppercase;
+  }
+
+  .form-group.clear-both {
+    clear: both;
+    float: left;
+    width: 100%;
+    .forgot-password {
+      color: #adcbfa;
+      font-size: 13px;
+    }
+  }
+
+  .or-field {
+    position: relative;
+    span {
+      color: #6f7886;
+      font-size: 13px;
+    }
+    :after {
+      content: "";
+      position: absolute;
+      background: #92959873;
+      height: 1px;
+      left: 5%;
+      width: 95%;
+      top: 13px;
+    }
+  }
+  .form-check-label {
+    color: #adcbfa;
+    font-size: 13px;
+  }
+
+  .form-control {
+    background-color: #666;
+  }
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+  border: 1px solid #E8F0FD;
+}
+input.form-control.ng-dirty {
+  background: #E8F0FD !important;
+  color: #222222 !important;
+  font-size: 16px;
+}
+
+.tandconreg .invalid-feedback {
+  top: 32px;
+}
+
+.phone-invalid-feedback {
+  position: absolute;
+  top: -4px;
+  right: 12px;
+  text-align: right;
+  color: #ffaba0;
+  font-size: 12px;
+}
+.mb-3.form-group.phone{
+  width: 99%;
+}
+.phoneBox{
+  margin: 0 5px;
+}
+.invalid-feedback {
+  position: absolute;
+  top: -4px;
+  right: 12px;
+  text-align: right;
+  color: #FFABA0;
+  font-size: 12px;
+}

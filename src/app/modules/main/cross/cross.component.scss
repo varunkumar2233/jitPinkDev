@@ -1,0 +1,17 @@
+span.cross-item {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 24px;
+    width: 30px;
+    padding: 7px;
+    height: 30px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+span.cross-item {
+    top: 18px;
+    right: 28px;
+}
+}

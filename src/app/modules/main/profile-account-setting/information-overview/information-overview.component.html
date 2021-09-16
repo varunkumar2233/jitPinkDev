@@ -1,0 +1,52 @@
+<div class="card">
+    <form [formGroup]="infoOverviewForm" (ngSubmit)="onSubmit()">
+        <div class="form-field">
+
+            <div class="mb-3">
+                <label class="form-label">First Name</label>
+                <input formControlName="firstName" type="text" placeholder="first name" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && infoOverviewForm.controls.firstName.errors }">
+                <div *ngIf="submitted && infoOverviewForm.controls.firstName.errors" class="invalid-feedback">
+                    <div *ngIf="infoOverviewForm.controls.firstName.errors?.required">First Name is
+                        required</div>
+
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Last Name</label>
+                <input formControlName="lastName" type="text" placeholder="last name" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && infoOverviewForm.controls.lastName.errors }">
+                <div *ngIf="submitted && infoOverviewForm.controls.lastName.errors" class="invalid-feedback">
+                    <div *ngIf="infoOverviewForm.controls.lastName.errors?.required">Last Name is
+                        required</div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Phone Number</label>
+                <input formControlName="phoneNumber" type="text" placeholder="Phone Number" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && infoOverviewForm.controls.phoneNumber.errors }">
+                <div *ngIf="submitted && infoOverviewForm.controls.phoneNumber.errors" class="invalid-feedback">
+                    <div *ngIf="infoOverviewForm.controls.phoneNumber.errors?.required">Phone no is
+                        required</div>
+                    <div *ngIf="infoOverviewForm.controls.phoneNumber.errors.pattern">Please enter valid
+                        phone
+                        number
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input formControlName="email" type="text" placeholder="Email" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && infoOverviewForm.controls.email.errors }">
+
+            </div>
+
+            <div class="mb-2 mt-4">
+                <button class="btn default-btn outline-btn">SUBMIT</button>
+            </div>
+        </div>
+    </form>
+</div>

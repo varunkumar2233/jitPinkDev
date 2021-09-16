@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/171f72d5-e378-42d0-98f4-c94989343b17/resourceGroups/RGAZ-Risk-Portal-EA-Dev/providers/Microsoft.Web/sites/wa-riskportal-dev-02",
+    "appService.deploySubpath": "dist\\frontend"
+}
