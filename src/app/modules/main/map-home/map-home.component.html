@@ -13,7 +13,23 @@
         <div class="inner-box">
           <div class="map-form-field col-md-8">
             <div class="row top-field">
-              <div class="col-md-9 col-6">
+              <div class="">
+                <div class="btn-group custom-select-dropdown mapdropcont" dropdown>
+                  <button id="customDropdown" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                    aria-controls="dropdown-basic">
+                    {{ selectedCountry ? selectedCountry.name : 'Select Country' }} <span class="caret"></span>
+                  </button>
+                  <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <ng-container *ngFor="let contVal of countries">
+                      <li (click)="onCountrySelection(contVal) " role="menuitem">
+                        <a class="dropdown-item">{{contVal.name}}</a>
+                      </li>
+                    </ng-container>
+                  </ul>
+                </div>
+              </div>
+              <!-- <div class="col-md-1 col-1"></div> -->
+              <div class="">
                 <div #geocoderContainer>
                 </div>
 

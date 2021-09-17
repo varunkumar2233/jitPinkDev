@@ -17,7 +17,8 @@ h3 {
 .inner-box {
     padding: 0px 10px 0 0;
     overflow: auto;
-    height: calc(100vh - 50px);
+    height: calc(100vh - 280px);
+    min-height: auto;
     box-shadow: none;
     background: none;
     p {

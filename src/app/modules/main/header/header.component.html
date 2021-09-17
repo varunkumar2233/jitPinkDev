@@ -112,7 +112,7 @@
                 <div class="list">
                   <div class="row ml-0 mr-0   mt-1 mb-2 subtotal-list">
                     <div class="col-md-8">
-                      <h4 class="subtotal">Subtotal ( {{itemCount}} items)</h4>
+                      <h4 class="subtotal">Subtotal ( {{itemCount}} {{this.itemCount === 1 ? 'item' : 'items'}} )</h4>
                     </div>
                     <div class="col-md-4 price">$ {{totalAmount}}</div><br>
                     <div class="col-md-4 viewcartbtn">
