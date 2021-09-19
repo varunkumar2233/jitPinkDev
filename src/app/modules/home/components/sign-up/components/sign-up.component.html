@@ -1,10 +1,11 @@
-<div class="wrapper">
+
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-4">
         <left-wrapper></left-wrapper>
       </div>
       <div class="col-md-8 pr-0 grey-bg">
+        <div class="wrapper" [style.height.px]="scrHeight + 30">
         <div class="login-panel">
           <p ng class="not-member">Already a member?
             <button type="button" (click)="SingnIn();" class="btn only-text-btn sign-in-btn">Sign In</button>
@@ -112,10 +113,30 @@
           </form>
 
         </div>
-
+      </div>
 
         <!-- <footer></footer> -->
       </div>
     </div>
+
+
+
   </div>
-</div>
+  <div class="container-fluid footer-container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="bottom-link d-sm-none d-md-block">
+          <a class="link">Terms</a>
+          <a class="link">Privacy</a>
+          <a class="link">Learn More</a>
+          </div>
+      </div>
+      <div class="col-md-8 right-footer">
+        <footer>
+          <div class="copyright">
+              &copy;2021 Pinkerton Consulting &amp; Investigations, Inc. ALL RIGHTS RESERVED
+          </div>
+      </footer>
+      </div>
+    </div>
+  </div>

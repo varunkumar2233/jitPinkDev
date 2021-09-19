@@ -1,8 +1,8 @@
-.wrapper {
-  height: 100vh;
+ 
   .grey-bg {
-    background: #444;
+      padding: 0;
   }
+  
 
   .login-panel {
     background: #444;
@@ -11,7 +11,7 @@
   }
 
   .form-field {
-    padding: 80px;
+    padding: 0 80px;
   }
 
   p.not-member {
@@ -38,7 +38,7 @@
       color: #adcbfa;
       font-size: 13px;
     }
-  }
+  
 
   .or-field {
     position: relative;
@@ -103,4 +103,61 @@ input.form-control.ng-dirty {
   text-align: right;
   color: #FFABA0;
   font-size: 12px;
+}
+
+.bottom-link {
+  padding: 50px 40px;
+}
+
+a.link {
+  padding: 0 20px 0 10px;
+  color: #ddd;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.right-footer {
+  background: #444;
+}
+
+.copyright {
+  padding: 50px 145px;
+  font-size: 14px;
+  color: #888;
+  font-weight: bold;
+}
+
+@media (max-width: 767px) {
+
+ 
+
+.bottom-link {
+    padding: 25px 0 !important;
+    text-align: center;
+}
+
+.wrapper {
+  height: auto !important;
+}
+
+.footer-container {
+  background: #444;
+}
+
+.right-footer {
+  padding-bottom: 20px;
+}
+
+footer .copyright {
+  padding: 10px;
+  font-size: 9px;
+  text-align: center;
+}
+
+.bottom-link a.link {
+  padding: 0 20px;
+  font-size: 14px;
+}
+
 }

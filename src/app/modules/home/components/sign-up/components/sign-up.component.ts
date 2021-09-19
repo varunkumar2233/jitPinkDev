@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { first, takeUntil } from 'rxjs/operators';
@@ -32,6 +32,7 @@ export class SignUpComponent implements OnInit {
   public readonly siteKey = "6LcXPzIcAAAAADL_C4eIRc1TLJ39kaAv6hnsqcZR";
   recaptchaToken: string;
   badge: string = 'bottomleft'
+  scrHeight:any;
   // phoneForm = new FormGroup({
   //   phone: new FormControl(undefined, [Validators.required])
   // });
@@ -39,7 +40,7 @@ export class SignUpComponent implements OnInit {
   // changePreferredCountries() {
   //   this.preferredCountries = [CountryISO.India, CountryISO.Canada, CountryISO.Mexico];
   // }
-
+  
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -52,6 +53,7 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getScreenSize();
     this.registerForm = this.formBuilder.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
@@ -62,9 +64,14 @@ export class SignUpComponent implements OnInit {
       //has_agreed_tos: ['', Validators.required]
     });
     this.accessToken = localStorage.getItem('AccessToken')
+
+    
   }
-
-
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?) {
+    this.scrHeight = window.innerHeight;
+    console.log(this.scrHeight);
+}
 
   // convenience getter for easy access to form fields
   get f() { return this.registerForm.controls; }

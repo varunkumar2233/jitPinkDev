@@ -9,6 +9,8 @@ import { debug } from 'console';
 import { takeUntil } from 'rxjs/operators';
 import { Subscription, Subject } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Location} from '@angular/common';
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -32,6 +34,7 @@ export class CartComponent implements OnInit {
     private shared_service: SharedService,
     private alert_service: AlertServiceService,
     private shopify: ShopifyService,
+    private _location: Location,
     private date_Provider_Service: DataProviderService,) {
     this.date_Provider_Service.getViewCartDetailData().pipe(takeUntil(this.isActive)).subscribe((data: any) => {
       //  this.loadCartData(); 
@@ -155,7 +158,9 @@ export class CartComponent implements OnInit {
     this.totalAmount = total;
 
   }
-
+  backClicked() {
+    this._location.back();
+  }
 
   getCreditTotalPrice(quantity, credittype) {
     if (credittype === 'standard_credits') {
@@ -186,7 +191,7 @@ export class CartComponent implements OnInit {
     this.submitted = true;
     if (this.termsConditionForm.controls.has_agreed_tos.value === true && !this.termsConditionForm.invalid) {
       this.shared_service.startLoading();
-      this.alert_service.info('redirecting ... please wait');
+      this.alert_service.success('redirecting ... please wait');
       this.shopify.getAuthenticatedCheckoutUrl().then(data =>
         //console.log((<any>data).url)
         window.open((<any>data).url, '_self')
