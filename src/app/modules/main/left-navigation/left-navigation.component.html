@@ -8,9 +8,9 @@
             </ul>
           </div>
     </li> -->
-        <li><a routerLink="/main" routerLinkActive="active-link">CRIME INDEX</a></li>
-        <li><a routerLink="getSampleReports" routerLinkActive="active-link">SAMPLE REPORTS</a></li>
-        <li><a routerLink="credits" routerLinkActive="active-link">CREDITS</a></li>
+        <li><a routerLink="/main" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active-link">CRIME INDEX</a></li>
+        <li><a routerLink="getSampleReports" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active-link">SAMPLE REPORTS</a></li>
+        <li><a routerLink="credits" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active-link">CREDITS</a></li>
     </ul>
 
 

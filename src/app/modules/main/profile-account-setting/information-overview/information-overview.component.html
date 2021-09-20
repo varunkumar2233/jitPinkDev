@@ -45,7 +45,7 @@
             </div>
 
             <div class="mb-2 mt-4">
-                <button class="btn default-btn outline-btn">SUBMIT</button>
+                <button [disabled]="!infoOverviewForm.valid" class="btn default-btn outline-btn">SUBMIT</button>
             </div>
         </div>
     </form>

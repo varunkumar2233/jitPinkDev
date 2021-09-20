@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="report-inner-box">
                                  <div class="row top-field">
-                                    <div class="col-md-3 col-6">
+                                    <div class="col-md-2 col-6 pr-0">
                                         <div class="filter">
                                           <div class="dropdown">
                                               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
@@ -117,7 +117,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-9">
+                                    <div class="col-md-10">
                                         <div class="search-field">
                                           <div class="input-group has-validation">
                                              
@@ -148,14 +148,14 @@
                                       <!-- <td>no idea</td> -->
                                       <td style="width: 10%;">{{row.date | date: 'yyyy/MM/dd'}}</td>
                                       <td style="width: 10%;">{{row.amount.formatted}}</td>
-                                      <td style="width: 10%; text-align: right;" class="action-icon">
+                                      <td style="width: 10%;" class="action-icon">
                                         <img (click)="displayInvoice(row.order_id)" class="view-icon" src="assets/images/icon-view.svg" />
                     
                                       </td>
                                     </tr>
                                     </ng-container>
                                     <tr *ngIf="rows?.length==0">
-                                      No Records Found.
+                                      <td colspan="4">No Records Found.</td>
                                     </tr>
                                   </tbody>
                                 </table>

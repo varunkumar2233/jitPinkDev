@@ -22,7 +22,7 @@
                                     <ngx-slider [(value)]="standardValue" [options]="options"></ngx-slider>
                                 </div>
                                 <div class="col-md-6 reach-out-btn text-right">
-                                    <button routerLink="/main/getintouch" class="btn outline-btn">REACH US FOR MORE</button>
+                                    <button [disabled]="reachusFlag" routerLink="/main/getintouch" class="btn outline-btn">REACH US FOR MORE</button>
                                 </div>
                             </div>
 
@@ -53,7 +53,7 @@
 
                                         <div class="row btn-field">
                                             <div class="col-md-12">
-                                                <button (click)= "addCreditStandard();" class="btn default-btn">ADD TO CART</button>
+                                                <button [disabled]="!reachusFlag" (click)= "addCreditStandard();" class="btn default-btn">ADD TO CART</button>
                                             </div>
 
                                         </div>
@@ -144,7 +144,7 @@
                                     <ngx-slider [(value)]="platiumvalue" [options]="options"></ngx-slider>
                                 </div>
                                 <div class="col-md-6 reach-out-btn text-right">
-                                    <button class="btn outline-btn">REACH US FOR MORE</button>
+                                    <button [disabled]="reachusFlag" class="btn outline-btn">REACH US FOR MORE</button>
                                 </div>
                             </div>
 
@@ -175,14 +175,14 @@
 
                                         <div class="row btn-field">
                                             <div class="col-md-12">
-                                                <button (click)= "addCreditPlatium();" class="btn default-btn">ADD TO CART</button>
+                                                <button [disabled]="!reachusFlag" (click)= "addCreditPlatium();" class="btn default-btn">ADD TO CART</button>
                                             </div>
 
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="service-box">
+                                    <!-- <div class="service-box">
                                         <div class="service-header">
                                             <div class="left"><span class="popular-lebel">Popular</span>Platinum</div>
                                             <div class="right">${{platiumProduct?.price}} {{platiumProduct?.currency}}</div>
@@ -254,6 +254,85 @@
                                                         src="assets/images/line-icon.svg" />
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="service-box">
+                                        <div class="service-header">
+                                            <div class="left">
+                                                <!-- <span class="popular-lebel">Popular</span> -->
+                                                Platinum</div>
+                                            <div class="right">${{platiumProduct?.price}} USD</div>
+                                        </div>
+                                        <div class="service-details">
+                                            <div class="row">
+                                                <div class="col-md-8 col-7">Regional Availability</div>
+                                                <div class="col-md-4 col-5">US/UK</div>
+                                            </div>
+            
+                                            <div class="row">
+                                                <div class="col-md-8 col-7">Analysis Period</div>
+                                                <div class="col-md-4 col-5">Monthly Rolling</div>
+                                            </div>
+            
+                                            <div class="row">
+                                                <div class="col-md-8 col-7">Scoring by Crime Type</div>
+                                                <div class="col-md-4 col-5"><img class="checked-icon"
+                                                        src="assets/images/checkbox-icon.svg" /></div>
+                                            </div>
+            
+                                            <div class="row">
+                                                <div class="col-md-8 col-7">Distribution & Severity of Crime</div>
+                                                <div class="col-md-4 col-5"><img class="checked-icon"
+                                                        src="assets/images/checkbox-icon.svg" /></div>
+                                            </div>
+            
+                                            <div class="row">
+                                                <div class="col-md-8 col-7">Neighborhood Crime Map</div>
+                                                <div class="col-md-4 col-5"><img class="checked-icon"
+                                                        src="assets/images/checkbox-icon.svg" /></div>
+                                            </div>
+            
+                                            <div class="row">
+                                                <div class="col-md-8 col-7">Neighborhood Crime Spillover</div>
+                                                <div class="col-md-4 col-5"><img class="checked-icon"
+                                                        src="assets/images/checkbox-icon.svg" /></div>
+                                            </div>
+            
+                                            <div class="row">
+                                                <div class="col-md-8 col-7">County/District Crime Map</div>
+                                                <div class="col-md-4 col-5"><img class="checked-icon"
+                                                        src="assets/images/checkbox-icon.svg" /></div>
+                                            </div>
+            
+                                            <div class="row">
+                                                <div class="col-md-8 col-7">State/Region Crime Summary</div>
+                                                <div class="col-md-4 col-5"><img class="checked-icon"
+                                                        src="assets/images/checkbox-icon.svg" /></div>
+                                            </div>
+            
+                                            <div class="row">
+                                                <div class="col-md-8 col-7">County/District Trend Analysis</div>
+                                                <div class="col-md-4 col-5"><img class="checked-icon" src="assets/images/checkbox-icon.svg" />
+                                                </div>
+                                            </div>
+            
+                                            <div class="row">
+                                                <div class="col-md-8 col-7">Seasonality Variance</div>
+                                                <div class="col-md-4 col-5"><img class="checked-icon" src="assets/images/checkbox-icon.svg" />
+                                                </div>
+                                            </div>
+            
+                                            <div class="row">
+                                                <div class="col-md-8 col-7">Peer Comparison</div>
+                                                <div class="col-md-4 col-5"><img class="checked-icon" src="assets/images/checkbox-icon.svg" />
+                                                </div>
+                                            </div>
+            
+                                            <!-- <div class="btn-get-sample">
+                                                <button (click)="addToCartPremium()" class="btn default-btn gs-btn"  [disabled]=isSignUpClicked>
+                                                    <span *ngIf="isSignUpClicked" class="spinner-border spinner-border-sm"></span>
+                                                    ADD TO CART</button>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>

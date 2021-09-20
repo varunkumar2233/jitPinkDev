@@ -198,3 +198,23 @@ button.btn.default-btn.gs-btn:hover {
 }
 
 }
+
+.reach-out-btn button[disabled],
+.reach-out-btn button[disabled]:hover {
+    cursor: not-allowed;
+    border: 1px solid #adcbfa;
+    background: none;
+    color: #adcbfa;
+}
+
+.reach-out-btn button {
+    background: #ADCBFA;
+    color: #05206A;
+}
+
+.reach-out-btn button:hover {
+    background: #05206A;
+    border: 1px solid #05206A;
+    color: #fff;
+}
+

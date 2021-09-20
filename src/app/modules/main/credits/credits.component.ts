@@ -39,6 +39,7 @@ export class CreditsComponent implements OnInit {
   standardProduct : any;
   platiumProduct : any;
   discount:any;
+  reachusFlag: boolean = true;
   standartTotalafterDiscounted: number = 350;
   platiumTotalafterDiscounted: number =1000;
   isActive: Subject<boolean> = new Subject();   // Subject used to take until the component is alive.
@@ -59,6 +60,8 @@ export class CreditsComponent implements OnInit {
 
   getStandardDiscount()
   {
+  
+      this.buttonDisabled();
     //discount = 100 * (original_price - discounted_price) / original_price
     if(this.standardValue>=25 && this.standardValue <=49)
     {
@@ -74,6 +77,7 @@ export class CreditsComponent implements OnInit {
 
   getPremiumDiscount()
   {
+   
     if(this.platiumvalue>=25 && this.platiumvalue <=49)
     {
       return Math.round(100 * ((this.platiumvalue * 1000) - (this.platiumvalue * 770)) / ((this.platiumvalue * 1000)));
@@ -86,8 +90,19 @@ export class CreditsComponent implements OnInit {
 
   }
 
+  buttonDisabled() {
+    if(this.standardValue == 100){
+      this.reachusFlag = false;
+    }
+
+    else {
+      this.reachusFlag = true;
+    }
+  }
+
   gettotalAfterDiscountStandard()
   {
+   
     if(this.standardValue>=25 && this.standardValue <=49)
     {
       this.standartTotalafterDiscounted = this.standardValue * 250;
@@ -106,6 +121,7 @@ export class CreditsComponent implements OnInit {
 
   gettotalAfterDiscountplatium()
   {
+  
     if(this.platiumvalue>=25 && this.platiumvalue <=49)
     {
       this.platiumTotalafterDiscounted = this.platiumvalue * 770;
@@ -167,6 +183,7 @@ export class CreditsComponent implements OnInit {
     }
     async addCreditPlatium()
     {
+      this.buttonDisabled();
       var obj = {  // need to handle condition first.
         "id": 0,
         //"address": 'testing address', // this will change...

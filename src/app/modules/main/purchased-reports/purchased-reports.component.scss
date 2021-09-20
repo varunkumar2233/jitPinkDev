@@ -16,7 +16,7 @@
         h4 {
             font-size: 21px;
             font-weight: bold;
-            margin: 30px 0;
+            margin: 10px 0 30px;
         }
     }
 
@@ -296,4 +296,17 @@ h3 {
 }
 .newIcon{
     display: none;
+}
+
+.purchasedReports {
+    margin-top: 15px;
+ thead tr {
+    color: #fff;
+    background: #222222;
+    border-radius: 5px 5px 0 0;
+ }
+     thead th {
+        border: 0;
+        text-align: center;
+    }
 }
