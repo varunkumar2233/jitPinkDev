@@ -101,7 +101,7 @@
 
         </div>
         <!-- <app-purchase-history></app-purchase-history> -->
-        <div class="row">
+        <div class="row" *ngIf="rows.length">
           <div class="col-md-12">
             <div class="report-panel">
               <div class="report-details">
@@ -127,7 +127,7 @@
                         </div> -->
                       </div>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-12">
                       <div class="search-field">
                         <div class="input-group has-validation">
 
