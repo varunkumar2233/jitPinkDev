@@ -138,6 +138,9 @@ export class SignUpComponent implements OnInit {
           this.isSignUpClicked = false;
           this.alertService.error(error.error["email"], { keepAfterRouteChange: true });
           this.alertService.error(error.error["phone"], { keepAfterRouteChange: true });
+          if(error.error["detail"]=="User failed the reCAPTCHA test."){
+            this.alertService.error("The security process has failed. Please contact your administrator");
+          }
           // JSON.stringify(error)
           console.log(error);
           this.sharedService.stopLoading();

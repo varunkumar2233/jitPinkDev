@@ -191,7 +191,7 @@ export class CartComponent implements OnInit {
     this.submitted = true;
     if (this.termsConditionForm.controls.has_agreed_tos.value === true && !this.termsConditionForm.invalid) {
       this.shared_service.startLoading();
-      this.alert_service.success('redirecting ... please wait');
+      this.alert_service.success('We are redirecting you to payment page');
       this.shopify.getAuthenticatedCheckoutUrl().then(data =>
         //console.log((<any>data).url)
         window.open((<any>data).url, '_self')

@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="report-inner-box">
                                  <div class="row top-field">
-                                    <div class="col-md-2 col-6 pr-0">
+                                    <!-- <div class="col-md-2 col-6 pr-0">
                                         <div class="filter">
                                           <div class="dropdown">
                                               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
@@ -116,8 +116,8 @@
                                               </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-10">
+                                    </div> -->
+                                    <div class="col-md-12">
                                         <div class="search-field">
                                           <div class="input-group has-validation">
                                              
@@ -134,21 +134,21 @@
                                 <table class="table purchasedReports">
                                   <thead>
                                     <tr>
-                                      <th>Type</th>
-                                      <th>Date</th>
-                                      <th>Amount</th>
-                                      <th class="action-icon">Action</th>
+                                      <th style="width: 40%;">Type</th>
+                                      <th style="width: 20%;">Date</th>
+                                      <th style="width: 20%;">Amount</th>
+                                      <th style="width: 20%;" class="action-icon">Action</th>
                                     </tr>
                                   </thead>
                                   <tbody>
                                     <ng-container *ngFor="let row of rows | filter:filterTerm">
                                     <tr>
-                                      <td style="width: 10%;">{{row.product}}</td>
+                                      <td style="width: 40%;">{{row.product}}</td>
                                       <!-- <td>{{row.is_seen}}</td> -->
                                       <!-- <td>no idea</td> -->
-                                      <td style="width: 10%;">{{row.date | date: 'yyyy/MM/dd'}}</td>
-                                      <td style="width: 10%;">{{row.amount.formatted}}</td>
-                                      <td style="width: 10%;" class="action-icon">
+                                      <td style="width: 20%;">{{row.date | date: 'yyyy/MM/dd'}}</td>
+                                      <td style="width: 20%;">{{row.amount.formatted}}</td>
+                                      <td style="width: 20%;" class="action-icon">
                                         <img (click)="displayInvoice(row.order_id)" class="view-icon" src="assets/images/icon-view.svg" />
                     
                                       </td>
