@@ -310,3 +310,32 @@ h3 {
         text-align: center;
     }
 }
+
+.dropdown-menu.show {
+    width: 280px;
+    padding: 0;
+    background: #222;
+    border: 0;
+    border-radius: 10px;
+    color: #ddd;
+    margin-top: 10px;
+}
+
+.dropdown-item {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    color: #ddd;
+    cursor: pointer;
+}
+
+.dropdown-item:first-child:hover {
+    border-radius: 10px 10px 0 0;
+}
+
+.dropdown-item:last-child {
+    border-bottom: 0;
+}
+.dropdown-item:last-child:hover {
+    border-radius: 0 0 10px 10px;
+}
