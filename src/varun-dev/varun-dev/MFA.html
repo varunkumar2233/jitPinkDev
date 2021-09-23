@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Verify your Identity</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<style>
+		body {
+			padding: 0;
+			margin: 0;
+		}
+
+		.login-wrapper {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+
+		.login-container {
+			width: 340px;
+			background: rgba(35, 35, 35, 0.8) 0% 0% no-repeat padding-box;
+			margin: auto;
+			padding: 35px 40px;
+			min-height: 372px;
+			margin-left: auto;
+			margin-right: auto;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+		.img-Container {
+			margin: 0px auto 35px auto;
+			width: 100%;
+			float: left;
+			text-align: center;
+		}
+
+		.col-sm-12 {
+			width: 100%;
+			text-align: center;
+		}
+
+		.login-htext {
+			color: #fff;
+			margin-left: -6px;
+			text-align: center;
+			font: Bold 22px Arial, sans-serif;
+			width: 100%;
+			padding-bottom: 18px;
+			display: inline-block;
+		}
+
+		.login-wrapper {
+			background-image: url('https://pinkertonfilestoragedev.blob.core.windows.net/dynamicassets/CustomPages/Sign-in-Background.png');
+			width: 100%;
+			position: relative;
+			margin: 0 auto;
+			height: 100vh;
+			background-position: 50% 43%;
+			display: table;
+		}
+
+		input {
+			font: Bold 16px Arial, sans-serif !important;
+			/* color: #fff !important; */
+		}
+
+		input {
+			border: 0.5px solid #d9d9d9;
+			border-radius: 0;
+			background-color: transparent;
+			color: #fff;
+			height: 29px;
+			padding: 8px 15px 8px 7px;
+			width: 94%;
+		}
+
+		input:focus {
+			outline: none;
+		}
+
+		#attributeList ul li .attrEntry.validate input.invalid,
+		#attributeList ul li .attrEntry.validate input:invalid {
+			background: #FFABA0;
+		}
+
+		.intro {
+			display: none;
+		}
+
+		a.helpLink.tiny {
+			display: none;
+		}
+
+		.accountButton:hover,
+		.buttons button:hover {
+			background-color: #008eb6 !important;
+			color: #fff !important;
+		}
+
+		#attributeList ul {
+			padding: 0;
+		}
+
+		#attributeList ul li {
+			list-style: none;
+			margin: 4rem 0;
+		}
+
+		#attributeList ul li label {
+			float: left;
+		}
+
+		.attrEntry .verificationInfoText {
+			margin-bottom: 5px;
+		}
+
+		#api #attributeVerification .error {
+			color: #FFABA0;
+			text-align: left;
+			margin-bottom: 5px;
+			font-family: arial;
+			font-size: 13px;
+			line-height: 20px;
+		}
+
+		div#verifying_blurb {
+			color: #124a04 !important;
+			background: #c2f7b8 !important;
+			padding: 6px 10px !important;
+			border-radius: 3px !important;
+			font-family: arial !important;
+			font-size: 13px !important;
+		}
+
+		#attributeList ul li .attrEntry .verificationControlContent .buttons {
+			margin-top: 2rem;
+			padding-bottom: 10px;
+			position: relative;
+		}
+
+
+		#attributeList ul li .attrEntry .verificationControlContent .verifyCode {
+			width: 49%;
+			padding: 0 20px;
+			height: 50px;
+			background-color: #296ec6;
+			color: #fff;
+			margin-right: 5px;
+			border-radius: 0.5rem;
+		}
+
+		#attributeList ul li .attrEntry .verificationControlContent .sendNewCode {
+			width: 49%;
+			padding: 0 20px;
+			border: 0;
+			font-size: 1em;
+			height: 50px;
+			right: 0;
+			bottom: -38px;
+			background-color: #296ec6;
+			color: #fff;
+			border-radius: 0.5rem;
+		}
+
+		#attributeList ul li .attrEntry .verificationControlContent .changeClaims {
+			border: none;
+			color: #fff;
+			background-color: #296ec6;
+			width: 60%;
+			height: 50px;
+			border-radius: 0.5rem;
+			display: none !important;
+		}
+
+		.buttons #continue:disabled {
+			opacity: 0.3;
+		}
+
+		#api .verifying-modal {
+			display: none;
+			margin-top: 10px;
+		}
+
+		.self_asserted_container .row .panel-default .panel-body {
+			margin: 0 auto;
+			max-width: 380px;
+			width: auto;
+			padding: 0;
+		}
+
+		div#emailVerificationControl_success_message {
+			color: #ccc;
+			font-family: arial;
+			font-size: 14px;
+			text-align: center !important;
+		}
+
+		div#requiredFieldMissing {
+			display: none !important;
+		}
+
+		.entry-item label {
+			color: #a9a9a9;
+			font-family: arial;
+			font-size: 13px;
+			margin: 16px 0 8px 0;
+
+		}
+
+		button#next {
+			margin: 20px 0 0 0;
+		}
+
+		button#next:focus {
+			outline: none;
+		}
+
+		.buttons #sendCode,
+		.buttons #verifyCode,
+		.buttons #verifyPhone,
+		.buttons #continuePhone,
+		.buttons #cancel {
+			cursor: pointer;
+			border: 1px solid #adcbfa;
+			background: none;
+			color: #adcbfa;
+			font-family: "arial";
+			font-size: 16px;
+			line-height: 50px;
+			font-weight: bold;
+			border-radius: 60px;
+			padding: 0 35px;
+			height: 50px;
+			text-transform: uppercase;
+			transition: all 0.5s;
+			letter-spacing: 1px;
+			margin: 0px 25px 25px 0;
+			outline: none;
+		}
+
+		.buttons #sendCode:hover,
+		.buttons #verifyCode:hover,
+		.buttons #verifyPhone:hover,
+		.buttons #continuePhone:hover,
+		.buttons #cancel:hover {
+			background-color: #adcbfa !important;
+		}
+
+
+
+		.buttons #sendCode,
+		.buttons #verifyCode,
+		.buttons #verifyPhone {
+
+			font-family: "arial";
+			background: #ADCBFA;
+			font-size: 16px;
+			line-height: 50px;
+			font-weight: bold;
+			border-radius: 60px;
+			padding: 0 35px;
+			height: 50px;
+			color: #05206A;
+			text-transform: uppercase;
+			transition: all 0.5s;
+			letter-spacing: 1px;
+			float: left;
+		}
+
+		.buttons #sendCode:hover,
+		.buttons #verifyCode:hover,
+		.buttons #verifyPhone:hover {
+			background: #05206A !important;
+			color: #fff !important;
+			border-color: #05206A !important;
+		}
+
+
+		#phoneNumbers {
+			padding-bottom: 20px;
+		}
+
+		#phoneNumbers .type {
+			float: left;
+			padding-right: 20px;
+		}
+
+		a#forgotPassword:hover {
+			text-decoration: underline;
+		}
+
+		.entry .entry-item .error p {
+			color: #FFABA0;
+			font-family: arial;
+			font-size: 13px;
+		}
+
+		.phoneNumber,
+		#codeVerification {
+			color: #fff;
+		}
+
+		#codeVerification .actionLabel {
+			padding: 20px 0;
+		}
+
+		#verificationCode {
+			margin-bottom: 20px !important;
+		}
+
+		#codeVerification .error p {
+			color: #FFABA0;
+			font-family: arial;
+			font-size: 13px;
+			padding: 20px 0;
+		}
+
+		input:focus {
+			border: solid 1px #0083b6;
+		}
+
+		input {
+			font-weight: normal !important;
+		}
+
+		body {
+			background: #000;
+			font-family: Arial, Helvetica, sans-serif;
+			color: #ddd;
+			font-size: 16px;
+			line-height: 18px;
+		}
+
+		.wrapper .grey-bg {
+			background: #444;
+		}
+
+		.login-panel {
+			background: #444;
+			color: #fff;
+			padding: 50px 80px 0 80px;
+		}
+
+		.form-field {
+			padding: 30px 80px;
+		}
+
+		p.not-member {
+			text-align: right;
+		}
+
+		a.sign-up-link {
+			color: #adcbfa !important;
+		}
+
+		.form-control {
+			color: #495057;
+			background-color: #666;
+			border: 0;
+			border-radius: 6px;
+		}
+
+		.form-field h3 {
+			text-transform: uppercase;
+		}
+
+		.form-group.clear-both {
+			clear: both;
+			float: left;
+			width: 100%;
+		}
+
+		.form-group.clear-both .form-check-label {
+			color: #adcbfa;
+			font-size: 13px;
+		}
+
+		.or-field {
+			position: relative;
+		}
+
+		.or-field span {
+			color: #6f7886;
+			font-size: 13px;
+		}
+
+		.or-field :after {
+			content: "";
+			position: absolute;
+			background: #929598 73;
+			height: 1px;
+			left: 5%;
+			width: 95%;
+			top: 13px;
+		}
+
+		.forgot-password {
+			cursor: pointer;
+		}
+
+		.left-panel {
+			padding: 50px;
+			color: #fff;
+		}
+
+		.left-panel .logo img {
+			margin-left: -20px;
+		}
+
+		.left-panel h1 {
+			text-transform: uppercase;
+			font-size: 42px;
+			font-weight: bold;
+			letter-spacing: 3px;
+		}
+
+		.left-panel p {
+			font-size: 22px;
+			line-height: 26px;
+			color: #ccc;
+		}
+
+		.left-panel .blank-height {
+			height: 100px;
+		}
+
+		.leftcol .bottom-link {
+			position: absolute;
+			padding-left: 40px;
+		}
+
+		.leftcol .bottom-link a.link {
+			padding: 10px 20px;
+			font-size: 14px;
+			font-family: arial;
+			text-decoration: none;
+			color: #fff;
+		}
+
+		.copyright {
+			padding: 50px 145px;
+			font-size: 14px;
+			color: #888;
+			font-weight: bold;
+		}
+
+		@media(max-width: 767px) {
+	.container-fluid .grey-bg {
+    height: auto !important;
+    padding-bottom: 80px !important;
+}
+			.left-panel {
+				padding: 30px;
+				color: #fff;
+				height: auto;
+			}
+
+			.left-panel .blank-height {
+				height: 20px;
+			}
+
+			.left-panel h1 {
+				font-size: 21px;
+				margin-top: 0;
+				text-align: center;
+			}
+
+			.left-panel p {
+				font-size: 15px;
+				line-height: 20px;
+				text-align: center;
+			}
+
+			.login-panel {
+				padding: 37px;
+			}
+
+			.form-field {
+				padding: 0;
+			}
+
+			p.not-member {
+				text-align: center;
+				margin-bottom: 30px;
+			}
+
+			.form-field h3 {
+				font-size: 16px !important;
+			}
+
+			.buttons {
+				text-align: center;
+			}
+
+			#verifyCode {
+				width: 100%;
+			}
+
+			button#emailVerificationControl_but_send_code {
+				margin: 20px auto !important;
+				width: 100%;
+			}
+
+			button#continue,
+			#cancel {
+				margin: 0 0 20px !important;
+				padding: 0 25px !important;
+				width: 100%;
+			}
+
+			.bottom-link {
+				padding: 50px 0 !important;
+				text-align: center;
+			}
+
+			.bottom-link a.link {
+				padding: 0 20px;
+				font-size: 14px;
+			}
+
+			.container-fluid .row+.row {
+				background: #444;
+			}
+
+			.right-footer {
+				padding-bottom: 20px;
+			}
+
+			footer .copyright {
+				padding: 10px;
+				font-size: 9px;
+				text-align: center;
+			}
+
+			.buttons #sendCode,
+			.buttons #verifyCode,
+			.buttons #verifyPhone,
+			.buttons #continuePhone,
+			.buttons #cancel {
+				width: 100%;
+			}
+
+		}
+
+		#email {
+			height: auto;
+		}
+
+		.form-field h3 {
+			font-size: 32px;
+			font-family: arial;
+			font-weight: bold;
+			margin-bottom: 25px;
+			color: #DDDDDD;
+		}
+
+
+		#password {
+			height: auto;
+		}
+
+
+		.entry-item label {
+			color: #DDDDDD;
+			font-size: 16px;
+			font-weight: bold;
+		}
+
+		.entry-item label {
+			margin-bottom: .5rem;
+			float: left;
+		}
+
+		.entry-item {
+			margin-bottom: 1rem !important;
+		}
+
+		.login-panel #email,
+		.login-panel #verificationCode,
+		#countryCode,
+		#number {
+			color: #495057;
+			background-color: #666;
+			border: 0;
+			border-radius: 6px;
+			height: 50px;
+			transition: all 0.2s;
+			outline: none;
+			background-color: #666;
+			border: 3px solid transparent;
+			border-radius: 10px !important;
+			height: 50px;
+			transition: all 0.2s;
+			display: block;
+			width: 100%;
+			padding: .375rem .75rem;
+			font-weight: 400;
+			line-height: 1.5;
+			color: #212529;
+
+			background-clip: padding-box;
+			border: 1px solid #ced4da;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			border-radius: .25rem;
+			transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+			margin: 0;
+			font-family: inherit;
+
+		}
+
+		.login-panel #email.focus,
+		.login-panel #number.focus,
+		.login-panel #verificationCode.focus,
+		.login-panel #password.focus {
+			border: 2px solid #ADCBFA !important;
+		}
+
+		.login-panel #email.active,
+		.login-panel #verificationCode.active .login-panel #password.active {
+			background: #E8F0FD !important;
+			color: #000;
+		}
+
+		#forgotPassword {
+			position: absolute;
+			right: 1px;
+			top: 95px;
+		}
+
+		.password-label {
+			position: relative;
+		}
+
+		#forgotPassword {
+			color: #ADCBFA;
+		}
+
+		::-webkit-input-placeholder {
+			/* Edge */
+			color: #888;
+		}
+
+		:-ms-input-placeholder {
+			/* Internet Explorer */
+			color: #888;
+		}
+
+		::placeholder {
+			color: #888;
+		}
+
+		.error.itemLevel {
+			display: block;
+			float: right;
+			margin: 0px 0 8px 0;
+		}
+
+		.entry .entry-item .error p {
+			margin: 0;
+			color: #FFABA0;
+		}
+
+		#emailVerificationControl ul,
+		#attributeList ul {
+			margin: 0;
+			padding: 0;
+		}
+
+		#retryCode {
+			color: #adcbfa;
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+		.right-footer {
+			background: #444;
+		}
+
+		.bottom-link {
+			padding: 50px 40px;
+		}
+
+		a.link {
+			padding: 0 20px 0 10px;
+			color: #ddd;
+			cursor: pointer;
+			font-size: 18px;
+			font-weight: bold;
+		}
+
+		.container-fluid .grey-bg {
+			background: #444;
+			padding: 0;
+			height: 100vh;
+		}
+
+		.col-md-8.pr-0.grey-bg {
+			padding: 0;
+		}
+
+
+		.number {
+			margin-top: 15px;
+			margin-bottom: 15px;
+		}
+
+		.buttons {
+			margin-top: 20px;
+			clear: both;
+		}
+
+		.error p {
+			color: #FFABA0;
+			font-family: arial;
+			font-size: 13px;
+			margin: 0;
+		}
+
+		.login-panel #verificationCode.active,
+		.login-panel #number.active,
+		#countryCode {
+			background: #ADCBFA !important;
+			color: #000;
+		}
+
+		.default-btn {
+			font-family: "arial";
+			background: #ADCBFA;
+			font-size: 16px;
+			line-height: 50px;
+			font-weight: bold;
+			border-radius: 60px;
+			padding: 0 35px;
+			height: 50px;
+			color: #05206A;
+			text-transform: uppercase;
+			transition: all 0.5s;
+			letter-spacing: 1px;
+		}
+		#cancel {
+				display: block;
+				margin-top: 20px;
+			}
+	</style>
+</head>
+
+<body>
+	<div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-4 leftcol">
+					<div class="left-panel">
+						<a class="logo"><img
+								src="https://pinkertonfilestoragedev.blob.core.windows.net/dynamicecom/logo.svg"></a>
+						<div class="blank-height"></div>
+						<div class="title">
+							<h1>Pinkerton Risk Portal</h1>
+						</div>
+						<p>Comprehensive risk technoloy to navigate incoming threats</p>
+
+					</div>
+
+				</div>
+				<div class="col-md-8 pr-0 grey-bg">
+					<div class="wrapper">
+						<div class="login-panel">
+							<p class="not-member">Not a member? <a
+									onclick='redirectToOrigin();'
+									class="sign-up-link">Sign
+									up now</a></p>
+							<div class="form-field">
+								<h3>Verify your Identity</h3>
+								<div class="mb-3">
+									<p>
+										We have the following number on record for you.
+										We can send a code via SMS or phone to authenticate you.
+									</p>
+								</div>
+								<div class="mb-3">
+									<div id="api"></div>
+									 
+									<!-- <div id="api" data-name="Phonefactor" role="form">
+										<span id="screen_reader_msg" role="alert" aria-label="" aria-hidden="true"
+											style="display:none"></span>
+										<div class="buttons">
+										</div>
+										<div class="intro">
+											<p>Enter a number below that we can send a code via SMS or phone to
+												authenticate you.</p>
+										</div>
+										<div class="error pageLevel" id="errorMessage" style="display:none"
+											aria-hidden="true">
+											<p role="alert">The verification code you have entered does not match our
+												records. Please try again, or request a new code.</p>
+										</div>
+
+										<div class="phoneEntry" id="phoneEntry">
+											<div class="input">
+												<div class="code">
+													<label for="countryCode">Country Code</label>
+													<div class="error itemLevel" aria-hidden="true"
+														style="">
+														<p role="alert">Please enter a valid phone number
+
+														</p>
+													</div>
+													<select id="countryCode" autofocus="">
+														<option value="+">Country/Region</option>
+														<option value="+93">Afghanistan (+93)</option>
+														<option value="+358">Åland Islands (+358)</option>
+														<option value="+355">Albania (+355)</option>
+														<option value="+213">Algeria (+213)</option>
+														<option value="+1">American Samoa (+1)</option>
+														<option value="+376">Andorra (+376)</option>
+														<option value="+244">Angola (+244)</option>
+														<option value="+1">Anguilla (+1)</option>
+														<option value="+672">Antarctica (+672)</option>
+														<option value="+1">Antigua and Barbuda (+1)</option>
+														<option value="+54">Argentina (+54)</option>
+														<option value="+374">Armenia (+374)</option>
+														<option value="+297">Aruba (+297)</option>
+														<option value="+61">Australia (+61)</option>
+														<option value="+43">Austria (+43)</option>
+														<option value="+994">Azerbaijan (+994)</option>
+														<option value="+1">Bahamas (+1)</option>
+														<option value="+973">Bahrain (+973)</option>
+														<option value="+880">Bangladesh (+880)</option>
+														<option value="+1">Barbados (+1)</option>
+														<option value="+375">Belarus (+375)</option>
+														<option value="+32">Belgium (+32)</option>
+														<option value="+501">Belize (+501)</option>
+														<option value="+229">Benin (+229)</option>
+														<option value="+1">Bermuda (+1)</option>
+														<option value="+975">Bhutan (+975)</option>
+														<option value="+591">Bolivia (+591)</option>
+														<option value="+599">Bonaire (+599)</option>
+														<option value="+387">Bosnia and Herzegovina (+387)</option>
+														<option value="+267">Botswana (+267)</option>
+														<option value="+47">Bouvet Island (+47)</option>
+														<option value="+55">Brazil (+55)</option>
+														<option value="+44">British Indian Ocean Territory (+44)
+														</option>
+														<option value="+1">British Virgin Islands (+1)</option>
+														<option value="+673">Brunei (+673)</option>
+														<option value="+359">Bulgaria (+359)</option>
+														<option value="+226">Burkina Faso (+226)</option>
+														<option value="+257">Burundi (+257)</option>
+														<option value="+238">Cabo Verde (+238)</option>
+														<option value="+855">Cambodia (+855)</option>
+														<option value="+237">Cameroon (+237)</option>
+														<option value="+1">Canada (+1)</option>
+														<option value="+1">Cayman Islands (+1)</option>
+														<option value="+236">Central African Republic (+236)</option>
+														<option value="+235">Chad (+235)</option>
+														<option value="+56">Chile (+56)</option>
+														<option value="+86">China (+86)</option>
+														<option value="+61">Christmas Island (+61)</option>
+														<option value="+61">Cocos (Keeling) Islands (+61)</option>
+														<option value="+57">Colombia (+57)</option>
+														<option value="+269">Comoros (+269)</option>
+														<option value="+242">Congo (+242)</option>
+														<option value="+243">Congo (DRC) (+243)</option>
+														<option value="+682">Cook Islands (+682)</option>
+														<option value="+506">Costa Rica (+506)</option>
+														<option value="+225">Côte d’Ivoire (+225)</option>
+														<option value="+385">Croatia (+385)</option>
+														<option value="+53">Cuba (+53)</option>
+														<option value="+599">Curaçao (+599)</option>
+														<option value="+357">Cyprus (+357)</option>
+														<option value="+420">Czechia (+420)</option>
+														<option value="+45">Denmark (+45)</option>
+														<option value="+253">Djibouti (+253)</option>
+														<option value="+1">Dominica (+1)</option>
+														<option value="+1">Dominican Republic (+1)</option>
+														<option value="+593">Ecuador (+593)</option>
+														<option value="+20">Egypt (+20)</option>
+														<option value="+503">El Salvador (+503)</option>
+														<option value="+240">Equatorial Guinea (+240)</option>
+														<option value="+291">Eritrea (+291)</option>
+														<option value="+372">Estonia (+372)</option>
+														<option value="+268">Eswatini (+268)</option>
+														<option value="+251">Ethiopia (+251)</option>
+														<option value="+500">Falkland Islands (+500)</option>
+														<option value="+298">Faroe Islands (+298)</option>
+														<option value="+679">Fiji (+679)</option>
+														<option value="+358">Finland (+358)</option>
+														<option value="+33">France (+33)</option>
+														<option value="+594">French Guiana (+594)</option>
+														<option value="+689">French Polynesia (+689)</option>
+														<option value="+262">French Southern Territories (+262)</option>
+														<option value="+241">Gabon (+241)</option>
+														<option value="+220">Gambia (+220)</option>
+														<option value="+995">Georgia (+995)</option>
+														<option value="+49">Germany (+49)</option>
+														<option value="+233">Ghana (+233)</option>
+														<option value="+350">Gibraltar (+350)</option>
+														<option value="+30">Greece (+30)</option>
+														<option value="+299">Greenland (+299)</option>
+														<option value="+1">Grenada (+1)</option>
+														<option value="+590">Guadeloupe (+590)</option>
+														<option value="+1">Guam (+1)</option>
+														<option value="+502">Guatemala (+502)</option>
+														<option value="+44">Guernsey (+44)</option>
+														<option value="+224">Guinea (+224)</option>
+														<option value="+245">Guinea-Bissau (+245)</option>
+														<option value="+592">Guyana (+592)</option>
+														<option value="+509">Haiti (+509)</option>
+														<option value="+61">Heard Island and McDonald Islands (+61)
+														</option>
+														<option value="+504">Honduras (+504)</option>
+														<option value="+852">Hong Kong SAR (+852)</option>
+														<option value="+36">Hungary (+36)</option>
+														<option value="+354">Iceland (+354)</option>
+														<option value="+91">India (+91)</option>
+														<option value="+62">Indonesia (+62)</option>
+														<option value="+98">Iran (+98)</option>
+														<option value="+964">Iraq (+964)</option>
+														<option value="+353">Ireland (+353)</option>
+														<option value="+44">Isle of Man (+44)</option>
+														<option value="+972">Israel (+972)</option>
+														<option value="+39">Italy (+39)</option>
+														<option value="+1">Jamaica (+1)</option>
+														<option value="+81">Japan (+81)</option>
+														<option value="+44">Jersey (+44)</option>
+														<option value="+962">Jordan (+962)</option>
+														<option value="+7">Kazakhstan (+7)</option>
+														<option value="+254">Kenya (+254)</option>
+														<option value="+686">Kiribati (+686)</option>
+														<option value="+82">Korea (+82)</option>
+														<option value="+965">Kuwait (+965)</option>
+														<option value="+996">Kyrgyzstan (+996)</option>
+														<option value="+856">Laos (+856)</option>
+														<option value="+371">Latvia (+371)</option>
+														<option value="+961">Lebanon (+961)</option>
+														<option value="+266">Lesotho (+266)</option>
+														<option value="+231">Liberia (+231)</option>
+														<option value="+218">Libya (+218)</option>
+														<option value="+423">Liechtenstein (+423)</option>
+														<option value="+370">Lithuania (+370)</option>
+														<option value="+352">Luxembourg (+352)</option>
+														<option value="+853">Macao SAR (+853)</option>
+														<option value="+261">Madagascar (+261)</option>
+														<option value="+265">Malawi (+265)</option>
+														<option value="+60">Malaysia (+60)</option>
+														<option value="+960">Maldives (+960)</option>
+														<option value="+223">Mali (+223)</option>
+														<option value="+356">Malta (+356)</option>
+														<option value="+692">Marshall Islands (+692)</option>
+														<option value="+596">Martinique (+596)</option>
+														<option value="+222">Mauritania (+222)</option>
+														<option value="+230">Mauritius (+230)</option>
+														<option value="+262">Mayotte (+262)</option>
+														<option value="+52">Mexico (+52)</option>
+														<option value="+691">Micronesia (+691)</option>
+														<option value="+373">Moldova (+373)</option>
+														<option value="+377">Monaco (+377)</option>
+														<option value="+976">Mongolia (+976)</option>
+														<option value="+382">Montenegro (+382)</option>
+														<option value="+1">Montserrat (+1)</option>
+														<option value="+212">Morocco (+212)</option>
+														<option value="+258">Mozambique (+258)</option>
+														<option value="+95">Myanmar (+95)</option>
+														<option value="+264">Namibia (+264)</option>
+														<option value="+674">Nauru (+674)</option>
+														<option value="+977">Nepal (+977)</option>
+														<option value="+31">Netherlands (+31)</option>
+														<option value="+687">New Caledonia (+687)</option>
+														<option value="+64">New Zealand (+64)</option>
+														<option value="+505">Nicaragua (+505)</option>
+														<option value="+227">Niger (+227)</option>
+														<option value="+234">Nigeria (+234)</option>
+														<option value="+683">Niue (+683)</option>
+														<option value="+672">Norfolk Island (+672)</option>
+														<option value="+850">North Korea (+850)</option>
+														<option value="+389">North Macedonia (+389)</option>
+														<option value="+1">Northern Mariana Islands (+1)</option>
+														<option value="+47">Norway (+47)</option>
+														<option value="+968">Oman (+968)</option>
+														<option value="+92">Pakistan (+92)</option>
+														<option value="+680">Palau (+680)</option>
+														<option value="+972">Palestinian Authority (+972)</option>
+														<option value="+507">Panama (+507)</option>
+														<option value="+675">Papua New Guinea (+675)</option>
+														<option value="+595">Paraguay (+595)</option>
+														<option value="+51">Peru (+51)</option>
+														<option value="+63">Philippines (+63)</option>
+														<option value="+64">Pitcairn Islands (+64)</option>
+														<option value="+48">Poland (+48)</option>
+														<option value="+351">Portugal (+351)</option>
+														<option value="+1">Puerto Rico (+1)</option>
+														<option value="+974">Qatar (+974)</option>
+														<option value="+262">Réunion (+262)</option>
+														<option value="+40">Romania (+40)</option>
+														<option value="+7">Russia (+7)</option>
+														<option value="+250">Rwanda (+250)</option>
+														<option value="+590">Saint Barthélemy (+590)</option>
+														<option value="+1">Saint Kitts and Nevis (+1)</option>
+														<option value="+1">Saint Lucia (+1)</option>
+														<option value="+1">Saint Martin (+1)</option>
+														<option value="+508">Saint Pierre and Miquelon (+508)</option>
+														<option value="+1">Saint Vincent and the Grenadines (+1)
+														</option>
+														<option value="+685">Samoa (+685)</option>
+														<option value="+378">San Marino (+378)</option>
+														<option value="+239">São Tomé and Príncipe (+239)</option>
+														<option value="+966">Saudi Arabia (+966)</option>
+														<option value="+221">Senegal (+221)</option>
+														<option value="+381">Serbia (+381)</option>
+														<option value="+248">Seychelles (+248)</option>
+														<option value="+232">Sierra Leone (+232)</option>
+														<option value="+65">Singapore (+65)</option>
+														<option value="+1">Sint Maarten (+1)</option>
+														<option value="+421">Slovakia (+421)</option>
+														<option value="+386">Slovenia (+386)</option>
+														<option value="+677">Solomon Islands (+677)</option>
+														<option value="+252">Somalia (+252)</option>
+														<option value="+27">South Africa (+27)</option>
+														<option value="+500">South Georgia and South Sandwich Islands
+															(+500)</option>
+														<option value="+211">South Sudan (+211)</option>
+														<option value="+34">Spain (+34)</option>
+														<option value="+94">Sri Lanka (+94)</option>
+														<option value="+290">St Helena, Ascension, Tristan da Cunha
+															(+290)</option>
+														<option value="+249">Sudan (+249)</option>
+														<option value="+597">Suriname (+597)</option>
+														<option value="+47">Svalbard (+47)</option>
+														<option value="+46">Sweden (+46)</option>
+														<option value="+41">Switzerland (+41)</option>
+														<option value="+963">Syria (+963)</option>
+														<option value="+886">Taiwan (+886)</option>
+														<option value="+992">Tajikistan (+992)</option>
+														<option value="+255">Tanzania (+255)</option>
+														<option value="+66">Thailand (+66)</option>
+														<option value="+670">Timor-Leste (+670)</option>
+														<option value="+228">Togo (+228)</option>
+														<option value="+690">Tokelau (+690)</option>
+														<option value="+676">Tonga (+676)</option>
+														<option value="+1">Trinidad and Tobago (+1)</option>
+														<option value="+216">Tunisia (+216)</option>
+														<option value="+90">Turkey (+90)</option>
+														<option value="+993">Turkmenistan (+993)</option>
+														<option value="+1">Turks and Caicos Islands (+1)</option>
+														<option value="+688">Tuvalu (+688)</option>
+														<option value="+1">U.S. Outlying Islands (+1)</option>
+														<option value="+1">U.S. Virgin Islands (+1)</option>
+														<option value="+256">Uganda (+256)</option>
+														<option value="+380">Ukraine (+380)</option>
+														<option value="+971">United Arab Emirates (+971)</option>
+														<option value="+44">United Kingdom (+44)</option>
+														<option value="+1" selected="true">United States (+1)</option>
+														<option value="+598">Uruguay (+598)</option>
+														<option value="+998">Uzbekistan (+998)</option>
+														<option value="+678">Vanuatu (+678)</option>
+														<option value="+379">Vatican City (+379)</option>
+														<option value="+58">Venezuela (+58)</option>
+														<option value="+84">Vietnam (+84)</option>
+														<option value="+681">Wallis and Futuna (+681)</option>
+														<option value="+967">Yemen (+967)</option>
+														<option value="+260">Zambia (+260)</option>
+														<option value="+263">Zimbabwe (+263)</option>
+													</select>
+												</div>
+												<div class="number">
+													<label for="number">Phone Number</label>
+													<div class="error itemLevel" aria-hidden="false"
+														style="display: block;">
+														<p role="alert">Please enter a valid phone number</p>
+													</div>
+													<input type="text" role="textbox" id="number"
+														placeholder="Phone number"
+														pattern=""
+														title="Please enter your phone number" 
+														class="">
+												</div>
+											</div>
+											<div class="readonly"></div>
+										</div>
+
+										<div id="codeVerification" style="display:none" aria-hidden="true">
+											<div class="actionLabel">
+												<label for="verificationCode">Enter your verification code below, or
+												</label>
+												<a id="retryCode" tabindex="1">send a new code</a>
+											</div>
+											<div class="error itemLevel" aria-hidden="true">
+												<p role="alert"></p>
+											</div>
+											<input type="text" role="textbox" id="verificationCode" maxlength="6"
+												autocomplete="false" pattern="\d{6}"
+												title="Please enter the verification code you received"
+												aria-required="true">
+										</div>
+
+										<div class="working"></div>
+
+										<div class="buttons">
+											<button id="sendCode" class="" aria-disabled="true">Send
+												Code</button><button id="verifyCode" class="disabled"
+												aria-disabled="true" style="display: none;">Verify Code</button>
+											<button id="verifyPhone" class="">Call Me</button><button id="continuePhone"
+												class="disabled" aria-disabled="true"
+												style="display: none;">Continue</button>
+											<button id="cancel">Cancel</button>
+										</div>
+
+									</div> -->
+								</div>
+
+								<div class="mb-3">
+									<!-- <div id="api" data-name="SelfAsserted">
+									<div class="intro">
+									  <p>Please provide the following details.</p>
+									</div>
+									<form id="attributeVerification" action="JavaScript:void(0);">
+									  <div id="passwordEntryMismatch" class="error pageLevel" style="display: none;" aria-hidden="true">The password entry fields do not match. Please enter the same password in both fields and try again.</div>
+									  <div id="requiredFieldMissing" class="error pageLevel" style="display: none;" aria-hidden="true">A required field is missing. Please fill out all required fields and try again.</div>
+									  <div id="fieldIncorrect" class="error pageLevel" style="display: none;" aria-hidden="true">One or more fields are filled out incorrectly. Please check your entries and try again.</div>
+									  <div id="claimVerificationServerError" class="error pageLevel" style="display: none;" aria-hidden="true"></div>
+									  <div id="attributeList" class="attr">
+										<ul>
+										  <li class="VerificationControl"><div class="attrEntry"><label id="emailVerificationControl_label" for="emailVerificationControl"></label><div class="error itemLevel" role="alert"></div><div class="verificationControlContent" id="emailVerificationControl"><div class="verificationInfoText"><div id="emailVerificationControl_info_message" aria-hidden="true" role="alert" aria-label="Verification is necessary. Please click Send button." style="display: none;">Verification is necessary. Please click Send button.</div></div><div class="verificationSuccessText"><div id="emailVerificationControl_success_message" aria-hidden="true" role="alert" aria-label="" style="display: none;"></div></div><div class="verificationErrorText error"><div id="emailVerificationControl_error_message" aria-hidden="true" role="alert" aria-label="" style="display: none;"></div></div><ul><li class="EmailBox email" aria-hidden="false" style="display: inline;"><div class="attrEntry"><label id="email_label" for="email">Email Address</label><div class="error itemLevel show" role="alert" aria-hidden="false" aria-label="">This information is required.</div><input id="email" class="textInput" type="email" placeholder="Email Address" aria-label="Email Address" pattern="^[a-zA-Z0-9!#$%&amp;'+^_`{}~-]+(?:\.[a-zA-Z0-9!#$%&amp;'+^_`{}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$" title="Email address that can be used to contact you." aria-required="true"><a class="helpLink tiny" href="javascript:void(0)" data-help="Email address that can be used to contact you.">What is this?</a></div></li><li class="TextBox VerificationCode" aria-hidden="true" style="display: none;"><div class="attrEntry"><label id="emailVerificationCode_label" for="emailVerificationCode">Verification Code</label><div class="error itemLevel" role="alert" aria-hidden="true" aria-label=""></div><input id="emailVerificationCode" class="textInput" type="text" placeholder="Verification Code" aria-label="Verification Code" title="Enter your verification code" aria-required="true" disabled=""><a class="helpLink tiny" href="javascript:void(0)" data-help="Enter your verification code">What is this?</a></div></li></ul><div class="working" style="display: none;" aria-hidden="true"></div><div class="buttons"><button class="sendCode" id="sendCode" type="button" aria-label="Send verification code" aria-hidden="false" style="display: inline;">Send verification code</button><button class="verifyCode" id="emailVerificationControl_but_verify_code" type="button" aria-label="Verify code" aria-hidden="true" style="display: none;">Verify code</button><button class="sendNewCode" id="emailVerificationControl_but_send_new_code" type="button" aria-label="Send new code" aria-hidden="true" style="display: none;">Send new code</button><button class="changeClaims" id="emailVerificationControl_but_change_claims" type="button" aria-label="Change e-mail" aria-hidden="true" style="display: none;">Change e-mail</button></div></div><a class="helpLink tiny" href="javascript:void(0)">What is this?</a></div></li>
+										</ul>
+									  </div>
+									  <div class="buttons">
+										<button id="continue" type="submit" form="attributeVerification" disabled="" aria-label="Continue">Continue</button><button id="cancel" aria-label="Cancel" formnovalidate="">Cancel</button>
+									  </div>
+								
+									  <div class="verifying-modal">
+										<div id="verifying_blurb"></div>
+									  </div>
+									</form>
+								  </div> -->
+								</div>
+								<!-- <div class="mb-3">
+                      <label class="form-label">Email</label>
+                      <input type="text" placeholder="email" class="form-control">   
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Password</label>
+                      <input type="password" placeholder="password" class="form-control">   
+                    </div> -->
+								<!-- <div class="form-group clear-both">
+                    <div class="form-check float-left">
+                      <input type="checkbox" checked class="form-check-input">
+                      <label class="form-check-label">Remember Me</label>
+                  </div>
+                  <div class="form-check float-right">
+                  <label class="form-check-label forgot-password" routerLink="/forgotpassword" >Forgot Password?</label>
+                  </div>
+                 
+                    </div> -->
+								<!-- <div class="mb-3">
+                      <button  class="btn default-btn outline-btn">Sign In</button>
+                  </div> -->
+
+								<!-- <div class="mb-3 or-field">
+                      <span>Or</span>
+                  </div> -->
+
+								<!-- <div class="mb-3">
+                      <button class="btn default-btn">Sign In with Google</button>
+                  </div> -->
+							</div>
+
+						</div>
+
+
+					</div>
+
+
+				</div>
+
+
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="bottom-link">
+						<a class="link">Terms</a>
+						<a class="link">Privacy</a>
+						<a class="link">Learn More</a>
+					</div>
+				</div>
+				<div class="col-md-8 right-footer">
+					<footer>
+						<div class="copyright">
+							&copy;2021 Pinkerton Consulting & Investigations, Inc. ALL RIGHTS RESERVED
+						</div>
+					</footer>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<script>
+		$(document).ready(function () {
+
+			$('[type=text],[id=password]').bind('blur', function () {
+				let xv = $(this).val();
+				//$(this).parent().next('li').find('.form_helper_show').removeClass("form_helper_show").addClass('form_helper');
+				if (xv.length > 0) {
+					console.log(xv.length)
+					$(this).addClass('active');
+				} else {
+					$(this).removeClass('active');
+					$(this).removeClass('focus');
+				}
+			});
+			if ($('#countryCode').length) { $('#descId').css('display', 'none'); }
+
+			$('[type=text],[id=password]').keydown(function () {
+				$(this).addClass('active');
+			});
+			$('[type=text],[id=password]').bind('focus', function () {
+				$(this).addClass('focus');
+			});
+
+			$(".verificationSendCode").hide();
+			setParam();
+
+			$('[id=verificationCode],[id=number],[id=countryCode]').bind('focus', function () {
+				$(this).addClass('focus');
+			});
+			$('[id=verificationCode],[id=number] ,[id=countryCode]').keydown(function () {
+				$(this).addClass('active');
+			});
+
+			$('[id=verificationCode],[id=number] ,[id=countryCode]').bind('blur', function () {
+				let xv = $(this).val();
+				//$(this).parent().next('li').find('.form_helper_show').removeClass("form_helper_show").addClass('form_helper');
+				if (xv.length > 0) {
+					console.log(xv.length)
+					$(this).addClass('active');
+				} else {
+					$(this).removeClass('active');
+					$(this).removeClass('focus');
+				}
+			});
+
+			
+			
+
+
+		});
+
+		function callContinue() {
+			$('#continue').click();
+		}
+		function setParam() {
+			const urlParams = new URLSearchParams(window.location.search);
+			const myParam = urlParams.get('login_hint');
+			if (myParam !== undefined && myParam !== null) {
+				if (document.getElementById('email') && document.getElementById('email') !== undefined) {
+					document.getElementById('email').value = myParam;
+					if ($('#sendCode').length > 0
+						&& $('#sendCode').css('display') != "none") {
+
+
+						$('body').on('DOMSubtreeModified', '#emailVerificationControl_success_message', function () {
+							$(".verificationSendCode").hide();
+							console.log($('#emailVerificationControl_success_message').html());
+							if ($('#emailVerificationControl_success_message').html() == "E-mail address verified. You can now continue.") {
+
+								setTimeout(callContinue, 1500);
+
+							}
+						});
+
+
+						$('#sendCode').click();
+						$(".verificationSendCode").show();
+					}
+
+					$('#lblTitle').html('Create Password');
+					sessionStorage.setItem("lblTitle", "1");
+					if ($('#attributeVerification').length > 0) {
+						$('#email').attr('readonly', true);
+						//emailVerificationCode
+					}
+				}
+			}
+
+			if (sessionStorage.getItem("lblTitle")) {
+
+				if ($('#emailVerificationControl_success_message').html() == "E-mail address verified. You can now continue.") {
+					$('#continue').click();
+				}
+				$('#lblTitle').html('Create Password');
+				if ($('#reenterPassword').length > 0) {
+					sessionStorage.removeItem("lblTitle");
+				}
+
+			}
+		}
+		
+		function redirectToOrigin()
+	 {
+		 history.go(-2);
+		 //alert(url);
+//     var origin = window.location.origin + '/home/signup';
+//    window.location.href = origin;
+	 }
+	</script>
+</body>
+
+</html>

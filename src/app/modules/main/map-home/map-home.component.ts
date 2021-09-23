@@ -234,7 +234,7 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
   onCountrySelection = (item: any) => {
     this.selectedCountry = item;
     this.map.map.fitBounds(item.bbox)
-    console.log(this.selectedCountry)
+    this.map.geocoder.setCountries(this.selectedCountry.iso2)
   }
 
   onExploreReports() {
