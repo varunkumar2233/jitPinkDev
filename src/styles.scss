@@ -343,7 +343,9 @@ a.active-link {
         margin-top: 15px;
         border: 0;
         padding: 0;
+        max-height: 214px;
         min-width: 200px;
+        overflow: auto;
     }
 
     #customDropdown {
@@ -376,6 +378,10 @@ a.active-link {
         color: #fff;
         cursor: pointer;
         border-bottom: 1px solid #ddd;
+    }
+
+ .dropdown-menu li:last-child a.dropdown-item {
+        border-bottom: none !important;
     }
 
     .dropdown-menu li:first-child a.dropdown-item:hover {
