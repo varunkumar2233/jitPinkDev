@@ -8,6 +8,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subscription, Subject } from 'rxjs';
 import { SharedService } from '../../shared/services/shared-service.service';
 import { AlertServiceService } from '../../shared/services/alert-service.service';
+import { TabDirective } from 'ngx-bootstrap/tabs';
 
 
 
@@ -17,7 +18,36 @@ import { AlertServiceService } from '../../shared/services/alert-service.service
   styleUrls: ['./credits.component.scss']
 })
 export class CreditsComponent implements OnInit {
+  value?: string;
+  onSelect(data: TabDirective): void {
+    this.value = data.heading;
+    if(this.value == "STANDARD"){
+      this.sliderEvent()
+    }
+    else{
+      this.sliderEvent1()
+    }
+  }
+  sliderEvent() {
+      if(this.standardValue == 100){
+        this.reachusFlag = false;
+      }
+  
+      else {
+        this.reachusFlag = true;
+      }
+    }
 
+    sliderEvent1() {
+        if(this.platiumvalue == 100){
+          this.reachusFlag = false;
+        }
+    
+        else {
+          this.reachusFlag = true;
+        }
+      }
+  
   form = new FormGroup({
     variant: new FormControl([]),
     quantity: new FormControl(1),
@@ -48,7 +78,9 @@ export class CreditsComponent implements OnInit {
   
   ngOnInit(): void {
       this.getCreditsProduct();
-
+if(this.standardValue == 100) {
+  this.reachusFlag = false;
+}
     // this.shopifyService.getProductById(this.productInput.id).then((product) => {
     //   this.product = product;
     //   this.form.get("variant").setValue(this.product.variants[0]);
@@ -60,8 +92,9 @@ export class CreditsComponent implements OnInit {
 
   getStandardDiscount()
   {
+   
   
-      this.buttonDisabled();
+   
     //discount = 100 * (original_price - discounted_price) / original_price
     if(this.standardValue>=25 && this.standardValue <=49)
     {
@@ -71,6 +104,7 @@ export class CreditsComponent implements OnInit {
       return Math.round (100 * ((this.standardValue * 350) - (this.standardValue * 200)) / ((this.standardValue * 350)));
     } else
     {
+      
       return Math.round(100 * ((this.standardValue * 350) - (this.standardValue * 350)) / ((this.standardValue * 350)));
     }
   }
@@ -89,16 +123,9 @@ export class CreditsComponent implements OnInit {
     }
 
   }
-
-  buttonDisabled() {
-    if(this.standardValue == 100){
-      this.reachusFlag = false;
-    }
-
-    else {
-      this.reachusFlag = true;
-    }
-  }
+  
+  
+  
 
   gettotalAfterDiscountStandard()
   {
@@ -183,7 +210,7 @@ export class CreditsComponent implements OnInit {
     }
     async addCreditPlatium()
     {
-      this.buttonDisabled();
+   
       var obj = {  // need to handle condition first.
         "id": 0,
         //"address": 'testing address', // this will change...

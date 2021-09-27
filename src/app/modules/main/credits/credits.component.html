@@ -16,10 +16,10 @@
                 </div>
                 <div>
                     <tabset class="credit-tab-panel">
-                        <tab heading="STANDARD" id="tab1">
+                        <tab heading="STANDARD" id="tab1" (selectTab)="onSelect($event)">
                             <div class="row mt-3">
                                 <div class="col-md-6">
-                                    <ngx-slider [(value)]="standardValue" [options]="options"></ngx-slider>
+                                    <ngx-slider [(value)]="standardValue" [options]="options" (valueChange)="sliderEvent()"></ngx-slider>
                                 </div>
                                 <div class="col-md-6 reach-out-btn">
                                     <button [disabled]="reachusFlag" routerLink="/main/getintouch" class="btn outline-btn">REACH US FOR MORE</button>
@@ -138,10 +138,10 @@
                             </div>
 
                         </tab>
-                        <tab heading="PLATINUM" id="tab2">
+                        <tab heading="PLATINUM" id="tab2" (selectTab)="onSelect($event)">
                             <div class="row mt-3">
                                 <div class="col-md-6">
-                                    <ngx-slider [(value)]="platiumvalue" [options]="options"></ngx-slider>
+                                    <ngx-slider [(value)]="platiumvalue" [options]="options" (valueChange)="sliderEvent1()"></ngx-slider>
                                 </div>
                                 <div class="col-md-6 reach-out-btn">
                                     <button [disabled]="reachusFlag" class="btn outline-btn">REACH US FOR MORE</button>

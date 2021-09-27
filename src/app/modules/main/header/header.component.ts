@@ -79,6 +79,10 @@ export class HeaderComponent implements OnInit {
 
 
   updateBasketAfterAddtoCart(data) {
+    var duplicateValueTrue = this.cartList.filter(DuplicateRecord => DuplicateRecord.geo_id == data.geo_id)
+    if(duplicateValueTrue.length != 0){
+      this.alert_service.error('Same value added already');
+    } else {
     if (data.report_type === 'standard_credits' || data.report_type === 'platinum_credits') {
       var indexcredit = this.cartList.findIndex(x => x.report_type === data.report_type);
       if (indexcredit > -1) {
@@ -86,11 +90,10 @@ export class HeaderComponent implements OnInit {
       }
     }
     //this.cartList.push(data);
-
     this.cartList.unshift(data);
     this.itemCount = this.cartList.length;
     this.calculateItemSum();
-
+  }
   }
 
   myCartList(req) {
@@ -99,7 +102,10 @@ export class HeaderComponent implements OnInit {
     var amount = 0;
     var standardAmount = this.standartReportAmount;
     var platiumAmount = this.platiumReportAmount;
-    req.reports.forEach(function (value) { // report data
+    const distinctReports = req.reports.filter(
+      (report, i, arr) => arr.findIndex(r => r.geo_id === report.geo_id) === i
+    );
+    distinctReports.forEach(function (value) { // report data
       tempArray.push(
         {
           "id": value.id,

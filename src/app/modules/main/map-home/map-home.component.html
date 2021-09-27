@@ -143,16 +143,17 @@
                 <!-- <th *ngFor="let column of headers" scope="col">
                   {{column}}
                 </th> -->
-                <th style="width: 50%;" scope="col">
+                <th width="40%" scope="col">
                   Location
                 </th>
-                <th style="width: 15%;" scope="col">
-                  Type
+                <th width="20%" scope="col">
+                  Total crime score
                 </th>
-                <th style="width: 15%;" scope="col">
+                <th width="20%" scope="col">
                   Date
                 </th>
-                <th style="width: 20%;" scope="col">
+
+                <th width="20%" scope="col">
                   Preview
                 </th>
               </tr>
@@ -160,12 +161,10 @@
             <tbody>
               <ng-container *ngFor="let row of rows | filter:filterTerm">
                 <tr [ngClass]="{'highlightTR': row.is_seen===false}">
-                  <td style="width: 50%;">{{row.address}}</td>
-                  <!-- <td>{{row.is_seen}}</td> -->
-                  <!-- <td>no idea</td> -->
-                  <td style="width: 15%;">{{row.report_type}}</td>
-                  <td style="width: 15%;">{{row.timestamp | date: 'yyyy/MM/dd'}}</td>
-                  <td style="width: 20%; text-align: right;" class="action-icon">
+                  <td width="40%">{{row.address}}</td>
+                  <td width="20%">{{row.crimeIndex}}</td>
+                  <td width="20%">{{row.timestamp | date: 'yyyy/MM/dd'}}</td>
+                  <td width="20%" style="text-align: center;" class="action-icon">
                     <span class="newIcon">New</span>
                     <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url)"
                       class="download-icon" src="assets/images/icon-download.svg" />

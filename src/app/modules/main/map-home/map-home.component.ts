@@ -23,6 +23,8 @@ import { AlertServiceService } from '../../shared/services/alert-service.service
 export class MapHomeComponent implements OnInit, OnDestroy  {
   @ViewChild('geocoderContainer') geocoderContainer: ElementRef<HTMLDivElement>;
   bsModalRef!: BsModalRef;
+  crimeIndex: any;
+  empList= [];
   constructor(private map: MapboxServService,
     private router: Router,
     private activevateRoute: ActivatedRoute,
@@ -115,13 +117,20 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
         delete obj.is_seen;
         return obj;
     });
-
-    console.log(this.rows)
+   
+    }
+    if(this.rows) {
+      for(var i in this.rows)  {
+        for(var x in this.rows[i].crimescore_set)  {
+          if(this.rows[i].crimescore_set[x].crime_type == 'total') {
+            this.rows[i]['crimeIndex'] =  this.rows[i].crimescore_set[x].crime_index;
+            console.log(this.rows['crimeIndex']);
+          }
+      }
+     }
     }
     this.myReportListStaging = TempArray;
-    //console.log(this.rows);
-    // return TempArray;
-
+    console.log(this.rows)
     this.map.addLocationMarkers(this.myReportListStaging)
   }
 
