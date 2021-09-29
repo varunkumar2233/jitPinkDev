@@ -441,17 +441,18 @@
             of
             PINKERTON<sup>&reg;</sup></p>
     </div>
-    <form *ngIf="!isTermsDisclaimersAgreed" [formGroup]="termsConditionForm">
+    
+    
+    <form *ngIf="!isTermsDisclaimersAgreed"  [formGroup]="termsConditionForm">
         <div class="row tc-checkbox-field">
             <div class="col-md-8">
-                <div class="form-check pl-2">
-                    <input class="form-check-input" (change)="termsConditionCheck($event)" type="checkbox"
-                        formControlName="has_agreed_tos">
-                    <label class="form-check-label" for="notigridCheck">
-                        By checking this box you have agreed with our Terms of Services, Privacy Policy, and default
-                        notification settings
-                    </label>
-                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" (change)="termsConditionCheck($event)" class="custom-control-input" id="customCheck1">
+                    <label class="form-check-label custom-control-label" for="customCheck1">By checking this box you have agreed with our Terms of Services, Privacy Policy, and default
+                        notification settings</label>
+                  </div>
+
+               
             </div>
             <div class="col-md-4">
                 <button class="btn default-btn outline-btn" [disabled]="isContinueDisabled"
