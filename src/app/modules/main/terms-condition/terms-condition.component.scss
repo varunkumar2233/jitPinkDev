@@ -40,49 +40,13 @@ h3 {
     line-height: 45px;
 }
 
-.custom-control-label {
-    font-size: 14px;
-    color: #ADCBFA;
-    font-weight: bold;
+.outline-btn.defaultActive{
+    background: #adcbfa;
+    color: #05206a;
+    border: 1px solid #adcbfa;
 }
-
-.custom-control-label::before {
-    background-color: #888888;
-    border: 0;
-    border-radius: 3px !important;
-}
-
-.custom-control-input:focus~.custom-control-label::before {
-    box-shadow: none;
-}
-
-.custom-control-input:checked~.custom-control-label::before {
-    border-color: #ADCBFA;
-    background-color: #ADCBFA;
-    border: 0;
-}
-
-button.btn.default-btn.outline-btn[disabled]:hover,
-button.btn.default-btn.outline-btn[disabled] {
-    background: none !important;
-    color: #ADCBFA;
-    border: 1px solid #ADCBFA !important;
-}
-
-.term-condition-box .default-btn {
-    background: #ADCBFA;
-    color: #fff;
-    border: 1px solid #ADCBFA;
-}
-
-.term-condition-box .default-btn:hover {
-    background: #05206A !important;
-    color: #fff;
-    border: 1px solid #05206A !important;
-}
-
-.custom-checkbox .custom-control-input:checked~.custom-control-label::after {
-    background: url(/assets/images/check-icon.svg) 2px 2px no-repeat;
-    background-size: 12px;
-  
+.outline-btn.defaultActive:hover, .outline-btn.defaultActive:focus{
+    background: #05206a;
+    color: #adcbfa;
+    border: 1px solid #05206a;
 }

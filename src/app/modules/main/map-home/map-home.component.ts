@@ -37,6 +37,7 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
     private alertService: AlertServiceService,) { }
   private isActive = new Subject();
   addressselected!: string;
+  ViewIcon : boolean;
   countryselected!: string;
   countryCode!: string;
   selectedCountry: any = null;
@@ -117,7 +118,7 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
         delete obj.is_seen;
         return obj;
     });
-   
+
     }
     if(this.rows) {
       for(var i in this.rows)  {
@@ -186,7 +187,7 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
       this.countries = data;
       // autoselect usa
       const usa = data.find(e => e.iso3 === 'usa')
-      this.onCountrySelection(usa)
+     // this.onCountrySelection(usa)
       // allow search in all available countries
       this.map.geocoder.setCountries(this.countries.map(e => e.iso2).join(','))
       //do not delete this line below
@@ -225,8 +226,10 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
           // TODO: show report options to user
           this.map.map.flyTo({
             center: res.result.center,
-            zoom: 10
+            zoom: 15.5
           })
+
+          this.map.showFoundReportMarker(lon, lat)
         }
         else {
           alert('Reports are not available for this location.')
@@ -263,33 +266,44 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
     console.log(this.availableReportData)
   }
 
-  fileDownloadViaSasUrl(req) {
+  fileDownloadViaSasUrl(req, ViewIcon) {
 
-    // this code is for download direct...
-    //   var ch = 'https://storriskportalapidev01.blob.core.windows.net/user-file-storage/reports/17/United_States_platinum.pdf?se=2021-08-03T17%3A48%3A09Z&sp=r&sv=2019-02-02&sr=b&sig=gy3TBVMXGV9Do6KulmSQfhcXBpTCMprFXEm4eFY4wNg%3D';
-    //   let link = document.createElement('a');
-    // link.setAttribute('type', 'hidden');
-    // link.href = ch;
-    // link.download = 'ch.pdf';
-    // document.body.appendChild(link);
-    // link.click();
-    // link.remove();
     var myRegexp = /(\d+)\D*$/g;
     var match = myRegexp.exec(req);
     this.sharedService.startLoading();
     this.map.getDocumentSasUrlByUrl(match[1]).pipe(takeUntil(this.isActive)).subscribe((res: any) => {
       if (res.url) {
-        console.log("res table")
-        console.log(res)
-        window.open(res.url, '_blank');
-      }
-      this.sharedService.stopLoading();
+        if(ViewIcon) {
+       window.open(res.url, '_blank');  } 
+         else 
+         {
+          this.sharedService.startLoading();
+            //Create XMLHTTP Request.
+            var req = new XMLHttpRequest();
+            req.open("GET", res.url, true);
+            req.responseType = "blob";
+            req.onload = function () {
+                //Convert the Byte Data to BLOB object.
+                var blob = new Blob([req.response], { type: "application/pdf" });
+                //Check the Browser type and download the File.
+                    var url = window.URL || window.webkitURL;
+                    var link = url.createObjectURL(blob);
+                    var a = document.createElement("a");
+                    a.setAttribute("download", res.filename);
+                    a.setAttribute("href", link);
+                      document.body.appendChild(a);
+                      a.click();
+                      document.body.removeChild(a);   
+                }
+           req.send();            
+            }
+          }
+          this.sharedService.stopLoading();  
     }, (err) => {
       this.alertService.error('Error while downloading report.');
       this.sharedService.stopLoading();
     });
-
-  }
+    }
 
   downloadexl()
   {
@@ -298,7 +312,6 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
     this.map.downloadReportCSV();
     //this.sharedService.stopLoading();
   }
-
   // onLocationSelected(res) {
   //   const [lon, lat] = res.result.center
   //   this.httpRequest.get(`${environment.apiUrl}report/availability/${this.selectedCountry.iso3}/`, {

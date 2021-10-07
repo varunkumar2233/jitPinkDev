@@ -81,7 +81,7 @@ export class HeaderComponent implements OnInit {
   updateBasketAfterAddtoCart(data) {
     var duplicateValueTrue = this.cartList.filter(DuplicateRecord => DuplicateRecord.geo_id == data.geo_id)
     if(duplicateValueTrue.length != 0){
-      this.alert_service.error('Same value added already');
+      this.alert_service.error('Report already exists in the cart');
     } else {
     if (data.report_type === 'standard_credits' || data.report_type === 'platinum_credits') {
       var indexcredit = this.cartList.findIndex(x => x.report_type === data.report_type);

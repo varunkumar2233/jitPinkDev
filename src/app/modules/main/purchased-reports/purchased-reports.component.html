@@ -98,9 +98,12 @@
                         <div class="report-panel">
                             <div class="report-details">
                                 <div class="row">
-                                  <div class="col-md-12">
-                                      <h4>Purchase History</h4>
-                                  </div>
+                                  <div  *ngIf ="rows?.length==0; else elseBlock" class="col-md-12">
+                                    <h4>No Purchase History</h4>
+                                </div>
+                                <ng-template #elseBlock class="col-md-12">
+                                  <h4>Purchase History</h4>
+                              </ng-template>
                                 </div>
                                 <div class="report-inner-box">
                                  <div class="row top-field">
@@ -154,9 +157,6 @@
                                       </td>
                                     </tr>
                                     </ng-container>
-                                    <tr *ngIf="rows?.length==0">
-                                      <td colspan="4">No Records Found.</td>
-                                    </tr>
                                   </tbody>
                                 </table>
                               </div>

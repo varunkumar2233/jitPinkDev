@@ -115,7 +115,7 @@ export class CartComponent implements OnInit {
       var standareCreditRequest = {
         "id": 0,
         "address": '', // this will change...
-        "report_type": 'standard_credits',
+        "report_type": 'Standard Credits',
         "country": '',
         "lon": '',
         "lat": '',
@@ -130,7 +130,7 @@ export class CartComponent implements OnInit {
       var platiumCreditRequest = { // we can show the add to cart data for credits & reports.
         "id": 0,
         "address": '', // this will change...
-        "report_type": 'platinum_credits',
+        "report_type": 'Platinum Credits',
         "country": '',
         "lon": '',
         "lat": '',

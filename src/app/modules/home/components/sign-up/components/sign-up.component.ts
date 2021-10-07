@@ -33,6 +33,7 @@ export class SignUpComponent implements OnInit {
   recaptchaToken: string;
   badge: string = 'bottomleft'
   scrHeight:any;
+  isDisable : Boolean = false;
   // phoneForm = new FormGroup({
   //   phone: new FormControl(undefined, [Validators.required])
   // });
@@ -94,6 +95,8 @@ export class SignUpComponent implements OnInit {
     // }
   }
   onSubmit() {
+    this.isDisable = (this.registerForm.valid ) ? false : true;
+    
     // generate recaptcha token
     this.reCaptchaV3Service.execute(this.siteKey, 'signup', (token) => {
       console.log('This is your token: ', token);

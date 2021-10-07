@@ -96,10 +96,9 @@
                 </div>
               </div> -->
               <div class="mb-3">
-                <button class="btn default-btn outline-btn" [disabled]=isSignUpClicked>
+                <button class="btn default-btn outline-btn" [disabled]="!registerForm.valid || isDisable">
                   <span *ngIf="isSignUpClicked" class="spinner-border spinner-border-sm"></span>
                   Sign Up
-
                 </button>
               </div>
               <!-- <div class="mb-3 or-field">

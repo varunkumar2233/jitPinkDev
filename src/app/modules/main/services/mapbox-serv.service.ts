@@ -24,6 +24,7 @@ export class MapboxServService {
   style = 'mapbox://styles/pinkertonadmin/ckrdl5ku616tq17mtdhgdqjff/';
 
   markers: Array<mapboxgl.Marker>
+  foundLocationMarker: mapboxgl.Marker;
 
   zoom = 12;
   apiUrl: any;
@@ -143,11 +144,7 @@ export class MapboxServService {
       .addTo(this.map)
   }
 
-  createMarkerElementForLocation(location) {
-    // get fill color based on crime index, default to kate blue
-    const totalCrimeIndex = location.crimescore_set.find(e => e.crime_type === 'total')
-    const fillColor = totalCrimeIndex ? this.getRiskColor(totalCrimeIndex.crime_index, false) : '#ADCBFA'
-
+  createMarkerElement(fillColor) {
     const svg = `
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="64" height="48" viewBox="0 0 640 480" xml:space="preserve">
       <desc>Created with Fabric.js 3.6.3</desc>
@@ -162,6 +159,31 @@ export class MapboxServService {
       </svg>
     `
     return new DOMParser().parseFromString(svg, 'image/svg+xml').documentElement
+  }
+
+  // create a marker element colored for the location
+  createMarkerElementForLocation(location) {
+    // get fill color based on crime index, default to kate blue
+    const totalCrimeIndex = location.crimescore_set.find(e => e.crime_type === 'total')
+    const fillColor = totalCrimeIndex ? this.getRiskColor(totalCrimeIndex.crime_index, false) : '#ADCBFA'
+    return this.createMarkerElement(fillColor)
+  }
+
+  // create a pinkerton blue marker element
+  createBlueMarkerElement() {
+    return this.createMarkerElement('#05206A')
+  }
+
+  showFoundReportMarker(lon, lat) {
+    if (this.foundLocationMarker) {
+      this.foundLocationMarker.remove()
+    }
+    this.foundLocationMarker = new mapboxgl.Marker({
+      element: this.createBlueMarkerElement(),
+      offset: [0, -25]
+    })
+      .setLngLat({ lon, lat })
+      .addTo(this.map)
   }
 
   getRiskColor(val, pureRed) {
@@ -202,7 +224,7 @@ export class MapboxServService {
     this.markers.forEach(e => e.remove())
     this.markers = []
   }
-  
+
   getReportCreditPurchaseHistory() {
     return this.httpRequest.get(`${environment.getReportCreditPurchaseHistory}`);
   }

@@ -22,9 +22,14 @@
     color: #adcbfa !important;
   }
 
-  .form-control {
-    background-color: #e8f0fd;
-  }
+  input.form-control {
+    background-color: #666666;
+    color: #DDDDDD;
+}
+
+.form-control:focus {
+    color: #DDDDDD;
+}
 
   .form-field h3 {
     text-transform: uppercase;
@@ -160,4 +165,23 @@ footer .copyright {
   font-size: 14px;
 }
 
+}
+
+.default-btn[disabled],
+.default-btn[disabled]:hover {
+    background: none;
+    color: #adcbfa;
+    border: 1px solid #ADCBFA;
+}
+
+.default-btn {
+    background: #ADCBFA;
+    color: #05206A;
+    border: 1px solid #ADCBFA;
+}
+
+.default-btn:hover {
+    background: #05206A;
+    color: #fff;
+    border: 1px solid #05206A;
 }

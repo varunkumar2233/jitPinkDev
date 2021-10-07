@@ -186,7 +186,7 @@ export class GetSampleReportsComponent implements OnInit {
       this.countriesMasterList= locationData;
       const uniqueCountry = [...new Map(locationData.map(item =>
         [item['address'], item])).values()];
-      
+
       this.countries = uniqueCountry;
       //this.onCountrySelection('');
       console.log(',.,.................................locations data');
@@ -306,6 +306,7 @@ export class GetSampleReportsComponent implements OnInit {
       center: [lon, lat],
       zoom: 10
     })
+    this.map.showFoundReportMarker(lon, lat)
   }
 
 }

@@ -26,27 +26,30 @@
 
 </head>
 <body>  
-  <script>
-    //Nash = #DC3A25
-    //Pinkerton Blue = #05206a
-    //Dark Gray = #232323
-    //New Kate Blue = ADCBFA∂
-    const backgroundPinkerton = "#232323";
-    const brandTextColor = "#ffffff";
-    const entryImg = '<img src="/assets/images/chatBotTopLogo.png" />'; 
-    const brandMessageBubbleColors = (bgColor) => ({
-        Bubble: {
-            background: bgColor,
-            color: brandTextColor
-        },
-        Avatar: {
-            background: bgColor,
-            color: brandTextColor
-        },
-        Header: {
-            color: brandTextColor
-        }
-    });
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E11K8MTQX2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-E11K8MTQX2');
+  
+  const backgroundPinkerton = "#232323";
+  const brandTextColor = "#ffffff";
+  const entryImg = '<img src="/assets/images/chatBotTopLogo.png" />'; 
+  const brandMessageBubbleColors = (bgColor) => ({
+      Bubble: {
+          background: bgColor,
+          color: brandTextColor
+      },
+      Avatar: {
+          background: bgColor,
+          color: brandTextColor
+      },
+      Header: {
+          color: brandTextColor
+      }
+  });
   const appConfig = {
       accountSid:"AC151a6cc7c6294008235dce9d566b054d",
       flexFlowSid:"FO9a4a5289ad82e7c091c6e88101721edc",
@@ -110,9 +113,6 @@
                   backgroundImage: "url('/assets/images/chatBotTopLogo.png')",
                   backgroundColor: "#DC3A25",
                   backgroundBlendMode:"none"
-                  // backgroundImage: "url('/assets/images/entryPointChat.png')",
-                  // width: "50px",
-                  // height: "50px"
                 }
               }
           },
@@ -130,15 +130,15 @@
   };
 
 
-    Twilio.FlexWebChat.createWebChat(appConfig).then(webchat => {
-      const { manager } = webchat;
-      let username = localStorage.getItem('LoggedInName') == null ? 'User' : localStorage.getItem('LoggedInName'); 
-       manager.strings.PredefinedChatMessageBody = "Welcome  " + username + " ! I'm Test from customer support and I am here to help! \n\n Please explore Risk Advisory Solutions Portal and let me know if you have any questions. \n\nTest";
-       manager.strings.PredefinedChatMessageAuthorName = "Pinkerton Agent";
+  Twilio.FlexWebChat.createWebChat(appConfig).then(webchat => {
+    const { manager } = webchat;
+    let username = localStorage.getItem('LoggedInName') == null ? 'User' : localStorage.getItem('LoggedInName'); 
+      manager.strings.PredefinedChatMessageBody = "Hi  " + username + "! Welcome to the Pinkerton Risk Portal customer service chat box. Is there anything I can help you with today?";
+      manager.strings.PredefinedChatMessageAuthorName = "Pinkerton Portal Support";
 
-  // Render WebChat
-      webchat.init();
-    });
+    // Render WebChat
+    webchat.init();
+  });
 </script>
   <app-root></app-root>
   
