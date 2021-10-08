@@ -232,11 +232,11 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
           this.map.showFoundReportMarker(lon, lat)
         }
         else {
-          alert('Reports are not available for this location.')
+          this.alertService.error('Reports are not available for this location.')
         }
       }
       catch (e) {
-        alert('Reports are not available for this location.')
+        this.alertService.error('Reports are not available for this location.')
       }
     })
 

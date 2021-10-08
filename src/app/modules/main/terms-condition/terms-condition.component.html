@@ -146,7 +146,7 @@
             of
             PINKERTON<sup>&reg;</sup></p>
     </div>
-    <form *ngIf="isTermsDisclaimersAgreed" [formGroup]="termsConditionForm">
+    <form *ngIf="!isTermsDisclaimersAgreed" [formGroup]="termsConditionForm">
         <div class="row tc-checkbox-field">
             <div class="col-md-8">
                 <div class="form-check pl-2">
@@ -159,7 +159,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <button class="btn default-btn outline-btn" [ngClass]="{'defaultActive' : !isContinueDisabled}" [disabled]="isContinueDisabled"
+                <button class="btn default-btn outline-btn" [disabled]="isContinueDisabled"
                     (click)="continue();">Continue</button>
             </div>
         </div>

@@ -22,7 +22,9 @@
                                     <ngx-slider [(value)]="standardValue" [options]="options" (valueChange)="sliderEvent()"></ngx-slider>
                                 </div>
                                 <div class="col-md-6 reach-out-btn">
-                                    <button [disabled]="reachusFlag" routerLink="/main/getintouch" class="btn outline-btn">REACH US FOR MORE</button>
+                                    <button routerLink="/main/getintouch" class="btn outline-btn">REACH US FOR MORE</button>
+
+                                    <!-- <button [disabled]="reachusFlag" routerLink="/main/getintouch" class="btn outline-btn">REACH US FOR MORE</button> -->
                                 </div>
                             </div>
 
@@ -30,22 +32,22 @@
                                 <div class="col-md-6">
                                     <div class="card price-card">
                                         <div class="row mb-3">
-                                            <div class="col-md-8 col-7">
+                                            <div class="col-md-6 col-6">
                                                 <p>Price Per Report</p>
                                             </div>
-                                            <div class="col-md-4 col-5 text-right">
+                                            <div class="col-md-6 col-6 text-right">
                                                 <!-- <p> </p> -->
                                                 <!-- <p class="price">$350 USD</p> -->
                                                 <p class="price"> ${{standardProduct?.price}} {{standardProduct?.currency}}</p>
-                                                <span class="discount"><small>{{getStandardDiscount()}} % discount</small></span>
+                                                <span *ngIf="getStandardDiscount()" class="discount"><small>{{getStandardDiscount()}} % discount</small></span>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-8 col-7">
+                                            <div class="col-md-6 col-6">
                                                 <p>Total</p>
                                             </div>
-                                            <div class="col-md-4 col-5 text-right">
+                                            <div class="col-md-6 col-6 text-right">
                                                 <p class="price">${{gettotalAfterDiscountStandard()}}.00  USD </p>
                                                 <!-- <p class="price">$3500 USD</p> -->
                                             </div>
