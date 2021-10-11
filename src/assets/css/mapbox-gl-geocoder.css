@@ -81,7 +81,7 @@
 
 /* Suggestions */
 .mapboxgl-ctrl-geocoder .suggestions {
-  background-color: #fff;
+  background-color: #222;
   border-radius: 4px;
   left: 0;
   list-style: none;
@@ -109,7 +109,7 @@
   cursor: default;
   display: block;
   padding: 6px 12px;
-  color: #404040;
+  color: #fff;
 }
 
 .mapboxgl-ctrl-geocoder .suggestions > .active > a,
@@ -267,4 +267,16 @@
     text-align: center
   }
 
+}
+
+.suggestions-wrapper .suggestions li:last-child a {
+  border-bottom: none;
+}
+
+.suggestions-wrapper .suggestions li a {
+  border-bottom: 1px solid #ddd;
+}
+
+.suggestions-wrapper .suggestions li a:hover {
+  border-bottom: 0.5px solid #ADCBFA;
 }

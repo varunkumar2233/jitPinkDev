@@ -81,7 +81,7 @@
             <button dropdownToggle type="button" id="auto_trigger" class="btn dropdown-toggle" aria-controls="dropdown-basic">
               <i class="ion-md-cart icon"></i><span class="badge cart-count" *ngIf="itemCount">{{itemCount}}</span>
             </button>
-            <div *ngIf="itemCount">
+            <div *ngIf="itemCount; else emptyCart">
               <div *dropdownMenu class="dropdown-menu cartSection">
                 <div class="dropdown-box">
                   <!-- <div class="list">
@@ -121,6 +121,16 @@
                 </div>
               </div>
             </div>
+            <ng-template #emptyCart>
+              <div class="dropdown-menu cartSection emptyCart">
+                <div class="dropdown-box">
+                  <p>Your cart is empty</p>
+                  <div class="viewcartbtn">
+                    <button (click)="viewcart()" class="btn default-btn">VIEW CART</button>
+                  </div>
+                  </div>
+                  </div>
+            </ng-template>
           </div>
         </li>
       </ul>

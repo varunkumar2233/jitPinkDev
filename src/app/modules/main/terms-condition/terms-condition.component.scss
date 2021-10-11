@@ -14,13 +14,13 @@ h3 {
     background: #222;
     box-shadow: 0 0 2px #000;
     padding: 15px 15px 0;
+   
 .inner-box {
     padding: 0px 10px 0 0;
-    overflow: auto;
-    height: calc(100vh - 280px);
     min-height: auto;
     box-shadow: none;
     background: none;
+    overflow: auto;
     p {
         font-size: 16px;
         line-height: 24px;
@@ -38,4 +38,63 @@ h3 {
 .outline-btn {
     height: 46px;
     line-height: 45px;
+}
+
+.custom-control-label {
+    font-size: 14px;
+    color: #ADCBFA;
+    font-weight: bold;
+}
+
+.custom-control-label::before {
+    background-color: #888888;
+    border: 0;
+    border-radius: 3px !important;
+}
+
+.custom-control-input:focus~.custom-control-label::before {
+    box-shadow: none;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    border-color: #ADCBFA;
+    background-color: #ADCBFA;
+    border: 0;
+}
+
+button.btn.default-btn.outline-btn[disabled]:hover,
+button.btn.default-btn.outline-btn[disabled] {
+    background: none !important;
+    color: #ADCBFA;
+    border: 1px solid #ADCBFA !important;
+}
+
+.term-condition-box .default-btn {
+    background: #ADCBFA;
+    color: #05206A;
+    border: 1px solid #ADCBFA;
+}
+
+.term-condition-box .default-btn:hover {
+    background: #05206A !important;
+    color: #fff;
+    border: 1px solid #05206A !important;
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::after {
+    background: url(/assets/images/check-icon.svg) 2px 2px no-repeat;
+    background-size: 12px;
+  
+}
+
+.form-check .form-check-label {
+    padding-left: 22px;
+}
+
+.custom-control-label::before {
+    left: -5px;
+}
+
+.custom-control-label::after {
+    left: -5px;
 }

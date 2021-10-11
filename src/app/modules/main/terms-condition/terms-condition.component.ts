@@ -19,17 +19,23 @@ export class TermsConditionComponent implements OnInit {
   termsConditionForm: FormGroup;
   isContinueDisabled: boolean = true;
   isTermsDisclaimersAgreed: boolean = true;
+  myInnerHeight: any;
   private isActive = new Subject();
-
+  withcheckboxmyInnerHeight: any;
+  
   constructor(private fb: FormBuilder,
     private alertService: AlertServiceService,
     private userRegService: UserRegService,
     private router: Router,
     private sharedService: SharedService
-  ) { }
+  ) {
+    
+   }
 
   ngOnInit(): void {
     this.InitializeFormStructure();
+    this.myInnerHeight = window?.innerHeight - 315 + 'px';
+    this.withcheckboxmyInnerHeight= window.innerHeight - 300 + 'px';
   }
   InitializeFormStructure() {
     this.sharedService.startLoading();

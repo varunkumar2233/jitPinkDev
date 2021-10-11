@@ -214,3 +214,27 @@ span.badge.cart-count {
      white-space: nowrap;
      line-height: 40px;
  }
+
+ .show .dropdown-menu.cartSection.emptyCart {
+    display: block;
+    min-width: 100px !important;
+    width: 190px !important;
+    padding: 20px;
+
+ .dropdown-box {
+    max-height: 100%;
+    overflow: hidden;
+}
+p {
+    font-weight: 700;
+}
+.viewcartbtn {
+    text-align: center;
+}
+.btn {
+    margin: 0 auto;
+    width: 150px;
+    padding: 0;
+}
+
+ }

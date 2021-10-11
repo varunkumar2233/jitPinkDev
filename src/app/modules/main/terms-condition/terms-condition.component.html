@@ -1,7 +1,7 @@
 <h3>Terms of Use and Disclaimers</h3> 
 <!-- <p class="sub-title">Terms of use for pinkerton.com and related sites</p> -->
 <div class="term-condition-box">
-    <div class="inner-box">
+    <div class="inner-box"  [style.height]="isTermsDisclaimersAgreed === true ? myInnerHeight : withcheckboxmyInnerHeight">
         <br>
         <h5>TERMS OF USE FOR PINKERTON.COM AND RELATED SITES</h5> 
         <br>
@@ -149,13 +149,13 @@
     <form *ngIf="!isTermsDisclaimersAgreed" [formGroup]="termsConditionForm">
         <div class="row tc-checkbox-field">
             <div class="col-md-8">
-                <div class="form-check pl-2">
-                    <input class="form-check-input" (change)="termsConditionCheck($event)" type="checkbox"
+                <div class="form-check custom-checkbox pl-2">
+                    <input class="form-check-input custom-control-input" id="notigridCheck" (change)="termsConditionCheck($event)" type="checkbox"
                         formControlName="has_agreed_tos">
-                    <label class="form-check-label" for="notigridCheck">
-                        By checking this box you have agreed with our Terms of Services, Privacy Policy, and default
-                        notification settings
-                    </label>
+                        <label class="form-check-label custom-control-label" for="notigridCheck">
+                            By checking this box you have agreed with our Terms of Services, Privacy Policy, and default
+                            notification settings
+                        </label>
                 </div>
             </div>
             <div class="col-md-4">
