@@ -97,7 +97,8 @@
     td{
         border: 0 !important;
         color: #fff;
-         font-size: 16px;
+         font-size: 14px;
+         font-weight: 400;
          padding: 12px 8px;
     }
 
@@ -261,38 +262,23 @@ h3 {
 
 }
 
-@-webkit-keyframes highlightTR {
-    100% {
-        background: #05206A;
-    }
+
+
+  tr.highlightTR {
+    background-color: #ADCBFA !important;
 }
-@-moz-keyframes highlightTR {
-    100% {
-        background: #05206A;
-    }
+
+tr.highlightTR td {
+    color: #05206A;
+    font-size: 14px;
+    font-weight: 400;
+    border-bottom: 1px solid #2125291a !important;
 }
-@keyframes highlightTR {
-    100% {
-        background: #05206A;
-    }
+
+tr.highlightTR td img {
+    background: #05206A;
 }
-.highlightTR {
-    -webkit-animation-direction: normal;
-    -webkit-animation-duration: 5s;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-name: highlightTR;
-    -webkit-animation-timing-function: linear;
-    -moz-animation-direction: normal;
-    -moz-animation-duration: 5s;
-    -moz-animation-iteration-count: infinite;
-    -moz-animation-name: highlightTR;
-    -moz-animation-timing-function: linear;
-    animation-direction: normal;
-    animation-duration: 5s;
-    animation-iteration-count: infinite;
-    animation-name: highlightTR;
-    animation-timing-function: linear;
-}
+
 .newIcon{
     display: none;
 }

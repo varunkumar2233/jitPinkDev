@@ -46,6 +46,7 @@
                                                     <div class="col-md-6">
                                                         <div class="item-details">
                                                             <p *ngIf="report.id!=0">Crime Index Report</p>
+                                                            <p class="location-name">{{report.address}}</p>
                                                             <p *ngIf="report.id==0">Credits</p>
                                                             <p *ngIf="report.id!=0" class="format">Format: PDF</p>
                                                             <p class="typeofreport">{{report.report_type}}</p>

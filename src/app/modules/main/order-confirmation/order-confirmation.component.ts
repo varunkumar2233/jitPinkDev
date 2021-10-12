@@ -42,6 +42,7 @@ paymentData : any;
   {
     this.service.getOrderSummary(this.order_ID).pipe(takeUntil(this.isActive)).subscribe(data =>{
       this.bindOrderSummaryDetails(data);
+      console.log(data);
     });
   }
 
@@ -61,13 +62,14 @@ paymentData : any;
     });
 
     this.orderList= reportData;
-
+    console.log(this.orderList);
     var payments = {
           "subtotal" : req.payment.subtotal,
           "tax": req.payment.tax,
           "total":req.payment.total
     }
     this.paymentData = payments;
+   
     if(this.orderList.length >0)
     {
      this.callReportgenrationEndPoints(this.orderList);

@@ -227,7 +227,25 @@ li.nav-item {
 .item-field .img {
     display: none;
 }
+}
 
-
+.card.order-summary.left-information {
+.item-field {
+    border: 0;
+}
+.row-item {
+    padding-bottom: 0;
+}
+.item-left {
+    font-size: 14px;
+    font-weight: 400;
+    color: #ddd;
+    margin-bottom: 5px;
+}
+.item-right {
+    font-weight: 700;
+    font-size: 16px;
+    color: #eee;
+}
 
 }

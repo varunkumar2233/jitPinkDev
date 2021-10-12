@@ -163,7 +163,7 @@
                   <td width="20%">{{row.crimeIndex}}</td>
                   <td width="20%">{{row.timestamp | date: 'yyyy/MM/dd'}}</td>
                   <td width="20%" style="text-align: center;" class="action-icon">
-                    <span class="newIcon">New</span>
+                    
                     <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, false)"
                       class="download-icon" src="assets/images/icon-download.svg" />
 
