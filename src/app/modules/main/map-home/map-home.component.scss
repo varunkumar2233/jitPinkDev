@@ -275,10 +275,16 @@ tr.highlightTR td {
     border-bottom: 1px solid #2125291a !important;
 }
 
-tr.highlightTR td img {
-    background: #05206A;
+.activeOne {
+    display: none;
+}
+.highlightTR .activeNone{
+    display: none;
 }
 
+.highlightTR .activeOne{
+    display: inline-block;
+}
 .newIcon{
     display: none;
 }

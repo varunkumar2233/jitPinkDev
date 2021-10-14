@@ -17,6 +17,7 @@ export class ReachUsComponent implements OnInit {
   reachusForm: FormGroup;
   submitted = false;
   userEmail;
+  isDisable : boolean = false;
   constructor(
     private formBuilder: FormBuilder,
       private route: ActivatedRoute,
@@ -39,7 +40,7 @@ export class ReachUsComponent implements OnInit {
     company: ['', Validators.required],
     message: ['', Validators.required],
     name:['',Validators.required],
-    email:[this.userEmail,Validators.required]
+    email:[this.userEmail,[Validators.required, Validators.email]]
   });
 }
 
@@ -49,7 +50,10 @@ onSubmit()
     
     this.submitted = true;
     if (this.reachusForm.invalid) {
+      this.isDisable = true;
         return;
+    }else {
+      this.isDisable = false;
     }
 
     const request = {
@@ -59,20 +63,19 @@ onSubmit()
            "email": this.reachusForm.get('email').value,
   };
     this.sharedService.startLoading();
-    this.accountService.getInContact(request)
-    
-        .pipe(first())
-        .subscribe({
-            next: (data) => {
-               this.sharedService.stopLoading();
-                this.alertService.success('successfully saved', { keepAfterRouteChange: true });
-                //this.router.navigate(['../'], { relativeTo: this.route });
-            },
-            error: error => {
-              
-              this.sharedService.stopLoading();
-              this.alertService.error(error.error.detail, { keepAfterRouteChange: true });
-            }
-        });
+   this.accountService.getInContact(request)
+   .pipe(first())
+      .subscribe({
+        next: (data) => {
+          this.sharedService.stopLoading();
+           this.alertService.success('Thank you, your message has been received. We will get back to you shortly.', { keepAfterRouteChange: true });
+        },
+        error: error => {
+          this.sharedService.stopLoading();
+          if(error){
+            this.alertService.error("Enter a valid email address.", { keepAfterRouteChange: true });
+          }
+          },
+      });
   }
 }

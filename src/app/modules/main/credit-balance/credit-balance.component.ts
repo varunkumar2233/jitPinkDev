@@ -15,7 +15,7 @@ import { UserRegService } from '../../shared/services/user-reg.service';
 })
 export class CreditBalanceComponent implements OnInit {
   private isActive: Subject<boolean> = new Subject();
-  headers = ["Type", "Amount", "Date", "Download/Preview"];
+  headers = ["Type", "Amount", "Date"];
   temp = [];
   rows = [];
   gdata: any;

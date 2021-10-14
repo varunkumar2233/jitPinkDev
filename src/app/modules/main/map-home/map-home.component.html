@@ -164,10 +164,20 @@
                   <td width="20%">{{row.timestamp | date: 'yyyy/MM/dd'}}</td>
                   <td width="20%" style="text-align: center;" class="action-icon">
                     
-                    <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, false)"
-                      class="download-icon" src="assets/images/icon-download.svg" />
+                    <div [ngClass]="{'activeOne': row.is_seen===false}">
+                      <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, false)"
+                      class="download-icon activeOne" src="assets/images/icon-download-active.svg" />
 
-                    <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, true)" class="view-icon" src="assets/images/icon-view.svg" />
+                    <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, true)" class="view-icon activeOne" src="assets/images/icon-view-active.svg" />
+                    </div>
+                    <div [ngClass]="{'activeNone': row.is_seen===true}">
+  <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, false)" class="download-icon activeNone" src="assets/images/icon-download.svg" />
+  <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, true)" class="view-icon activeNone" src="assets/images/icon-view.svg" />
+                    </div>
+
+                    
+
+                    
                     <!-- <img *ngIf="row.download_url" class="delete-icon" src="assets/images/icon-delet.svg" /> -->
                     <!-- show error icon asigned to varun -->
                     <img *ngIf="row.is_failed" class="download-icon" src="error" />
@@ -180,125 +190,6 @@
               <tr *ngIf="myReportListStaging?.length==0">
                 <td colspan="4">No Records Found.</td>
               </tr>
-
-
-              <!-- <tr>
-                <td>100 Miami St, Miami, …</td>
-                <td>1.1x</td>
-                <td>Platinum</td>
-                <td>01/01/21</td>
-
-                <td class="action-icon">
-                    <img class="download-icon" src="assets/images/icon-download.svg" />
-                    <img class="view-icon" src="assets/images/icon-view.svg" />
-                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
-                </td>
-              </tr> -->
-
-              <!-- <tr>
-                <td>100 Miami St, Miami, …</td>
-                <td>1.1x</td>
-                <td>Platinum</td>
-                <td>01/01/21</td>
-
-                <td class="action-icon">
-                    <img class="download-icon" src="assets/images/icon-download.svg" />
-                    <img class="view-icon" src="assets/images/icon-view.svg" />
-                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
-                </td>
-              </tr>
-
-              <tr>
-                <td>100 Miami St, Miami, …</td>
-                <td>1.1x</td>
-                <td>Platinum</td>
-                <td>01/01/21</td>
-
-                <td class="action-icon">
-                    <img class="download-icon" src="assets/images/icon-download.svg" />
-                    <img class="view-icon" src="assets/images/icon-view.svg" />
-                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
-                </td>
-              </tr>
-
-              <tr>
-                <td>100 Miami St, Miami, …</td>
-                <td>1.1x</td>
-                <td>Platinum</td>
-                <td>01/01/21</td>
-
-                <td class="action-icon">
-                    <img class="download-icon" src="assets/images/icon-download.svg" />
-                    <img class="view-icon" src="assets/images/icon-view.svg" />
-                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
-                </td>
-              </tr> -->
-
-              <!-- <tr>
-                <td>100 Miami St, Miami, …</td>
-                <td>1.1x</td>
-                <td>Platinum</td>
-                <td>01/01/21</td>
-
-                <td class="action-icon">
-                    <img class="download-icon" src="assets/images/icon-download.svg" />
-                    <img class="view-icon" src="assets/images/icon-view.svg" />
-                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
-                </td>
-              </tr>
-
-              <tr>
-                <td>100 Miami St, Miami, …</td>
-                <td>1.1x</td>
-                <td>Platinum</td>
-                <td>01/01/21</td>
-
-                <td class="action-icon">
-                    <img class="download-icon" src="assets/images/icon-download.svg" />
-                    <img class="view-icon" src="assets/images/icon-view.svg" />
-                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
-                </td>
-              </tr>
-
-              <tr>
-                <td>100 Miami St, Miami, …</td>
-                <td>1.1x</td>
-                <td>Platinum</td>
-                <td>01/01/21</td>
-
-                <td class="action-icon">
-                    <img class="download-icon" src="assets/images/icon-download.svg" />
-                    <img class="view-icon" src="assets/images/icon-view.svg" />
-                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
-                </td>
-              </tr>
-
-              <tr>
-                <td>100 Miami St, Miami, …</td>
-                <td>1.1x</td>
-                <td>Platinum</td>
-                <td>01/01/21</td>
-
-                <td class="action-icon">
-                    <img class="download-icon" src="assets/images/icon-download.svg" />
-                    <img class="view-icon" src="assets/images/icon-view.svg" />
-                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
-                </td>
-              </tr>
-
-              <tr>
-                <td>100 Miami St, Miami, …</td>
-                <td>1.1x</td>
-                <td>Platinum</td>
-                <td>01/01/21</td>
-
-                <td class="action-icon">
-                    <img class="download-icon" src="assets/images/icon-download.svg" />
-                    <img class="view-icon" src="assets/images/icon-view.svg" />
-                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
-                </td>
-              </tr> -->
-
             </tbody>
           </table>
         </div>
