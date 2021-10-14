@@ -15,10 +15,9 @@
                                 <div class="col-md-12">
                                     <br>
                                     <h4>You have <span class="count"> {{this.itemCount}} </span> <span> {{this.itemCount === 1 ? 'item' : 'items'}} </span> in your cart</h4>
-                                    <!-- <h4 *ngIf="this.itemCount ==0;">Item 0</h4> -->
                                 </div>
                             </div>
-                            <div class="row" *ngIf="this.itemCount !=0; else itemzero">
+                            <div class="row">
                                 <div class="col-md-7">
                                     <div class="card">
                                         <div class="card-body">
@@ -129,38 +128,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <ng-template #itemzero>
-                                <div class="col-md-12 no-item-list pl-0 pr-0">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="card-title">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="item-title">
-                                                            You have no items in your cart
-                                                        </div>
-                                                    </div>
-                                                   
-                                                </div>
-                                            </div>
-                                            <button class="default-btn btn" (click)="backClicked()">Explore</button>
-                                           
-                                        </div>
-                                    </div>
-                                </div>
-                              </ng-template>
-
-
                             <div class="row">
                                 <div class="col-md-12">
                                     <hr>
                                 </div>
-                                <div class="col-md-4 mt-2 text-left" *ngIf="this.itemCount == 0;">
-                                    <div class="back" (click)="backClicked()"><i class="ion-ios-arrow-back"></i>Back</div>
-                                </div>
                             </div>
 
-                            <form [formGroup]="termsConditionForm" (ngSubmit)="checkoutfinal()" *ngIf="this.itemCount !=0;">
+                            <form [formGroup]="termsConditionForm" (ngSubmit)="checkoutfinal()">
                                 <div class="row tc-checkbox-field">
                                     <div class="col-md-12">
                                         <div class="form-check pl-2">

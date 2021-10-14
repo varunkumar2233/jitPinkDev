@@ -121,8 +121,7 @@ a.nav-link:hover:before,
 }
 
 hr {
-    margin: 10px 0;
-    border-color: #6a6969;
+    margin: 25px 0;
 }
 
 .back {
@@ -250,22 +249,4 @@ li.nav-item {
 p.location-name {
     font-weight: 400 !important;
     color: #BBBBBB;
-}
-
-.no-item-list {
-.btn {
-    height: 46px;
-    line-height: 46px;
-    margin: 20px;
-}
-.item-title {
-    font-size: 20px;
-    font-weight: bold;
-    padding: 5px 0;
-}
-
-}
-
-.inner-box {
-    min-height: auto;
 }
