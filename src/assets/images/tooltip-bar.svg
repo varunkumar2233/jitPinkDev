@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="261" height="32" viewBox="0 0 261 32">
+  <defs>
+    <linearGradient id="linear-gradient" x2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#eee"/>
+      <stop offset="0.162" stop-color="#59ad24"/>
+      <stop offset="0.313" stop-color="#98bf2c"/>
+      <stop offset="0.443" stop-color="#cbd12f"/>
+      <stop offset="0.581" stop-color="#f4e53b"/>
+      <stop offset="0.709" stop-color="#e2a93d"/>
+      <stop offset="0.872" stop-color="#c7320e"/>
+      <stop offset="1" stop-color="#811"/>
+    </linearGradient>
+    <filter id="Rectangle_1002" x="0" y="0" width="261" height="32" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_749" data-name="Group 749" transform="translate(-1339 -822)">
+    <g transform="matrix(1, 0, 0, 1, 1339, 822)" filter="url(#Rectangle_1002)">
+      <rect id="Rectangle_1002-2" data-name="Rectangle 1002" width="243" height="14" transform="translate(9 6)" fill="url(#linear-gradient)"/>
+    </g>
+    <line id="Line_159" data-name="Line 159" y2="14" transform="translate(1401 828)" fill="none" stroke="#888" stroke-width="0.5"/>
+    <line id="Line_160" data-name="Line 160" y2="14" transform="translate(1468 828)" fill="none" stroke="#888" stroke-width="0.5"/>
+    <line id="Line_161" data-name="Line 161" y2="14" transform="translate(1534 828)" fill="none" stroke="#888" stroke-width="0.5"/>
+  </g>
+</svg>
