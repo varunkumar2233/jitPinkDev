@@ -105,6 +105,13 @@ export class MapboxServService {
       .map(e => this.createLocationMarker(e))
   }
 
+  addLocationMarkersSample(locations) {
+    // sort by latitude so that the pin points dont appear on the top of the colored pin tops
+    this.markers = locations
+      .sort((a, b) => b.lat - a.lat)
+      .map(e => this.createLocationMarkerSample(e))
+  }
+  
   createLocationMarker(location) {
     let totalCrimeIndex
     try {
@@ -143,6 +150,25 @@ export class MapboxServService {
       .setPopup(popup)
       .addTo(this.map)
   }
+  createLocationMarkerSample(location) {
+    const html = `
+    <div>
+      <h6>${this.sanitize.sanitize(SecurityContext.HTML, location.address)}</h6>
+    </div>
+    `
+    const popup = new mapboxgl.Popup({
+      offset: [0, -40]
+    })
+      .setHTML(html)
+
+    return new mapboxgl.Marker({
+      element: this.createMarkerElementForLocationSample(location),
+      offset: [0, -25]
+    })
+      .setLngLat([location.lon, location.lat])
+      .setPopup(popup)
+      .addTo(this.map)
+  }
 
   createMarkerElement(fillColor) {
     const svg = `
@@ -168,7 +194,11 @@ export class MapboxServService {
     const fillColor = totalCrimeIndex ? this.getRiskColor(totalCrimeIndex.crime_index, false) : '#ADCBFA'
     return this.createMarkerElement(fillColor)
   }
-
+  createMarkerElementForLocationSample(location) {
+    // get fill color based on crime index, default to kate blue
+    
+    return this.createMarkerElement('#ADCBFA')
+  }
   // create a pinkerton blue marker element
   createBlueMarkerElement() {
     return this.createMarkerElement('#05206A')

@@ -5,6 +5,7 @@ import { SharedService } from '../../shared/services/shared-service.service';
 import { addToCartServie } from '../services/add-to-cart.service';
 import { Subscription, Subject } from 'rxjs';
 import { AlertServiceService } from '../../shared/services/alert-service.service';
+import { UserRegService } from '../../shared/services/user-reg.service';
 
 @Component({
   selector: 'app-order-confirmation',
@@ -13,41 +14,53 @@ import { AlertServiceService } from '../../shared/services/alert-service.service
 })
 
 export class OrderConfirmationComponent implements OnInit {
-order_ID : any;
-isActive: Subject<boolean> = new Subject();
-orderList : Array<any> = [];
-paymentData : any;
+  order_ID: any;
+  isActive: Subject<boolean> = new Subject();
+  orderList: Array<any> = [];
+  paymentData: any;
 
-
+  orderSummary: any;
+  userdetails:any;
 
   constructor(private route: ActivatedRoute,
-    private shared_service :SharedService,
-    private service : addToCartServie,
-    private alert_service : AlertServiceService
+    private UserRegService: UserRegService,
+    private shared_service: SharedService,
+    private service: addToCartServie,
+    private alert_service: AlertServiceService
 
-    ) { }
+  ) { }
 
   ngOnInit(): void {
 
     this.shared_service.startLoading();
     this.route.queryParams.subscribe(params => {
-    this.order_ID=  params['order_id']
-  });
-  this.getOrderSummary();
-   this.shared_service.stopLoading();
+      this.order_ID = params['order_id']
+    });
+    this.getOrderSummary();
+    this.shared_service.stopLoading();
+
+    this.UserRegService.getUserInfo().pipe(takeUntil(this.isActive)).subscribe((res: any) => {
+      if (!res.isError) {
+        console.log(res)
+        this.userdetails = res;
+      }
+  })
+
   }
 
 
-  getOrderSummary()
-  {
-    this.service.getOrderSummary(this.order_ID).pipe(takeUntil(this.isActive)).subscribe(data =>{
-      this.bindOrderSummaryDetails(data);
-      console.log(data);
+
+
+  getOrderSummary() {
+    this.service.getOrderSummary(this.order_ID).pipe(takeUntil(this.isActive)).subscribe(orderSummaryDetails => {
+      console.log("orderSummaryDetails")
+      console.log(orderSummaryDetails)
+      this.orderSummary = orderSummaryDetails;
+      this.bindOrderSummaryDetails(orderSummaryDetails);
     });
   }
 
- bindOrderSummaryDetails(req)
-  {
+  bindOrderSummaryDetails(req) {
     var reportData = [];
     req.reports.forEach(function (value) { // report data
       reportData.push(
@@ -61,27 +74,23 @@ paymentData : any;
       );
     });
 
-    this.orderList= reportData;
-    console.log(this.orderList);
+    this.orderList = reportData;
+
     var payments = {
-          "subtotal" : req.payment.subtotal,
-          "tax": req.payment.tax,
-          "total":req.payment.total
+      "subtotal": req.payment.subtotal,
+      "tax": req.payment.tax,
+      "total": req.payment.total
     }
     this.paymentData = payments;
-   
-    if(this.orderList.length >0)
-    {
-     this.callReportgenrationEndPoints(this.orderList);
+    if (this.orderList.length > 0) {
+      this.callReportgenrationEndPoints(this.orderList);
     }
   }
 
- async callReportgenrationEndPoints(reportsObj)
-    {
-        for(var i=0;i<reportsObj.length;)
-        {
-           this.service.genrateReport(reportsObj[i].id).toPromise();
-          i++;
-        }
+  async callReportgenrationEndPoints(reportsObj) {
+    for (var i = 0; i < reportsObj.length;) {
+      this.service.genrateReport(reportsObj[i].id).toPromise();
+      i++;
     }
+  }
 }

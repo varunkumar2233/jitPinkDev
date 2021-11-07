@@ -11,9 +11,9 @@
     <div class="row">
       <div class="col-md-12 mainClassto ">
         <div class="inner-box">
-          <div class="map-form-field col-md-8">
-            <div class="row top-field">
-              <div class="">
+          <div class="map-form-field">
+            <div class="top-field">
+              <div class="d-none" style="display: none;">
                 <div class="btn-group custom-select-dropdown mapdropcont" dropdown>
                   <button id="customDropdown" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
                     aria-controls="dropdown-basic">
@@ -76,6 +76,26 @@
             <!-- </ng-container> -->
           </div>
           <div id="map" class="map-container"> </div>
+          <div class="tooltip-box" *ngIf="crimeScore">
+            <div class="top-list">
+              <span class="first">0.5x</span>
+              <span class="second">1.0x</span>
+              <span class="third">2.0x</span>
+            </div>
+            <p class="line-bar"><img src="assets/images/tooltip-bar.svg" /></p>
+            <p>Neighborhood Crime Risk Index<img class="bar-info-icon" src="assets/images/info-icon.svg" />
+              <span class="tooltip-info-hover">
+                <p>Map shows forecasted
+                  crime at the neighborhood
+                  scale for the selected county.
+                  Lighter shades of green
+                  indicate lower risk; darker
+                  shades of red indicate higher risk.</p>
+              </span>
+            </p>
+            <p>Projected Total Crime Index: <span class="score">{{crimeScore}}</span></p>
+
+          </div>
         </div>
       </div>
     </div>
@@ -118,7 +138,7 @@
 
             </div>
           </div>
-          <div class="col-md-7">
+          <div class="col-md-6">
             <div class="search-field">
               <div class="input-group has-validation">
                 <input type="search" class="form-control" [(ngModel)]="filterTerm" placeholder="search">
@@ -128,14 +148,68 @@
               </div>
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
             <div class="view-report">
-              <button (click)="downloadexl()" class="btn"><img src="assets/images/excel-icon.svg"></button>
+              <button (click)="downloadexl()" class="btn"><img src="assets/images/excel-icon.svg"><span class="exportToExcelText">Export to Excel</span></button>
             </div>
           </div>
         </div>
         <div class="reports-grid-view">
-          <table class="table reports-table">
+          <ngx-datatable 
+          class="bootstrap striped"
+          style="top: 20px; height: 380px;"
+       
+          [rows]="rows | filter:filterTerm"
+          [columnMode]="ColumnMode.force"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        rowHeight="auto"
+        [selected]="selected"
+        (select)="onSelect($event)"
+        [selectionType]="SelectionType.single"
+          [rowClass]="getRowClass" >
+        
+          
+          <ngx-datatable-column prop="address" name="Location" [width]="300"></ngx-datatable-column>
+          <ngx-datatable-column prop="crimeIndex" name="Crime Score"></ngx-datatable-column>
+          <ngx-datatable-column  prop="timestamp" name="Date">
+            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+              {{row.timestamp | date: 'yyyy/MM/dd'}}
+            </ng-template>
+          </ngx-datatable-column>
+          
+          <ngx-datatable-column name="Preview"  [sortable]="false">
+            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+              <div [ngClass]="{'activeOne': row.is_seen===false}">
+                <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, false)"
+                  class="download-icon activeOne" src="assets/images/icon-download-active.svg" />
+  
+                <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, true)"
+                  class="view-icon activeOne" src="assets/images/icon-view-active.svg" />
+              </div>
+              <div [ngClass]="{'activeNone': row.is_seen===true}">
+                <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, false)"
+                  class="download-icon activeNone" src="assets/images/icon-download.svg" />
+                <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, true)"
+                  class="view-icon activeNone" src="assets/images/icon-view.svg" />
+              </div>
+  
+  
+  
+  
+              <!-- <img *ngIf="row.download_url" class="delete-icon" src="assets/images/icon-delet.svg" /> -->
+              <!-- show error icon asigned to varun -->
+              <img *ngIf="row.is_failed" class="download-icon" src="error" />
+              <!-- show loading icon asigned to varun -->
+              <img *ngIf="(!row.download_url && !row.is_failed)" class="view-icon" src="loadig" />
+  
+            </ng-template>
+            
+          </ngx-datatable-column>
+  
+         
+        </ngx-datatable>
+          <table class="table reports-table" style="display: none;">
             <thead>
               <tr>
                 <!-- <th *ngFor="let column of headers" scope="col">
@@ -144,8 +218,8 @@
                 <th width="40%" scope="col">
                   Location
                 </th>
-                <th width="20%" scope="col">
-                  Total crime score
+                <th width="20%" scope="col" style="padding-left: 5px;">
+                  Crime&nbsp;Score
                 </th>
                 <th width="20%" scope="col">
                   Date
@@ -158,16 +232,29 @@
             </thead>
             <tbody>
               <ng-container *ngFor="let row of rows | filter:filterTerm">
-                <tr [ngClass]="{'highlightTR': row.is_seen===false}">
+                <tr *ngIf="myReportListStaging?.length!=0" [ngClass]="{'highlightTR': row.is_seen===false}" (click)="getScore(row.crimeIndex)">
                   <td width="40%">{{row.address}}</td>
                   <td width="20%">{{row.crimeIndex}}</td>
                   <td width="20%">{{row.timestamp | date: 'yyyy/MM/dd'}}</td>
                   <td width="20%" style="text-align: center;" class="action-icon">
-                    
-                    <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, false)"
-                      class="download-icon" src="assets/images/icon-download.svg" />
 
-                    <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, true)" class="view-icon" src="assets/images/icon-view.svg" />
+                    <div [ngClass]="{'activeOne': row.is_seen===false}">
+                      <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, false)"
+                        class="download-icon activeOne" src="assets/images/icon-download-active.svg" />
+
+                      <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, true)"
+                        class="view-icon activeOne" src="assets/images/icon-view-active.svg" />
+                    </div>
+                    <div [ngClass]="{'activeNone': row.is_seen===true}">
+                      <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, false)"
+                        class="download-icon activeNone" src="assets/images/icon-download.svg" />
+                      <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, true)"
+                        class="view-icon activeNone" src="assets/images/icon-view.svg" />
+                    </div>
+
+
+
+
                     <!-- <img *ngIf="row.download_url" class="delete-icon" src="assets/images/icon-delet.svg" /> -->
                     <!-- show error icon asigned to varun -->
                     <img *ngIf="row.is_failed" class="download-icon" src="error" />
@@ -180,125 +267,6 @@
               <tr *ngIf="myReportListStaging?.length==0">
                 <td colspan="4">No Records Found.</td>
               </tr>
-
-
-              <!-- <tr>
-                <td>100 Miami St, Miami, …</td>
-                <td>1.1x</td>
-                <td>Platinum</td>
-                <td>01/01/21</td>
-
-                <td class="action-icon">
-                    <img class="download-icon" src="assets/images/icon-download.svg" />
-                    <img class="view-icon" src="assets/images/icon-view.svg" />
-                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
-                </td>
-              </tr> -->
-
-              <!-- <tr>
-                <td>100 Miami St, Miami, …</td>
-                <td>1.1x</td>
-                <td>Platinum</td>
-                <td>01/01/21</td>
-
-                <td class="action-icon">
-                    <img class="download-icon" src="assets/images/icon-download.svg" />
-                    <img class="view-icon" src="assets/images/icon-view.svg" />
-                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
-                </td>
-              </tr>
-
-              <tr>
-                <td>100 Miami St, Miami, …</td>
-                <td>1.1x</td>
-                <td>Platinum</td>
-                <td>01/01/21</td>
-
-                <td class="action-icon">
-                    <img class="download-icon" src="assets/images/icon-download.svg" />
-                    <img class="view-icon" src="assets/images/icon-view.svg" />
-                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
-                </td>
-              </tr>
-
-              <tr>
-                <td>100 Miami St, Miami, …</td>
-                <td>1.1x</td>
-                <td>Platinum</td>
-                <td>01/01/21</td>
-
-                <td class="action-icon">
-                    <img class="download-icon" src="assets/images/icon-download.svg" />
-                    <img class="view-icon" src="assets/images/icon-view.svg" />
-                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
-                </td>
-              </tr> -->
-
-              <!-- <tr>
-                <td>100 Miami St, Miami, …</td>
-                <td>1.1x</td>
-                <td>Platinum</td>
-                <td>01/01/21</td>
-
-                <td class="action-icon">
-                    <img class="download-icon" src="assets/images/icon-download.svg" />
-                    <img class="view-icon" src="assets/images/icon-view.svg" />
-                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
-                </td>
-              </tr>
-
-              <tr>
-                <td>100 Miami St, Miami, …</td>
-                <td>1.1x</td>
-                <td>Platinum</td>
-                <td>01/01/21</td>
-
-                <td class="action-icon">
-                    <img class="download-icon" src="assets/images/icon-download.svg" />
-                    <img class="view-icon" src="assets/images/icon-view.svg" />
-                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
-                </td>
-              </tr>
-
-              <tr>
-                <td>100 Miami St, Miami, …</td>
-                <td>1.1x</td>
-                <td>Platinum</td>
-                <td>01/01/21</td>
-
-                <td class="action-icon">
-                    <img class="download-icon" src="assets/images/icon-download.svg" />
-                    <img class="view-icon" src="assets/images/icon-view.svg" />
-                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
-                </td>
-              </tr>
-
-              <tr>
-                <td>100 Miami St, Miami, …</td>
-                <td>1.1x</td>
-                <td>Platinum</td>
-                <td>01/01/21</td>
-
-                <td class="action-icon">
-                    <img class="download-icon" src="assets/images/icon-download.svg" />
-                    <img class="view-icon" src="assets/images/icon-view.svg" />
-                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
-                </td>
-              </tr>
-
-              <tr>
-                <td>100 Miami St, Miami, …</td>
-                <td>1.1x</td>
-                <td>Platinum</td>
-                <td>01/01/21</td>
-
-                <td class="action-icon">
-                    <img class="download-icon" src="assets/images/icon-download.svg" />
-                    <img class="view-icon" src="assets/images/icon-view.svg" />
-                    <img class="delete-icon" src="assets/images/icon-delet.svg" />
-                </td>
-              </tr> -->
-
             </tbody>
           </table>
         </div>

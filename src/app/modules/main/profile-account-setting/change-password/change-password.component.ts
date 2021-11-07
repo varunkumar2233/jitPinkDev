@@ -17,6 +17,10 @@ import { MustMatch } from '../../../shared/services/passwordvalidatorhelper';
 export class ChangePasswordComponent implements OnInit {
   changepassForm: FormGroup;
   submitted = false;
+  checkFormValid: boolean = true;
+  abc: string;
+  passwordVal: string;
+  new_password: string;
   constructor(
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
@@ -28,6 +32,8 @@ export class ChangePasswordComponent implements OnInit {
 
   ngOnInit() {
     this.InitializeForm();
+    var abc = "";
+    var abczs = console.log(this.passwordVal);
   }
 
   InitializeForm()
@@ -35,17 +41,23 @@ export class ChangePasswordComponent implements OnInit {
     this.changepassForm = this.formBuilder.group({
     old_password: ['', Validators.required],
     new_password: ['', [Validators.required, Validators.pattern('(?=\\D*\\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,30}'), Validators.minLength(8)]],
-    password: ['', Validators.required]
+    password: ['', [Validators.required, Validators.pattern('(?=\\D*\\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,30}'), Validators.minLength(8)]]
   },{
       validator: MustMatch('password', 'new_password')
   });
 }
   get f() { return this.changepassForm.controls; }
+
+  abcz(abc: any)
+  {
+    console.log(abc)
+  }
   onSubmit()
   {
-    
+    this.checkFormValid = (this.changepassForm.valid) ? true : false;
     this.submitted = true;
     if (this.changepassForm.invalid) {
+      this.checkFormValid= true;
       this.alertService.error('New Password and Confirm Password must be match.', { keepAfterRouteChange: true });
         return;
     }

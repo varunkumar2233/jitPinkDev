@@ -2,6 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <!-- <meta http-equiv="Strict-Transport-Security" content="max-age=31536000;"> -->
+  <!-- <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" /> -->
+  <!-- <meta http-equiv="Content-Security-Policy" content=" default-src 'self' *.googletagmanager.com/ *.google-analytics.com/ login.microsoftonline.com/ *.b2clogin.com/ *.azurewebsites.net/ *.myshopify.com/ *.blob.core.windows.net/ api.mapbox.com/ events.mapbox.com/ *.pinkerton.com/ iam.twilio.com wss://tsock.us1.twilio.com flex-api.twilio.com cdnjs.cloudflare.com/ assets.flex.twilio.com/ google.com/ cdn.jsdelivr.net/ code.jquery.com/ www.gstatic.com/ fonts.googleapis.com/ fonts.gstatic.com/ pay.google.com/ checkout.shopify.com/ shop.app/ *.myshopify.com/ paypal.com/ c.paypal.com cdn.shopify.com cdn.shopifycdn.net/ https://www.google.com/recaptcha/ blob: data: 'unsafe-inline' 'unsafe-eval'; child-src 'self' *.b2clogin.com google.com *.google.com *.shopify.com/ shop.app/ *.myshopify.com/ paypal.com/ blob:;"/>
+  <meta http-equiv="Referrer-Policy" content="no-referrer" />
+  <meta http-equiv="Permissions-Policy" content="accelerometer=(self), camera=(self), geolocation=(self), gyroscope=(self), magnetometer=(self), microphone=(self)" /> -->
   <title>Pinkerton Risk Portal</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -68,7 +73,7 @@
             yourFriendlyNameOverride: false,
             theirFriendlyNameOverride: false,
             yourDefaultName: 'You',
-            theirDefaultName: 'Pinkerton Agent'
+            theirDefaultName: 'Pinkerton Portal Support'
           }
         },
         MessageInput:{
@@ -99,6 +104,12 @@
                 background: "#DC3A25"
               }
             },
+          MainContainer: {
+            startEngagementOnInit: true
+          },
+          MessagingCanvas: {
+            messageStyle: "Minimal"
+          },
           EntryPoint: {
               Container: {
                 backgroundImage: "url('/assets/images/entryPointChat.png') !important",
@@ -135,10 +146,29 @@
     let username = localStorage.getItem('LoggedInName') == null ? 'User' : localStorage.getItem('LoggedInName'); 
       manager.strings.PredefinedChatMessageBody = "Hi  " + username + "! Welcome to the Pinkerton Risk Portal customer service chat box. Is there anything I can help you with today?";
       manager.strings.PredefinedChatMessageAuthorName = "Pinkerton Portal Support";
-
+    
+      // Twilio.FlexWebChat.Actions.on("beforeToggleChatVisibility", () => {
+      //   var calCount=0;
+      //   $("#twilio-customer-frame .Twilio-MessagingCanvas .Twilio-MessageList .Twilio-MessageBubble-Body").each(function(){calCount+= calCount+1;});
+      //   if(calCount != 0){
+      //   alert("count is " + calCount);
+      //   }
+      // });
+      // Twilio.FlexWebChat.Actions.on("afterToggleChatVisibility", () => {
+      //   var calCount=0;
+      //   $("#twilio-customer-frame .Twilio-MessagingCanvas .Twilio-MessageList .Twilio-MessageBubble-Body").each(function(){calCount+= calCount+1;});
+      //   if(calCount != 0){
+      //   //alert("count is " + calCount);
+      //   }
+      // });
     // Render WebChat
     webchat.init();
+   
+
+
+
   });
+  
 </script>
   <app-root></app-root>
   

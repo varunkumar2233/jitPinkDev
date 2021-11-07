@@ -22,7 +22,7 @@ import { NotificationsService } from '../services/notifications.service';
 export class HeaderComponent implements OnInit {
   bsModalRef: BsModalRef | undefined;
   cartList: Array<any> = [];
-  totalAmount: any;
+  totalAmount: number;
   itemCount: any;
   standartReportAmount: any;
   platiumReportAmount: any;
@@ -39,8 +39,13 @@ export class HeaderComponent implements OnInit {
     private date_Provider_Service: DataProviderService) {
     this.date_Provider_Service.getcartData().pipe(takeUntil(this.isActive)).subscribe((data: any) => {
       this.updateBasketAfterAddtoCart(data);
-      let elementBtn:HTMLElement = document.getElementById('auto_trigger') as HTMLElement;
-      elementBtn.click();
+    });
+
+  }
+
+  updateCartData(){
+    this.date_Provider_Service.getUpdatedData().pipe(takeUntil(this.isActive)).subscribe((data:any)=>{
+      this.loadCartData(); 
     });
   }
 
@@ -79,10 +84,6 @@ export class HeaderComponent implements OnInit {
 
 
   updateBasketAfterAddtoCart(data) {
-    var duplicateValueTrue = this.cartList.filter(DuplicateRecord => DuplicateRecord.geo_id == data.geo_id)
-    if(duplicateValueTrue.length != 0){
-      this.alert_service.error('Report already exists in the cart');
-    } else {
     if (data.report_type === 'standard_credits' || data.report_type === 'platinum_credits') {
       var indexcredit = this.cartList.findIndex(x => x.report_type === data.report_type);
       if (indexcredit > -1) {
@@ -92,8 +93,17 @@ export class HeaderComponent implements OnInit {
     //this.cartList.push(data);
     this.cartList.unshift(data);
     this.itemCount = this.cartList.length;
-    this.calculateItemSum();
-  }
+
+
+    
+ setTimeout(() => {
+  this.calculateItemSum();
+    }, 1);
+    let elementBtn:HTMLElement = document.getElementById('auto_trigger') as HTMLElement;
+    setTimeout(() => {
+      elementBtn.click();
+    }, 1);
+    
   }
 
   myCartList(req) {
@@ -195,6 +205,7 @@ export class HeaderComponent implements OnInit {
       }
     }
     this.date_Provider_Service.setViewCartDetailData(this.cartList);
+    this.date_Provider_Service.getcartData();
     this.shared_service.stopLoading();
 
     // this.shared_service.startLoading();
@@ -240,7 +251,7 @@ export class HeaderComponent implements OnInit {
   }
 
   calculateItemSum() {
-    var total = 0;
+    var total:number = 0;
     var creditAmount = 0;
     var amount = 0;
     //var creditAmounts = this.getCreditTotalPrice(1,2);
@@ -297,6 +308,7 @@ export class HeaderComponent implements OnInit {
   }
 
   viewcart() {
+    
     this.date_Provider_Service.setViewCartDetailData(this.cartList);
     this.router.navigate(['main/cart']);
   }

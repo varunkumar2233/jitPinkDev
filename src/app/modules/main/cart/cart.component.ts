@@ -7,9 +7,10 @@ import { ShopifyService } from '../services/shopify.service';
 import { DataProviderService } from '../services/data-provider.service';
 import { debug } from 'console';
 import { takeUntil } from 'rxjs/operators';
-import { Subscription, Subject } from 'rxjs';
+import { Subscription, Subject, Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Location} from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -29,13 +30,16 @@ export class CartComponent implements OnInit {
   isTermsAccepted: boolean = false;
   isActive: Subject<boolean> = new Subject();   // Subject used to take until the component is alive.
   submitted: boolean = false;
+  counter: number;
+  pageLoadInitialized : boolean = true;
   constructor(private cart_service: addToCartServie,
     private fb: FormBuilder,
     private shared_service: SharedService,
     private alert_service: AlertServiceService,
     private shopify: ShopifyService,
     private _location: Location,
-    private date_Provider_Service: DataProviderService,) {
+    private router: Router,
+    private date_Provider_Service: DataProviderService) {
     this.date_Provider_Service.getViewCartDetailData().pipe(takeUntil(this.isActive)).subscribe((data: any) => {
       //  this.loadCartData(); 
       this.cartList = data;
@@ -43,15 +47,15 @@ export class CartComponent implements OnInit {
       this.calculateItemSum();
     });
   }
-
-
+ 
+  
 
   ngOnInit(): void {
     this.InitializeFormCheckbox();
     this.getReportPricesfromShopify();
     setTimeout(() => {
       this.loadCartData();
-    }, 1000);
+    }, 1000);  
   }
 
   InitializeFormCheckbox() {
@@ -77,10 +81,17 @@ export class CartComponent implements OnInit {
       this.platiumReportAmount = data.find(e => e.handle === `platinum-report`).variants[0].price;
     });
   }
+ 
+  
 
   loadCartData() {
     this.cart_service.displayCartData().pipe(takeUntil(this.isActive)).subscribe(data => {
       this.myCartList(data);
+      if(this.pageLoadInitialized)
+      {
+        this.counter = data.standard_credits;
+      }
+      this.date_Provider_Service.updateCartData(this.cartList);
     });
   }
 
@@ -210,4 +221,114 @@ export class CartComponent implements OnInit {
 
     // this.shared_service.stopLoading();
   }
+
+  incrementCreditQuantity(){
+    this.counter = this.counter+1;
+    this.incrementDecrementCreditQuantity(this.counter);  
+  }
+
+  decrementCreditQuantity(){
+    this.counter = this.counter-1;
+    this.incrementDecrementCreditQuantity(this.counter);
+  }
+  
+  incrementDecrementCreditQuantity(incremeter: number){
+    this.pageLoadInitialized = false;
+    this.shared_service.startLoading();
+    var standObj = {
+      "standard_credits": incremeter
+    };
+    if(incremeter !== 0)
+    {
+      this.addUpdateCreditToCartDB(standObj);
+      setTimeout(() => {
+        this.loadCartData();
+      }, 1000);       
+      this.shared_service.stopLoading();
+
+    }else{
+      this.shared_service.startLoading();
+      this.deleteReportFromCart(0);
+      setTimeout(() => {
+      this.loadCartData();
+    }, 1000); 
+      window.location.reload();
+      
+    }
+  }
+
+  addUpdateCreditToCartDB(reportsdata) {
+    this.cart_service.addCreditToCartDB(reportsdata).pipe(takeUntil(this.isActive)).subscribe(
+      data =>{
+      console.log(data);
+    },
+    error => {
+      this.alert_service.error('error while upsating quantity of credit.');
+    });
+  }
+
+  deleteReportFromCart(id) {
+    var removeCredObj = {
+       "standard_credits": [id]
+     };
+   let indexcredit = this.cartList.findIndex(x => x.id === id);
+   if (indexcredit > -1) {
+     this.cartList.splice(indexcredit, 1);
+     this.itemCount = this.cartList.length;
+     this.calculateItemSum();
+     this.addUpdateCreditToCartDB(removeCredObj);
+   }
+ this.date_Provider_Service.setViewCartDetailData(this.cartList);
+}
+
+
+deleteReportFromCartLatest(id, type) {
+  this.shared_service.startLoading();
+  if (type === 'Standard Credits') {
+    var removeCredObj = {
+        "standard_credits": 0
+      };
+
+    let indexcredit = this.cartList.findIndex(x => x.id === id);
+    if (indexcredit > -1) {
+      this.cartList.splice(indexcredit, 1);
+      this.itemCount = this.cartList.length;
+      this.calculateItemSum();
+      this.addUpdateCreditToCartDB(removeCredObj);
+    }
+  }
+  else {
+    let indexcredit = this.cartList.findIndex(x => x.id === id);
+    if (indexcredit > -1) {
+      this.cartList.splice(indexcredit, 1);
+      this.itemCount = this.cartList.length;
+      this.calculateItemSum();
+      this.removeItemFromDB(id);
+      this.date_Provider_Service.updateCartData('report');
+    }
+  }
+  this.date_Provider_Service.setViewCartDetailData(this.cartList);
+  setTimeout(() => {
+    this.loadCartData();
+  }, 100); 
+  this.shared_service.stopLoading();
+
+}
+
+async removeItemFromDB(id) {
+  const request = {
+    "delete_ids": [id]
+  };
+  this.cart_service.deleteReportFromCart(request).pipe(takeUntil(this.isActive)).subscribe((res: any) => {
+    if (!res.isError) {
+      this.shared_service.stopLoading();
+    }
+  }, (err) => {
+
+    this.shared_service.stopLoading();
+    this.alert_service.error('Error while deletiing items.');
+  });
+
+}
+
 }

@@ -49,9 +49,10 @@ h5 {
         display: flex;
         width: 50%;
         font-size: 18px;
-        padding: 20px 20px 15px;
+        padding: 20px 10px;
         color: #EEEEEE;
         font-weight: bold;
+        padding-right: 0;
     }
 
     .right {
@@ -59,10 +60,10 @@ h5 {
         flex-direction: column;
         width: 50%;
         font-size: 20px;
-        padding: 20px;
+        padding: 20px 10px;
         color: #EEEEEE;
         font-weight: bold;
-        text-align: right;
+        text-align: right; 
     }
 }
 
@@ -104,6 +105,45 @@ button {
     h5 {
         border-bottom: 1px solid #DDDDDD;
         padding-bottom: 10px;
+    }
+}
+
+.default-btn[disabled],
+.default-btn[disabled]:hover {
+    background: none;
+    color: #adcbfa;
+    border: 1px solid #ADCBFA;
+}
+
+.default-btn {
+    background: #ADCBFA;
+    color: #05206A;
+    border: 1px solid #ADCBFA;
+}
+
+.default-btn:hover {
+    background: #05206A;
+    color: #fff;
+    border: 1px solid #05206A;
+}
+.showError
+{
+    font-size: 12px;
+    color: rgb(233, 79, 79);
+    text-align: center;
+}
+.btn-get-report
+{
+    text-align: center;
+
+    button.btn.default-btn.gs-btn {
+        font-size: 14px;
+        font-weight: bold;
+        color: #05206A;
+    }
+
+    button.btn.default-btn.gs-btn:hover {
+        color: #ADCBFA;
     }
 }
 

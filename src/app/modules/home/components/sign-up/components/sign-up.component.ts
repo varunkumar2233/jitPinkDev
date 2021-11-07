@@ -34,6 +34,13 @@ export class SignUpComponent implements OnInit {
   badge: string = 'bottomleft'
   scrHeight:any;
   isDisable : Boolean = false;
+  firstNameModel: string;
+  lastName: string;
+  phoneNumber : any;
+  emailField: any;
+  passwordField: string;
+  phoneNumberInitial : string;
+  dialCodeInitial : string;
   // phoneForm = new FormGroup({
   //   phone: new FormControl(undefined, [Validators.required])
   // });
@@ -94,16 +101,25 @@ export class SignUpComponent implements OnInit {
 
     // }
   }
-  onSubmit() {
-    this.isDisable = (this.registerForm.valid ) ? false : true;
-    
-    // generate recaptcha token
+
+  getFormValueTOEnableCaptcha(FormValue : any){
+    if(this.firstNameModel && this.lastName && this.emailField && this.passwordField && this.phoneNumber){
+      if(this.phoneNumber.number && this.phoneNumber.number.length>9)
+      {
+        this.phoneNumberInitial = this.phoneNumber.e164Number;
+        this.dialCodeInitial = this.phoneNumber.dialCode;
+       // generate recaptcha token
     this.reCaptchaV3Service.execute(this.siteKey, 'signup', (token) => {
-      console.log('This is your token: ', token);
       this.recaptchaToken = token;
     }, {
       useGlobalDomain: false
     });
+    }
+  }
+  }
+
+  onSubmit() {
+    this.isDisable = (this.registerForm.valid ) ? false : true;
 
     if(this.registerForm.valid){
       this.registerForm.patchValue({
@@ -122,6 +138,8 @@ export class SignUpComponent implements OnInit {
     this.registerForm.patchValue({
       phone: this.registerForm.value.phone.e164Number
     })
+    var lengthOfDial = this.dialCodeInitial.length;
+    this.phoneNumber = this.phoneNumberInitial.substring(lengthOfDial);
 
 
     this.sharedService.startLoading();
@@ -132,7 +150,7 @@ export class SignUpComponent implements OnInit {
           //console.log(data.toString())
           localStorage.clear();
           this.isSignUpClicked = false;
-          this.alertService.success('Registration successful. We have sent you an email with instructions on how to activate your account.', { keepAfterRouteChange: true });
+          this.alertService.success('If the email address entered was used to create an account, instructions will be sent to you. Please check your email.', { keepAfterRouteChange: true });
           this.router.navigate(['../'], { relativeTo: this.route });
           this.sharedService.stopLoading();
         },

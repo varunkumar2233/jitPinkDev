@@ -19,8 +19,8 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Name</label>
-                        <input formControlName="name" type="text" class="form-control" placeholder="name">
-
+                        <input formControlName="name" type="text" class="form-control" placeholder="name"
+                        [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
                         <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                             <div *ngIf="f.name.errors.required">Name is required</div>
                         </div>
@@ -29,34 +29,35 @@
                 
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Company</label>
-                        <input  formControlName="company" type="text" class="form-control" placeholder="company">
-
+                        <input  formControlName="company" type="text" class="form-control" placeholder="company"
+                        [ngClass]="{ 'is-invalid': submitted && f.company.errors }">
                         <div *ngIf="submitted && f.company.errors" class="invalid-feedback">
                             <div *ngIf="f.company.errors.required">Company is required</div>
                         </div>
                     </div>
                 
-                    <div class="col-md-12 mb-3">
+                    <div class="col-md-12 mb-3 emailValue">
                         <label class="form-label">Email</label>
-                        <input type="text" class="form-control" formControlName="email" placeholder="email">
+                        <input type="text" class="form-control" formControlName="email" placeholder="email"
+                        [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
 
                         <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                             <div *ngIf="f.email.errors.required">Email is required</div>
-                        </div>
+                            <div *ngIf="f.email.errors.email">Please enter valid email</div>
+                          </div>
 
                     </div>
                 
                     <div class="col-md-12 mb-3 messages-field">
                         <label class="form-label">Message</label>
-                        <textarea formControlName="message" class="form-control" placeholder="type your message here …"></textarea>
+                        <textarea [ngClass]="{ 'is-invalid': submitted && f.message.errors }" formControlName="message" class="form-control" placeholder="type your message here …" ></textarea >
                         <div *ngIf="submitted && f.message.errors" class="invalid-feedback">
                             <div *ngIf="f.message.errors.required">Message is required</div>
                         </div>
-
                     </div>
                 
                     <div class="col-md-12 mt-2">
-                    <button class="btn default-btn outline-btn">Send</button>
+                    <button class="btn default-btn outline-btn" [disabled]="!reachusForm.valid && isDisable">Send</button>
                     </div>
                     </div>
                     </form>

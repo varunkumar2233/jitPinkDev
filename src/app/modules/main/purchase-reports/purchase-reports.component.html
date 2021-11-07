@@ -88,11 +88,20 @@
                                 </div>
                         <div class="btn-get-sample">
                             
-                   <button (click)="addToCartStandard()" class="btn default-btn gs-btn"  [disabled]=isSignUpClicked>
+                   <button [hidden]= "AvailableCredits != 0" (click)="addToCartStandard()" class="btn default-btn gs-btn"  [disabled]="isSignUpClicked || disableButton">
                        <span *ngIf="isSignUpClicked" class="spinner-border spinner-border-sm"></span> 
                     ADD TO CART</button>
+
+                    <div class="btn-get-report">
+                    <button [hidden]= "AvailableCredits == 0" (click)="updateCreditBalance(true)" [disabled] = "ifUpdateCreditButtonClicked" class="btn default-btn gs-btn">
+                        <span *ngIf="ifUpdateCreditButtonClicked" class="spinner-border spinner-border-sm"></span> 
+                        Get Report
+                    </button>
+                </div>
+
                             </div></div>
                         </div>
+                        <div class= "showError" *ngIf="disableButton && !showSpanError">* You have already added this report. Please view in cart</div>
                     </div>
 
                     <!-- <div class="col-md-6">
