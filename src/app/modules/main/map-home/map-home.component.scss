@@ -138,7 +138,6 @@
     position: absolute;
     top: 50px;
     z-index: 99;
-    width: 100%;
     left: 35px;
 
     .dropdown .btn {
@@ -262,43 +261,63 @@ h3 {
 
 }
 
-
-
-  tr.highlightTR {
-    background-color: #ADCBFA !important;
-}
-
-tr.highlightTR td {
-    color: #05206A;
-    font-size: 14px;
-    font-weight: 400;
-    border-bottom: 1px solid #2125291a !important;
-}
-
-.activeOne {
-    display: none;
-}
-.highlightTR .activeNone{
-    display: none;
-}
-
-.highlightTR .activeOne{
-    display: inline-block;
-}
-.newIcon{
-    display: none;
-}
-.highlightTR .newIcon{
-    display: inline-block;
-    background: green;
-    padding: 2px 5px;
-    font-weight: normal;
-    font-size: 11px;
-}
 .mapdropcont{
     margin-right: 20px;
 }
 
 .reports-table tr th:last-child {
     text-align: center;
+}
+.tooltip-box {
+    position: absolute;
+    bottom: 40px;
+    background: #222222;
+    right: 40px;
+    width: 280px;
+    border-radius: 10px;
+    padding: 20px 10px;
+    height: 142px;
+ .top-list span {
+        font-size: 12px;
+        line-height: 14px;
+        color: #aaa;
+        padding-left: 48px;
+    }
+     p {
+        font-size: 14px;
+        line-height: 16px;
+        margin: 0 10px 10px;
+    }
+    p.line-bar {
+        margin: 0;
+    }
+    img.bar-info-icon {
+        margin-left: 5px;
+    }
+.tooltip-info-hover {
+    background: #222;
+    border-radius: 10px;
+    padding: 20px;
+    width: 235px;
+    height: 150px;
+    position: absolute;
+    top: -60%;
+    left: 0;
+    box-shadow: 0 0 4px #111;
+    display: none;
+    p{
+        font-size: 14px;
+        line-height: 18px;
+        color: #ddd;
+        margin: 0;
+    }
+ }
+.bar-info-icon:hover + .tooltip-info-hover {
+    display: block;
+}
+
+span.score {
+    color: #97BF2C;
+}
+
 }

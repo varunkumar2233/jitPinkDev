@@ -73,7 +73,7 @@
             yourFriendlyNameOverride: false,
             theirFriendlyNameOverride: false,
             yourDefaultName: 'You',
-            theirDefaultName: 'Pinkerton Agent'
+            theirDefaultName: 'Pinkerton Portal Support'
           }
         },
         MessageInput:{
@@ -104,6 +104,12 @@
                 background: "#DC3A25"
               }
             },
+          MainContainer: {
+            startEngagementOnInit: true
+          },
+          MessagingCanvas: {
+            messageStyle: "Minimal"
+          },
           EntryPoint: {
               Container: {
                 backgroundImage: "url('/assets/images/entryPointChat.png') !important",
@@ -140,10 +146,29 @@
     let username = localStorage.getItem('LoggedInName') == null ? 'User' : localStorage.getItem('LoggedInName'); 
       manager.strings.PredefinedChatMessageBody = "Hi  " + username + "! Welcome to the Pinkerton Risk Portal customer service chat box. Is there anything I can help you with today?";
       manager.strings.PredefinedChatMessageAuthorName = "Pinkerton Portal Support";
-
+    
+      // Twilio.FlexWebChat.Actions.on("beforeToggleChatVisibility", () => {
+      //   var calCount=0;
+      //   $("#twilio-customer-frame .Twilio-MessagingCanvas .Twilio-MessageList .Twilio-MessageBubble-Body").each(function(){calCount+= calCount+1;});
+      //   if(calCount != 0){
+      //   alert("count is " + calCount);
+      //   }
+      // });
+      // Twilio.FlexWebChat.Actions.on("afterToggleChatVisibility", () => {
+      //   var calCount=0;
+      //   $("#twilio-customer-frame .Twilio-MessagingCanvas .Twilio-MessageList .Twilio-MessageBubble-Body").each(function(){calCount+= calCount+1;});
+      //   if(calCount != 0){
+      //   //alert("count is " + calCount);
+      //   }
+      // });
     // Render WebChat
     webchat.init();
+   
+
+
+
   });
+  
 </script>
   <app-root></app-root>
   

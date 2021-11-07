@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "scss/_variables.scss";
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/bootstrap.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
 
 body {
     background: #000;
@@ -12,6 +15,34 @@ body {
 a {
     text-decoration: none;
 }
+.mapboxgl-ctrl-geocoder--input{
+    font-family: Arial, Helvetica, sans-serif;
+}
+.exportToExcelText{
+    color:#dddddd;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:12px;
+    margin-left:5px;
+
+}
+
+
+input.form-control::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:16px;
+  }
+  input.form-control::-moz-placeholder { /* Firefox 19+ */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:16px;
+  }
+  input.form-control:-ms-input-placeholder { /* IE 10+ */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:16px;
+  }
+  input.form-control:-moz-placeholder { /* Firefox 18- */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:16px;
+  }
 
 @media (min-width: 1200px) {
 .container, .container-lg, .container-md, .container-sm, .container-xl {
@@ -175,7 +206,9 @@ accordion .form-check-input:checked[type=radio] {
     .form-field .form-row {
         display: block;
     }
-
+    .ph3{
+        padding:0px 15px;
+    }
     .form-field h3 {
         font-size: 25px;
     }
@@ -350,7 +383,7 @@ a.active-link {
         margin-top: 15px;
         border: 0;
         padding: 0;
-        max-height: 214px;
+        max-height: 300px;
         min-width: 200px;
         overflow: auto;
     }
@@ -403,6 +436,7 @@ a.active-link {
 
     .credit-tab-panel {
         .nav-tabs {
+            display:none;
             border: 1px solid #ADCBFA;
             width: 294px;
             border-radius: 30px;
@@ -658,13 +692,13 @@ li {
 .modal-open {
     background: #7e7e7e;
 
-    .header .navbar {
-        background: #7e7e7e !important;
-    }
+    // .header .navbar {
+    //     background: #7e7e7e !important;
+    // }
 
-    .right-content {
-        background: #a1a1a1 !important;
-    }
+    // .right-content {
+    //     background: #a1a1a1 !important;
+    // }
 
     .carousel-indicators {
         justify-content: left;
@@ -685,7 +719,8 @@ li {
 }
 
 .modal-backdrop.show {
-    opacity: 0;
+    opacity: 0.2;
+    background-color:#000;
 }
 
 @media screen and (max-width: 767px) {
@@ -698,6 +733,22 @@ li {
         padding: 12px 10px;
         height: 94px;
         line-height: 22px;
+    }
+    .noPad{
+        padding:0px !important;
+    }
+    .noPadLeft{
+        padding-left:0px !important;
+    }
+    .sampleReportsSelect .dropdown-item{
+        width:300px;
+        white-space: normal;
+    }
+    .credit-tab-panel .ngx-slider .ngx-slider-bar-wrapper{
+        width:90%;
+    }
+    span.ngx-slider-span.ngx-slider-bubble.ngx-slider-limit.ngx-slider-ceil{
+        right:-10px !important;
     }
 
     .header {
@@ -732,7 +783,22 @@ li {
         font-size: 25px;
     }
 }
-
+.reports-table tr th:nth-child(3),.reports-table tr td:nth-child(3){
+    display:none;
+}
+.reports-table tr th:nth-child(4),.reports-table tr td:nth-child(4){
+    width:40%;
+}
+.purchasedReports tr th:nth-child(2),.purchasedReports tr th:nth-child(3),.purchasedReports tr td:nth-child(2),.purchasedReports tr td:nth-child(3){
+    display:none;
+}
+.reports-table .view-icon{
+    display:none;
+}
+.report-inner-box .custom-select-dropdown{
+    width:100%;
+    margin-bottom:10px;
+}
 .wrapper .right-content {
     padding: 0 !important;
     min-height: auto;
@@ -743,9 +809,12 @@ li {
     top: 25px;
     z-index: 99;
     width: 100%;
-    left: 0;
+    left: 10px;
 }
-
+.mapboxgl-ctrl-geocoder{
+    margin-top:10px;
+    background:none;
+}
 .report-panel .report-details {
     padding: 0 15px 30px !important;
 
@@ -771,8 +840,8 @@ li {
     }
 
 .welcome-popup {
-    top: 25%;
-    left: 5%;
+    // top: 25%;
+    // left: 5%;
 
     .modal-content {
         height: auto;
@@ -816,6 +885,9 @@ li {
 
 }
 
+.right-content{
+    margin-top:65px !important;
+}
 .inner-box {
     margin: 0 20px 20px;
 
@@ -827,7 +899,9 @@ li {
         margin-bottom: 15px;
     }
 }
-
+.credits-field{
+    margin-top:20px;
+}
 
 .right-content h3 {
     font-size: 21px;
@@ -866,11 +940,28 @@ button[disabled]{
     display:none !important;
     visibility: hidden;
 }
+.Twilio-InlineMessage,.Twilio-WelcomeMessage{
+    display:none;
+}
 .Twilio-MessageListItem{
     border-bottom:1px solid #EEEEEE;
+    margin-top:0px;
+}
+.Twilio-MessagingCanvas-default > div > div:after{
+    content: '';
+    display:block;
+    clear:both;
 }
 .Twilio-MessageInput-SendButton{
     background-color: #05206A;
+}
+.Twilio-ChatItem-Avatar{
+    margin-top:10px;
+}
+.Twilio-MessagingCanvas-default{
+    min-height:50vh;
+    overflow: hidden;
+    position: relative;
 }
 // .Twilio-EntryPoint,.Twilio-EntryPoint:hover{
 //     background-color: "#F00";
@@ -914,4 +1005,90 @@ button[disabled]{
 }
 .grecaptcha-badge{
     bottom: 150px !important;
+}
+.mapboxgl-ctrl-group{
+    background-color: #222;
+}
+.mapboxgl-ctrl button.mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon {
+    background-image:url("data:image/svg+xml;charset=utf-8,<svg width='29' height='29' viewBox='0 0 29 29' xmlns='http://www.w3.org/2000/svg' fill='white'> <path d='M14.5 8.5c-.75 0-1.5.75-1.5 1.5v3h-3c-.75 0-1.5.75-1.5 1.5S9.25 16 10 16h3v3c0 .75.75 1.5 1.5 1.5S16 19.75 16 19v-3h3c.75 0 1.5-.75 1.5-1.5S19.75 13 19 13h-3v-3c0-.75-.75-1.5-1.5-1.5z'/> </svg>")
+}
+.mapboxgl-ctrl button.mapboxgl-ctrl-zoom-out .mapboxgl-ctrl-icon {
+    background-image:url("data:image/svg+xml;charset=utf-8,<svg width='29' height='29' viewBox='0 0 29 29' xmlns='http://www.w3.org/2000/svg' fill='white'> <path d='M10 13c-.75 0-1.5.75-1.5 1.5S9.25 16 10 16h9c.75 0 1.5-.75 1.5-1.5S19.75 13 19 13h-9z'/> </svg>")
+}
+
+
+
+.ngx-datatable .datatable-header{
+    background-color: #000;
+    -webkit-border-top-left-radius: 7px;
+-webkit-border-top-right-radius: 7px;
+-moz-border-radius-topleft: 7px;
+-moz-border-radius-topright: 7px;
+border-top-left-radius: 7px;
+border-top-right-radius: 7px;
+}
+.ngx-datatable.bootstrap .datatable-body .datatable-body-row.datatable-row-even {
+    background-color: #666;
+}
+.ngx-datatable.bootstrap .datatable-body .datatable-body-row.datatable-row-odd {
+    background-color: #555;
+}
+.ngx-datatable.bootstrap .datatable-body .datatable-body-row {
+    vertical-align: top;
+    border-top: 0px  solid #d1d4d7;
+}
+.datatable-body-cell-label{
+    white-space: normal;
+    line-height: 18px;
+}
+.ngx-datatable .datatable-body .datatable-scroll{
+    display: block;
+    height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.datatable-body-cell-label img{
+    margin: 0px 6px !important;
+    cursor: pointer;
+}
+.ngx-datatable.bootstrap .datatable-footer .page-count{
+    display: none;
+}
+.datatable-footer{
+    display: none !important;
+}
+.ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell{
+    border: none;
+}
+
+.highlightTR {
+    background-color: #ADCBFA !important;
+    border-bottom: 1px solid #666;
+}
+
+.highlightTR .datatable-body-cell-label {
+    color: #05206A;
+    font-size: 14px;
+    font-weight: 400;
+}
+.activeOne {
+    display: none;
+}
+.highlightTR .activeNone{
+    display: none;
+}
+
+.highlightTR .activeOne{
+    display: inline-block;
+}
+.newIcon{
+    display: none;
+}
+.highlightTR .newIcon{
+    display: inline-block;
+    background: green;
+    padding: 2px 5px;
+    font-weight: normal;
+    font-size: 11px;
 }

@@ -88,11 +88,17 @@ a.nav-link:hover:before,
         font-weight: normal;
     }
 
+    p.creditQuantity{
+       align-items: right;
+       padding-right: 10px;
+}
+
     .savelater a {
         text-decoration: underline !important;
         cursor: pointer;
     }
 }
+
 
 
 
@@ -121,7 +127,8 @@ a.nav-link:hover:before,
 }
 
 hr {
-    margin: 25px 0;
+    margin: 10px 0;
+    border-color: #6a6969;
 }
 
 .back {
@@ -250,3 +257,43 @@ p.location-name {
     font-weight: 400 !important;
     color: #BBBBBB;
 }
+
+.no-item-list {
+.btn {
+    height: 46px;
+    line-height: 46px;
+    margin: 20px;
+}
+.item-title {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px 0;
+}
+
+}
+
+.inner-box {
+    min-height: auto;
+}
+.hideButton{
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    padding: 0px  6px;
+    font-size: 13px;
+}
+
+.counter{
+    font-size: 14px;
+}
+
+i.ion-ios-close {
+    font-size: 25px;
+    color: #ddd !important;
+   align-items: left;
+   padding-left: 320px;
+}
+

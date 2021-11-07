@@ -226,6 +226,7 @@
     border: 0 !important;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
+    max-width: 420px;
   }
   .mapboxgl-ctrl-geocoder .suggestions {
     font-size: 13px;

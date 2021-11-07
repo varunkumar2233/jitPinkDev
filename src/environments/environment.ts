@@ -42,6 +42,7 @@ export const environment = {
 	notificationListUrl: `${apiUrl}user/notifications/${securekey}`,
 	getLocationList: `${apiUrl}report/sample-list/${securekey}`,
 	getPurchaceHistory: `${apiUrl}/report/purchase-history/${securekey}`,
+	updateCreditByOne: `${apiUrl}report/create/${securekey}`,
 	postLoginRedirectUri: {
 		landingMain: `${webUrl}/main`,
 		landingHome: `${webUrl}`,

@@ -191,12 +191,14 @@ export class GetSampleReportsComponent implements OnInit {
       //this.onCountrySelection('');
       console.log(',.,.................................locations data');
       console.log(this.countries);
-
+      this.map.addLocationMarkersSample(this.countries)
 
       // load my locations to show on map
-      this.map.getMyReports().pipe(takeUntil(this.isActive)).subscribe((res: any) => {
-        this.map.addLocationMarkers(res)
-      })
+      // this.map.getMyReports().pipe(takeUntil(this.isActive)).subscribe((res: any) => {
+      //   console.log("res")
+      //   console.log(res)
+      //   this.map.addLocationMarkers(res)
+      // })
     });
 
     // when location is selected in mapbox, check report availability

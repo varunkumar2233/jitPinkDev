@@ -16,7 +16,7 @@
               <div class="form-row">
                 <div class="mb-3 col">
                   <label class="form-label">First Name</label>
-                  <input formControlName="first_name" type="text" placeholder="first name" class="form-control"
+                  <input formControlName="first_name" type="text" placeholder="first name" class="form-control" [(ngModel)] = "firstNameModel" (ngModelChange) = "getFormValueTOEnableCaptcha($event)"
                     [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }">
                   <div *ngIf="submitted && f.first_name.errors" class="invalid-feedback">
                     <div *ngIf="f.first_name.errors.required">First Name is required</div>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="mb-3 col">
                   <label class="form-label">Last Name</label>
-                  <input formControlName="last_name" type="text" placeholder="last name" class="form-control"
+                  <input formControlName="last_name" type="text" placeholder="last name" class="form-control" [(ngModel)] = "lastName" (ngModelChange) = "getFormValueTOEnableCaptcha($event)"
                     [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }">
                   <div *ngIf="submitted && f.last_name.errors" class="invalid-feedback">
                     <div *ngIf="f.last_name.errors.required">Last Name is required</div>
@@ -41,7 +41,7 @@
                       [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
                       [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.UnitedStates" [maxLength]="15"
                       [phoneValidation]="true" [separateDialCode]="true" [numberFormat]="PhoneNumberFormat.National"
-                      name="phone" formControlName="phone">
+                      name="phoneNumber" formControlName="phone"  [(ngModel)] = "phoneNumber" (ngModelChange) = "getFormValueTOEnableCaptcha($event)">
                     </ngx-intl-tel-input>
                   </div>
                   <div *ngIf="submitted && f.phone.errors" class="phone-invalid-feedback">
@@ -56,7 +56,7 @@
               </div>
               <div class="mb-3 form-group">
                 <label class="form-label">Email</label>
-                <input formControlName="email" type="text" placeholder="email" class="form-control"
+                <input formControlName="email" type="text" placeholder="email" class="form-control" [(ngModel)] = "emailField" (ngModelChange) = "getFormValueTOEnableCaptcha($event)"
                   [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
                 <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                   <div *ngIf="f.email.errors.required">Email is required</div>
@@ -65,7 +65,7 @@
               </div>
               <div class="mb-3 form-group">
                 <label class="form-label">Password</label>
-                <input formControlName="password" type="password" placeholder="Password" class="form-control"
+                <input formControlName="password" type="password" placeholder="Password" class="form-control" [(ngModel)] = "passwordField" (ngModelChange) = "getFormValueTOEnableCaptcha($event)"
                   [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
                 <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                   <div *ngIf="f.password.errors.minLength">Minimum length should be 8</div>
@@ -96,7 +96,7 @@
                 </div>
               </div> -->
               <div class="mb-3">
-                <button class="btn default-btn outline-btn" [disabled]="!registerForm.valid || isDisable">
+                <button class="btn default-btn outline-btn" [disabled]="!registerForm.valid && isDisable">
                   <span *ngIf="isSignUpClicked" class="spinner-border spinner-border-sm"></span>
                   Sign Up
                 </button>

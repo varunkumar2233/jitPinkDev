@@ -9,9 +9,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="inner-box">
-
                     <div class="tab-content" id="myTabContent">
-
                         <div class="tab-pane-add" id="confirmation" role="tabpanel">
                             <div class="row">
                                 <div class="col-md-12">
@@ -19,6 +17,87 @@
                                     <h4>Confirmation</h4>
                                     <p><small>Thank you for your order!</small></p>
                                     <p><strong>Your Order ID - {{order_ID}}</strong></p>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="card order-summary left-information">
+                                        <div class="card-body">
+                                            <div class="card-title">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="item-title">
+                                                            Purchase Information
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="item-field">
+                                                <div class="row row-item">
+                                                    <div class="col-md-7 col-6">
+                                                        <div class="item-left">
+                                                            Order Number
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5 col-6">
+                                                        <div class="item-right text-right">
+                                                             {{orderSummary?.order_number}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-7 col-6">
+                                                        <div class="item-left">
+                                                            Currency
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5 col-6">
+                                                        <div class="item-right text-right">
+                                                            {{orderSummary?.payment.currency}}
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-7 col-6">
+                                                        <div class="item-left">
+                                                            Number of Reports (Quantity)
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5 col-6">
+                                                        <div class="item-right text-right">
+                                                            {{orderSummary?.reports.length}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-7 col-6">
+                                                        <div class="item-left">
+                                                            Number of Credits (Quantity)
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5 col-6">
+                                                        <div class="item-right text-right">
+                                                            {{orderSummary?.standard_credits.quantity}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-7 col-6">
+                                                        <div class="item-left">
+                                                            Amount Paid
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5 col-6">
+                                                        <div class="item-right text-right">
+                                                           $ {{orderSummary?.payment.total}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                         
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-md-5">
                                     <div class="card order-summary">
@@ -30,7 +109,6 @@
                                                             Order Summary
                                                         </div>
                                                     </div>
-        
                                                 </div>
                                             </div>
                                             <div class="item-field">
@@ -42,11 +120,10 @@
                                                     </div>
                                                     <div class="col-md-5 col-6">
                                                         <div class="item-right text-right">
-                                                            <strong> $ {{paymentData?.subtotal}}</strong>
+                                                            $ {{paymentData?.subtotal}}
                                                         </div>
                                                     </div>
                                                 </div>
-        
                                                 <div class="row">
                                                     <div class="col-md-7 col-6">
                                                         <div class="item-left">
@@ -55,33 +132,11 @@
                                                     </div>
                                                     <div class="col-md-5 col-6">
                                                         <div class="item-right text-right">
-                                                            <strong>{{paymentData?.tax}}</strong>
+                                                            {{paymentData?.tax}}
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- <div class="item-field promo-field">
-                                                        <div class="row">
-                                                            <div class="col-md-6 col-6 pr-0">
-                                                                <div class="item-left">
-                                                                    Promo code:
-                                                                </div>
-        
-                                                                <div class="item-left">
-                                                                    Credit:
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 col-6 pl-0">
-                                                                <div class="item-right text-right">
-                                                                    <strong>Promo code</strong>
-                                                                </div>
-                                                                <div class="item-right text-right">
-                                                                    <strong>Credit amount</strong>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> -->
-        
                                             <div class="sub-total">
                                                 <div class="row">
                                                     <div class="col-md-6 col-6">
@@ -91,167 +146,15 @@
                                                         <strong>${{paymentData?.total}}</strong>
                                                     </div>
                                                 </div>
-        
                                             </div>
-        
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- <div class="row">
-                                <div class="col-md-7">
-                                    <div class="card">
-                                       <div class="card-body">
-                                        <div class="card-title">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="item-title">
-                                                        Billing Information
-                                                    </div>
-                                                </div>
-                                            </div>                                          
-                                        </div>
-                                     <div class="item-field border-bottom-none">
-                                      
-                                        <div class="row row-item">
-                                            <div class="col-md-7 col-6">
-                                                <div class="item-left">
-                                                    Name
-                                                </div>
-                                            </div>
-                                            <div class="col-md-5 col-6">
-                                                <div class="item-right text-right">
-                                                    <strong>Name</strong>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row row-item">
-                                            <div class="col-md-7 col-6">
-                                                <div class="item-left">
-                                                    Country
-                                                </div>
-                                            </div>
-                                            <div class="col-md-5 col-6">
-                                                <div class="item-right text-right">
-                                                    <strong>Country</strong>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row row-item">
-                                            <div class="col-md-7 col-6">
-                                                <div class="item-left">
-                                                    Address
-                                                </div>
-                                            </div>
-                                            <div class="col-md-5 col-6">
-                                                <div class="item-right text-right">
-                                                    <strong>Address</strong>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row row-item">
-                                            <div class="col-md-7 col-6">
-                                                <div class="item-left">
-                                                    City
-                                                </div>
-                                            </div>
-                                            <div class="col-md-5 col-6">
-                                                <div class="item-right text-right">
-                                                    <strong>City</strong>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row row-item">
-                                            <div class="col-md-7 col-6">
-                                                <div class="item-left">
-                                                    State/Region
-                                                </div>
-                                            </div>
-                                            <div class="col-md-5 col-6">
-                                                <div class="item-right text-right">
-                                                    <strong>State/Region</strong>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row row-item">
-                                            <div class="col-md-7 col-6">
-                                                <div class="item-left">
-                                                    Zip/Postal Code
-                                                </div>
-                                            </div>
-                                            <div class="col-md-5 col-6">
-                                                <div class="item-right text-right">
-                                                    <strong>Zip/Postal Code</strong>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                      </div>
-                                       </div> 
-
-                                     </div> -->
-
-                            <!-- <div class="card">
-                                        <div class="card-body">
-                                         <div class="card-title">
-                                             <div class="row">
-                                                 <div class="col-md-12">
-                                                     <div class="item-title">
-                                                         Payment Method
-                                                     </div>
-                                                 </div>
-                                             </div>                                          
-                                         </div>
-                                      <div class="item-field border-bottom-none">
-                                       
-                                         <div class="row row-item">
-                                             <div class="col-md-3 col-3">
-                                                 <div class="item-left">
-                                                     Visa
-                                                 </div>
-                                             </div>
-                                             <div class="col-md-9 col-9">
-                                                 <div class="row">
-                                                <div class="item-left col-md-6 col-4 pr-0 text-right">
-                                                    <strong>7777</strong>
-                                                </div>
-                                                 <div class="item-right col-md-6 col-8 text-right">
-                                                     <strong>Exp 02/2022</strong>
-                                                 </div>
-                                                </div>
-                                             </div>
-                                         </div>
-                                          
- 
-                                       </div>
-                                        </div> 
- 
-                                      </div> -->
-
-
-
-
-
-
                         </div>
-
-                        
+                        <h5>Thank you for you order! A confirmation email was sent to {{userdetails.email}}</h5>
                     </div>
-
-
                 </div>
-
-
-
-
-
-
             </div>
         </div>
-
     </div>

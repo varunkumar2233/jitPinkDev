@@ -14,6 +14,8 @@ import { Subject, Subscription } from 'rxjs';
 import { DataProviderService } from '../services/data-provider.service';
 import { ShopifyService } from '../services/shopify.service';
 import { AlertServiceService } from '../../shared/services/alert-service.service';
+import { ColumnMode, SelectionType, SortType } from '@swimlane/ngx-datatable';
+import { IsTermsIsSignedService } from '../../shared/services/is-terms-is-signed.service';
 
 @Component({
   selector: '.mapHOmepage',
@@ -23,9 +25,17 @@ import { AlertServiceService } from '../../shared/services/alert-service.service
 export class MapHomeComponent implements OnInit, OnDestroy  {
   @ViewChild('geocoderContainer') geocoderContainer: ElementRef<HTMLDivElement>;
   bsModalRef!: BsModalRef;
-  crimeIndex: any;
+  crimeIndex: number = 0;
   empList= [];
+  crimeScore: number = 0;
+
+  loadingIndicator = true;
+  reorderable = true;
+  ColumnMode = ColumnMode;
+  SelectionType = SelectionType;
+
   constructor(private map: MapboxServService,
+    private isTerms: IsTermsIsSignedService,
     private router: Router,
     private activevateRoute: ActivatedRoute,
     private modalService: BsModalService,
@@ -58,8 +68,24 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
   selectedPlaceImageURL: string;
   isResponseFromNotification: boolean = false;
   datasubcription: Subscription;
+
+  selected = [];
+
+  onSelect({ selected }) {
+    this.crimeScore = 0;
+    setTimeout(() => {
+      this.crimeScore = selected[0].crimeIndex;
+    }, 50);
+  }
+  getRowClass(row:any){
+    return {
+      'highlightTR':  row.is_seen == false
+    };
+ }
+
   ngOnInit(): void {
-    console.log("number of reports:" + this.rows.length)
+    this.isTerms.validateLoginStatus();
+    //console.log("number of reports:" + this.rows.length)
     //this.shopify.getAuthenticatedCheckoutUrl().then(data => console.log(data))
     //console.log('get all products data');
 
@@ -68,25 +94,14 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
     //this.map.downloadReportCSV();
     this.map.getCountryList().pipe(takeUntil(this.isActive)).subscribe(data => {
       this.countries = data;
-
+      
 
       //do not delete this line below
       // this.bsModalRef = this.modalService.show(WelcomePinkertonComponent, Object.assign({}, { class: 'welcome-popup' }));
       // this.bsModalRef.content.closeBtnName = 'Close';
     });
     //this.shopify.getAuthenticatedCheckoutUrl().then(data => console.log(data))
-    this.shopify.getProducts().then(data => {
-      console.log(data)
-      JSON.stringify(data)
-      if(data[2].handle=="platinum-report"){
-        this.platinumReportPrice = data[2].variants[0].price;
-      }
-      if(data[3].handle=="standard-report"){
-        this.standardReportPrice = data[3].variants[0].price;
-      }
-      //console.log(data[0].variants[0].price);
-      //console.log(data[3].handle);
-    })
+
 
 
     this.bindMyReportsData();
@@ -105,7 +120,11 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
     this.datasubcription.unsubscribe();
   }
   myreportList(response) {
-    var TempArray = [];
+    if(response.length == 0)
+    {
+      this.myReportListStaging = [];
+    }else{
+      var TempArray = [];
     this.myReportListStaging = [];
     response.forEach(function (value) {
       TempArray.push(value);
@@ -131,10 +150,9 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
      }
     }
     this.myReportListStaging = TempArray;
-    console.log(this.rows)
+    }
     this.map.addLocationMarkers(this.myReportListStaging)
   }
-
 
 
 
@@ -154,11 +172,15 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
     //   //this.rows=this.myReportListStaging;
     // }
   }
-  bindMyReportsData() {
+  bindMyReportsData(countryCode? : string) {
     this.sharedService.startLoading();
     this.map.getMyReports().pipe(takeUntil(this.isActive)).subscribe((res: any) => {
       console.log("res")
       console.log(res)
+      if(countryCode!=null)
+      {
+        res= res.filter(countryFilter=> countryFilter.country == countryCode);
+      }
       if (!res.isError) {
         this.myreportList(res);
         this.sharedService.stopLoading();
@@ -171,6 +193,13 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
     });
   }
 
+  getScore(crimeIndex){
+    this.crimeScore = 0;
+    setTimeout(() => {
+      this.crimeScore = crimeIndex;
+    }, 50);
+    
+  }
 
   hideSearch() {
     this.isAnyReportAvaible = false;
@@ -185,6 +214,7 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
 
     this.map.getCountryList().pipe(takeUntil(this.isActive)).subscribe((data: any) => {
       this.countries = data;
+      //this.countries.push({name:"Select All", iso2:"", iso3:""});
       // autoselect usa
       const usa = data.find(e => e.iso3 === 'usa')
      // this.onCountrySelection(usa)
@@ -193,6 +223,7 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
       //do not delete this line below
       // this.bsModalRef = this.modalService.show(WelcomePinkertonComponent, Object.assign({}, { class: 'welcome-popup' }));
       // this.bsModalRef.content.closeBtnName = 'Close';
+       this.countries.push({name:"Select All", iso2:"", iso3:null});
     });
 
 
@@ -228,7 +259,16 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
             center: res.result.center,
             zoom: 15.5
           })
-
+          this.shopify.getProducts().then(data => {
+            console.log("data shopify")
+            console.log(data)
+            //JSON.stringify(data)
+            if(data[3].handle=="standard-report"){
+              this.standardReportPrice = data[3].variants[0].price;
+            }else if(data[2].handle=="standard-report"){
+              this.standardReportPrice = data[2].variants[0].price;
+            }
+          })
           this.map.showFoundReportMarker(lon, lat)
         }
         else {
@@ -239,20 +279,23 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
         this.alertService.error('Reports are not available for this location.')
       }
     })
-
-
   }
 
   onCountrySelection = (item: any) => {
-    this.selectedCountry = item;
-    this.map.map.fitBounds(item.bbox)
-    this.map.geocoder.setCountries(this.selectedCountry.iso2)
+    if(item.name  == "Select All")
+    {
+      this.bindMyReportsData(item.iso3);
+    }else{
+      this.selectedCountry = item;
+      this.map.map.fitBounds(item.bbox)
+      this.map.geocoder.setCountries(this.selectedCountry.iso2);
+      this.bindMyReportsData(this.selectedCountry.iso3);
   }
+}
 
   onExploreReports() {
     console.log("explore clicked")
 
-    this.availableReportData['platinumReportPrice'] =  this.platinumReportPrice;
     this.availableReportData['standardReportPrice'] =  this.standardReportPrice;
 
     this.availableReportData['selectedAddress'] =  this.selectedAddress;
@@ -278,6 +321,7 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
          else 
          {
           this.sharedService.startLoading();
+          this.alertService.success("Your report started downloading");
             //Create XMLHTTP Request.
             var req = new XMLHttpRequest();
             req.open("GET", res.url, true);

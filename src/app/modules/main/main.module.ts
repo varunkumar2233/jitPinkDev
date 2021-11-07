@@ -34,7 +34,7 @@ import { PurchasedReportsComponent } from './purchased-reports/purchased-reports
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { GetSampleReportsComponent } from './get-sample-reports/get-sample-reports.component';
 import { SampleReportCartComponent } from './sample-reports/sample-reportcart.component';
-
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [
@@ -61,6 +61,7 @@ import { SampleReportCartComponent } from './sample-reports/sample-reportcart.co
     FormsModule,
     HttpClientModule,
     NgxSliderModule,
+    NgxDatatableModule,
     CarouselModule.forRoot(),
     ReactiveFormsModule,
     Ng2SearchPipeModule,

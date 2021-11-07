@@ -50,4 +50,7 @@ export class UserRegService {
     return this.http.get(`${environment.getReportCreditBalance}`);
   }
 
+  updateCreditBalance(request) {
+    return this.http.post(`${environment.updateCreditByOne}`, request);
+  }
 }

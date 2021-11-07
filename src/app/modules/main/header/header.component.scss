@@ -96,7 +96,13 @@ i.ion-ios-arrow-down {
 .list {
     padding: 0px;
     position: relative;
-    
+    border-bottom: 1px solid #ccc;
+    &:hover{
+        border-bottom: 1px solid #222222;
+    }
+    &:last-child{
+        border-bottom: 1px solid #222222;
+    }
     h4 {
         font-size: 16px;
         color: #EEEEEE;
@@ -198,6 +204,7 @@ span.badge.cart-count {
     .hoverItem:hover{
         background-color: #ADCBFA;
         border-radius: 5px;
+        border-bottom: 0px;
     }
     .hoverItem:hover>h5,.hoverItem:hover>p{
         background-color: #ADCBFA;

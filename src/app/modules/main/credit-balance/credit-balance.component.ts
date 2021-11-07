@@ -15,10 +15,12 @@ import { UserRegService } from '../../shared/services/user-reg.service';
 })
 export class CreditBalanceComponent implements OnInit {
   private isActive: Subject<boolean> = new Subject();
-  headers = ["Type", "Amount", "Date"];
+  headers = ["Credits", "Amount", "Date"];
   temp = [];
   rows = [];
   gdata: any;
+  filterTerm: string;
+  myReport = [];
 
   creditBalanceForm: FormGroup;
   OverviewTotalPurchasedQuantity: any;
@@ -59,13 +61,13 @@ export class CreditBalanceComponent implements OnInit {
         if (res) {
 
           this.OverviewTotalPurchasedQuantity = res.overview.total_purchased;
-          this.OverviewPlatinumQuantity = res.overview.platinum_purchased;
+          // this.OverviewPlatinumQuantity = res.overview.platinum_purchased;
           this.OverviewStandardQuantity = res.overview.standard_purchased;
           // this.OverviewTotalSavingsAmount = res.overview.total_savings;
 
-          this.PlatinumAvailableCredits = res.platinum.available;
-          this.PlatinumTotalCredits = res.platinum.purchased;
-          this.PlatinumUsedCredits = res.platinum.spent;
+         // this.PlatinumAvailableCredits = res.platinum.available;
+         // this.PlatinumTotalCredits = res.platinum.purchased;
+          //this.PlatinumUsedCredits = res.platinum.spent;
 
           this.StandardAvailableCredits = res.standard.available;
           this.StandardTotalCredits = res.standard.purchased
@@ -89,6 +91,7 @@ export class CreditBalanceComponent implements OnInit {
       .subscribe((res: any) => {
         console.log(res);
         if (res) {
+          
           this.gdata = res;// JSON.parse(res);
           this.fetch(data => {
             // cache our list
@@ -96,7 +99,7 @@ export class CreditBalanceComponent implements OnInit {
             // push our inital complete list
             this.rows = data;
           });
-
+          this.myreportList(this.rows)
         }
         else {
           this.sharedService.stopLoading()
@@ -105,59 +108,38 @@ export class CreditBalanceComponent implements OnInit {
       });
   }
 
-  updateFilter(event) {
-    const val = event.target.value.toLowerCase();
+  // updateFilter(event) {
+  //   const val = event.target.value.toLowerCase();
 
-    const temp = this.temp.filter(function (d) {
-      return d.credit_type.toLowerCase().indexOf(val) !== -1 ||
-        d.amount.toString().indexOf(val) !== -1 ||
-        d.date.toLowerCase().indexOf(val) !== -1 || !val;
-    });
+  //   const temp = this.temp.filter(function (d) {
+  //     return d.credit_type.toLowerCase().indexOf(val) !== -1 ||
+  //       d.amount.toString().indexOf(val) !== -1 ||
+  //       d.date.toLowerCase().indexOf(val) !== -1 || !val;
+  //   });
 
-    // update the rows
-    this.rows = temp;
-    // Whenever the filter changes, always go back to the first page
-    // this.myFilterTable.offset = 0;
-  }
+  //   // update the rows
+  //   this.rows = temp;
+  //   // Whenever the filter changes, always go back to the first page
+  //   // this.myFilterTable.offset = 0;
+  // }
 
   fetch(cb) {
     const data = this.gdata;//JSON.parse(this.gdata);
     cb(data);
   }
 
-  // gdata = [
-  //   {
-  //     "credit_type": "Platinum",
-  //     "amount": "10",
-  //     "date": "01/02/2021"
+  myreportList(response) {
+    response.forEach(element => {
+      this.myReport.push({amount : element.amount, date :element.date, payment_amount_formatted : element.payment_amount_formatted});
+          });
 
-  //   },
-  //   {
-  //     "credit_type": "Platinum",
-  //     "amount": "10",
-  //     "date": "01/02/2021"
+    this.rows = this.myReport;
+  }
 
-  //   },
-  //   {
-  //     "credit_type": "Standard",
-  //     "amount": "10",
-  //     "date": "01/02/2021"
-
-  //   },
-  //   {
-  //     "credit_type": "Platinum",
-  //     "amount": "10",
-  //     "date": "01/02/2021"
-
-  //   },
-  //   {
-  //     "credit_type": "Standard",
-  //     "amount": "20",
-  //     "date": "05/08/2021"
-  //   }];
 
   ngOnDestroy() {
     this.isActive.next(true);
     this.isActive.complete();
   }
+
 }

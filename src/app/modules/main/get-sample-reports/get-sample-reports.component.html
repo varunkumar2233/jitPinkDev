@@ -13,16 +13,16 @@
           <div class="inner-box">
             <div class="map-form-field col-md-8">
               <div class="row top-field">
-                <div class="col-md-9 col-6">
+                <div class="col-md-9 col-6" class="noPad sampleReportsSelect">
                   <div >
                     <!-- Mapbox geocoder added here --    <div #geocoderContainerFree> -->
                   </div>
   
-                  <div class="col-md-2">
+                  <div class="col-md-2" class="noPad">
                     <div class="btn-group custom-select-dropdown" dropdown>
                       <button id="customDropdown" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
                         aria-controls="dropdown-basic">
-                        {{ selectedCountry ? selectedCountry : 'Samples' }} <span class="caret"></span>
+                        {{ selectedCountry ? selectedCountry : 'Select a location' }} <span class="caret"></span>
                       </button>
                       <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
                         <ng-container *ngFor="let contVal of countries">

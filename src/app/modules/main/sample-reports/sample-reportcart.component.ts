@@ -27,7 +27,6 @@ export class SampleReportCartComponent implements OnInit {
 
   ngOnInit(): void {
     this.date_Provider_Service.getAvailablesampleReport().pipe(takeUntil(this.isActive)).subscribe((report:any)=>{
-     debugger;
       this.reportsdata = report;
       this.initializeFieldsData();
     },
@@ -40,7 +39,6 @@ export class SampleReportCartComponent implements OnInit {
 
     initializeFieldsData()
     {
-        debugger;
         this.standardReportID=  this.reportsdata[0].id;
         this.platiumReportID = this.reportsdata[1].id;
     }

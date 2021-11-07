@@ -15,9 +15,10 @@
                                 <div class="col-md-12">
                                     <br>
                                     <h4>You have <span class="count"> {{this.itemCount}} </span> <span> {{this.itemCount === 1 ? 'item' : 'items'}} </span> in your cart</h4>
+                                   
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" *ngIf="this.itemCount !=0; else itemzero">
                                 <div class="col-md-7">
                                     <div class="card">
                                         <div class="card-body">
@@ -37,6 +38,10 @@
                                             </div>
                                             <div class="item-field" *ngFor="let report of cartList">
                                                 <div class="row">
+                                                    <span class="" (click)="deleteReportFromCartLatest(report.id,report.report_type)">
+                                                        <i class="ion-ios-close"></i></span>
+                                                </div>
+                                                <div class="row">
                                                     <div class="col-md-3">
                                                         <div class="img">
                                                             <img *ngIf="report.id!=0" src="{{report.preview_img}}" />
@@ -49,19 +54,29 @@
                                                             <p class="location-name">{{report.address}}</p>
                                                             <p *ngIf="report.id==0">Credits</p>
                                                             <p *ngIf="report.id!=0" class="format">Format: PDF</p>
-                                                            <p class="typeofreport">{{report.report_type}}</p>
-                                                            <!-- <p class="quantity">Quantity <span>-</span>
-                                                                <strong>1</strong><span>+</span>
-                                                            </p> -->
-                                                            <p *ngIf="report.id==0" class=""><a> Quantity
-                                                                    {{report.quantity}}</a></p>
+                                                            <p class="typeofreport">Standard Credits</p>
+                                                            <!-- <p *ngIf="report.id==0" class=""><a> Quantity
+                                                                    {{counter}}</a></p> -->
+                                                            <p *ngIf="report.id==0" class="creditQuantity">Quantity <button class = "hideButton" (click) ="incrementCreditQuantity()">+</button>
+                                                                        <span class = "counter" type="number" min="0">{{counter}}</span><button class = "hideButton" (click) = "decrementCreditQuantity()">-</button>
+                                                                        
+                                                            </p>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="price-detail">
                                                             <p class="price">$ {{report.price | number}}</p>
                                                         </div>
+                                                        <!-- <div>
+                                                            <p *ngIf="report.id==0" class="creditQuantity">Quantity <button class = "hideButton" (click) ="incrementCreditQuantity()">+</button>
+                                                                <span class = "counter" type="number" min="0">{{counter}}</span><button class = "hideButton" (click) = "decrementCreditQuantity()">-</button>
+                                                                
+                                                            </p>
+                                                        </div> -->
+
                                                     </div>
+                                                
+                                                    
                                                 </div>
                                             </div>
                                             <div class="sub-total text-right">
@@ -95,18 +110,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- <div class="row">
-                                                    <div class="col-md-7 col-6">
-                                                        <div class="item-left">
-                                                            Tax
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-5 col-6">
-                                                        <div class="item-right text-right">
-                                                            <strong>0</strong>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
+                                                
                                                 <div class="row">
                                                     <div class="col-md-12 col-12 taxLocation">
                                                         <small>Tax applicable depending on billing
@@ -128,13 +132,38 @@
                                     </div>
                                 </div>
                             </div>
+                            <ng-template #itemzero>
+                                <div class="col-md-12 no-item-list pl-0 pr-0">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="card-title">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="item-title">
+                                                            You have no items in your cart
+                                                        </div>
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+                                            <button class="default-btn btn" routerLink="/main">Explore</button>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                              </ng-template>
+
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <hr>
                                 </div>
+                                <div class="col-md-4 mt-2 text-left" *ngIf="this.itemCount == 0;">
+                                    <div class="back" (click)="backClicked()"><i class="ion-ios-arrow-back"></i>Back</div>
+                                </div>
                             </div>
 
-                            <form [formGroup]="termsConditionForm" (ngSubmit)="checkoutfinal()">
+                            <form [formGroup]="termsConditionForm" (ngSubmit)="checkoutfinal()" *ngIf="this.itemCount !=0;">
                                 <div class="row tc-checkbox-field">
                                     <div class="col-md-12">
                                         <div class="form-check pl-2">
