@@ -86,7 +86,7 @@ export class SampleReportCartComponent implements OnInit {
 
 
                 this.cartInfo.addSampleReport(request).pipe(takeUntil(this.isActive)).subscribe(data =>{
-                  this.alert_service.success('Free Standard Report added in report list');
+                  this.alert_service.success('Free Crime Index Report added in report list');
                   console.log(data); // getting reportID after addig item to cart.
                   this.isStandardClicked = false;
                 },error => {

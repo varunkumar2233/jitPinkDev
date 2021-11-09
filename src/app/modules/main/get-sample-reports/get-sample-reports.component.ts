@@ -173,7 +173,7 @@ export class GetSampleReportsComponent implements OnInit {
       this.countries.forEach(value => {
         locationData.push(
           {
-           "name": value.address,
+           "name": value.formatted_address,
            "id": value.id,
            "address": value.address,
            "report_type": value.report_type,

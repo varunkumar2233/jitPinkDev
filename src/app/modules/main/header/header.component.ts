@@ -10,9 +10,11 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ShopifyService } from '../services/shopify.service';
 import { DataProviderService } from '../services/data-provider.service';
-import { request } from 'http';
+// import { request } from 'http';
 import { WelcomePinkertonComponent } from '../welcome-pinkerton/welcome-pinkerton.component';
 import { NotificationsService } from '../services/notifications.service';
+import { HomeService } from '../../home/services/home.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'header',
@@ -30,8 +32,11 @@ export class HeaderComponent implements OnInit {
   userNotificationList: any;
   numberofUnSeenNotifications: number;
   unReadNotifications: number;
+  new_Report_count: number;
+  private accessToken : string;
   constructor(private modalService: BsModalService, private router: Router,
     private cart_service: addToCartServie,
+    private firstLogin :  HomeService,
     private shared_service: SharedService,
     private alert_service: AlertServiceService,
     private shopify: ShopifyService,
@@ -52,17 +57,38 @@ export class HeaderComponent implements OnInit {
   openWelcomeScreen() {
     this.modalService.show(WelcomePinkertonComponent, Object.assign({}, { class: 'welcome-popup' }));
   }
+  openWelcomeOnFirstLogin(){
+    var header = {
+      headers: new HttpHeaders().set('Authorization',  `Bearer ${this.accessToken}`)
+    };
+
+    this.firstLogin.checkUserTermsAgreement(header).subscribe(data=>{
+      console.log("firt user type")
+      console.log(data)
+      let firtstUerData:any;
+      firtstUerData = data;
+      if(firtstUerData.has_seen_instructions == false && firtstUerData.has_agreed_tos == false){
+        console.log("firt user type")
+        console.log(data)
+        this.openWelcomeScreen()
+      }
+    })
+  }
   ngOnInit(): void {
+    this.accessToken = localStorage.getItem('AccessToken');
+    this.openWelcomeOnFirstLogin()
     //alert('cart list');
     this.getReportPricesfromShopify();
     setTimeout(() => {
       this.loadCartData();
-    }, 1000);
+    }, 1);
 
   this.servNotification.getNotificationList().subscribe(data=>{
     this.userNotificationList = data;
     console.log("userNotificationList")
     console.log(this.userNotificationList)
+    this.new_Report_count = this.userNotificationList[1].new_report_count;
+    
     //const seen = false;
     //this.numberofUnSeenNotifications = this.userNotificationList.filter((obj) => obj.seen === seen).length;
     //console.log(this.numberofUnSeenNotifications);

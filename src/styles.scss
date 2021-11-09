@@ -12,6 +12,9 @@ body {
     line-height: 18px;
 }
 
+.purchaseHistory{
+    display:none;
+}
 a {
     text-decoration: none;
 }
@@ -43,6 +46,7 @@ input.form-control::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     font-family: Arial, Helvetica, sans-serif;
     font-size:16px;
   }
+
 
 @media (min-width: 1200px) {
 .container, .container-lg, .container-md, .container-sm, .container-xl {

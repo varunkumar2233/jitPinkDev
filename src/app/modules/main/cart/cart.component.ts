@@ -228,6 +228,10 @@ export class CartComponent implements OnInit {
   }
 
   decrementCreditQuantity(){
+    if(this.counter == 1){
+      this.deleteReportFromCartLatest(0, 'Standard Credits');
+      return;
+    }
     this.counter = this.counter-1;
     this.incrementDecrementCreditQuantity(this.counter);
   }

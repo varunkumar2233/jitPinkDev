@@ -37,10 +37,10 @@
                                                 </div>
                                             </div>
                                             <div class="item-field" *ngFor="let report of cartList">
-                                                <div class="row">
-                                                    <span class="" (click)="deleteReportFromCartLatest(report.id,report.report_type)">
+                                                
+                                                    <span class="close-field" (click)="deleteReportFromCartLatest(report.id,report.report_type)">
                                                         <i class="ion-ios-close"></i></span>
-                                                </div>
+                                                      
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <div class="img">
@@ -48,7 +48,7 @@
                                                             <img *ngIf="report.id==0" src="./../../../../assets/images/credit-icon.png" style="height: 96px;" />
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-5">
                                                         <div class="item-details">
                                                             <p *ngIf="report.id!=0">Crime Index Report</p>
                                                             <p class="location-name">{{report.address}}</p>
@@ -57,16 +57,20 @@
                                                             <p class="typeofreport">Standard Credits</p>
                                                             <!-- <p *ngIf="report.id==0" class=""><a> Quantity
                                                                     {{counter}}</a></p> -->
-                                                            <p *ngIf="report.id==0" class="creditQuantity">Quantity <button class = "hideButton" (click) ="incrementCreditQuantity()">+</button>
-                                                                        <span class = "counter" type="number" min="0">{{counter}}</span><button class = "hideButton" (click) = "decrementCreditQuantity()">-</button>
-                                                                        
-                                                            </p>
+                                                           
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4 pl-0">
                                                         <div class="price-detail">
                                                             <p class="price">$ {{report.price | number}}</p>
                                                         </div>
+                                                        <br>
+                                                        <p *ngIf="report.id==0" class="creditQuantity">
+                                                            Quantity
+                                                            <button class = "hideButton" (click) = "decrementCreditQuantity()">-</button>
+                                                             <span class = "counter" type="number" min="0">{{counter}}</span>
+                                                             <button class = "hideButton plus-btn" (click) ="incrementCreditQuantity()">+</button>
+                                                        </p>
                                                         <!-- <div>
                                                             <p *ngIf="report.id==0" class="creditQuantity">Quantity <button class = "hideButton" (click) ="incrementCreditQuantity()">+</button>
                                                                 <span class = "counter" type="number" min="0">{{counter}}</span><button class = "hideButton" (click) = "decrementCreditQuantity()">-</button>

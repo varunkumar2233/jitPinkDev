@@ -214,6 +214,9 @@ button#customDropdown {
 .inner-box {
     margin: 0;
 }
+p.creditQuantity {
+    text-align: right;
+}
 
 .tablist-field {
     padding: 0;
@@ -270,6 +273,8 @@ p.location-name {
     padding: 5px 0;
 }
 
+
+
 }
 
 .inner-box {
@@ -282,18 +287,43 @@ p.location-name {
     cursor: pointer;
     overflow: hidden;
     outline: none;
-    padding: 0px  6px;
-    font-size: 13px;
+     margin: 0 0 0 3px;
+}
+
+button.hideButton.plus-btn {
+    padding-right: 0;
+    margin-left: 0;
+}
+
+p.creditQuantity {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.creditQuantity button {
+    font-size: 14px;
+    font-weight: bold;
+    color: #aaa;
 }
 
 .counter{
     font-size: 14px;
+    font-weight: bold;
+    width: 28px;
+    display: inline-block;
+    text-align: center;
 }
 
-i.ion-ios-close {
-    font-size: 25px;
-    color: #ddd !important;
-   align-items: left;
-   padding-left: 320px;
+span.close-field {
+    display: block;
+    text-align: right;
+    margin-bottom: 5px;
+    i.ion-ios-close {
+        font-size: 25px;
+        color: #ddd !important;
+        cursor: pointer;
+    }
 }
+
+
 

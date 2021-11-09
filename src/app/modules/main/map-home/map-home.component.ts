@@ -15,7 +15,6 @@ import { DataProviderService } from '../services/data-provider.service';
 import { ShopifyService } from '../services/shopify.service';
 import { AlertServiceService } from '../../shared/services/alert-service.service';
 import { ColumnMode, SelectionType, SortType } from '@swimlane/ngx-datatable';
-import { IsTermsIsSignedService } from '../../shared/services/is-terms-is-signed.service';
 
 @Component({
   selector: '.mapHOmepage',
@@ -35,7 +34,6 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
   SelectionType = SelectionType;
 
   constructor(private map: MapboxServService,
-    private isTerms: IsTermsIsSignedService,
     private router: Router,
     private activevateRoute: ActivatedRoute,
     private modalService: BsModalService,
@@ -84,7 +82,6 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
  }
 
   ngOnInit(): void {
-    this.isTerms.validateLoginStatus();
     //console.log("number of reports:" + this.rows.length)
     //this.shopify.getAuthenticatedCheckoutUrl().then(data => console.log(data))
     //console.log('get all products data');
@@ -260,7 +257,7 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
             zoom: 15.5
           })
           this.shopify.getProducts().then(data => {
-            console.log("data shopify")
+            console.log("data")
             console.log(data)
             //JSON.stringify(data)
             if(data[3].handle=="standard-report"){
