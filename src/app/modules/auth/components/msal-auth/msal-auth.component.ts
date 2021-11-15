@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BroadcastService, MsalService } from '@azure/msal-angular';
 import { environment, services, b2cPolicies, mockUpSecurityKey } from '../../../../../environments/environment';
-import { takeUntil } from 'rxjs/operators';
+import { retry, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { AuthService } from '../../service/auth.service';
 import { SharedService } from 'src/app/modules/shared/services/shared-service.service';
@@ -214,6 +214,15 @@ export class MsalAuthComponent implements OnInit {
 		this.msalService.loginRedirect(loginRequest);
 	}
 
+	runOnce = (function() {
+		var executed = false;
+		return function() {
+			if (!executed) {
+				executed = true;
+				this.validateLoginStatus()
+			}
+		};
+	})();
 	/// this function will use to validate user click will use later
 	validateLoginStatus() {
 		
@@ -223,8 +232,9 @@ export class MsalAuthComponent implements OnInit {
 			headers: new HttpHeaders()
 			  .set('Authorization',  `Bearer ${accessToken}`)
 		  }
-	  
-		this.authService.getUserInfo(header).pipe(takeUntil(this.isActive)).subscribe((res: any) => {
+		console.log("header")
+	    console.log(header)
+		this.authService.getUserInfo(header).pipe(takeUntil(this.isActive)).pipe(retry(3)).subscribe((res: any) => {
 			console.log(res)
 			if (!res.isError) {
 				
@@ -241,7 +251,8 @@ export class MsalAuthComponent implements OnInit {
 			  //this.successMsg = true
 			}
 		  }, (err) => {
-			console.log('error in getUserInfo api');
+			console.log('error in getUserInfo api, re-trying');
+			this.runOnce()
 		  });
 		// 
 		// const accessToken = localStorage.getItem('AccessToken');

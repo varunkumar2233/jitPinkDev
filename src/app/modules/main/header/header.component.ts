@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { environment } from '../../../../environments/environment';
-import { CartComponent } from '../cart/cart.component';
 import { addToCartServie } from '../services/add-to-cart.service';
 import { SharedService } from '../../../modules/shared/services/shared-service.service'
 import { AlertServiceService } from '../../shared/services/alert-service.service';
@@ -26,8 +25,7 @@ export class HeaderComponent implements OnInit {
   cartList: Array<any> = [];
   totalAmount: number;
   itemCount: any;
-  standartReportAmount: any;
-  platiumReportAmount: any;
+  standartReportAmount: number;
   private isActive = new Subject();
   userNotificationList: any;
   numberofUnSeenNotifications: number;
@@ -88,12 +86,7 @@ export class HeaderComponent implements OnInit {
     console.log("userNotificationList")
     console.log(this.userNotificationList)
     this.new_Report_count = this.userNotificationList[1].new_report_count;
-    
-    //const seen = false;
-    //this.numberofUnSeenNotifications = this.userNotificationList.filter((obj) => obj.seen === seen).length;
-    //console.log(this.numberofUnSeenNotifications);
-    //this.unReadNotifications = this.userNotificationList.filter((obj) => obj.seen === seen);
-    //console.log(this.unReadNotifications)
+
   })
     //console.log('cart list data');
     //console.log(this.cartList);
@@ -115,6 +108,8 @@ export class HeaderComponent implements OnInit {
       if (indexcredit > -1) {
         this.cartList.splice(indexcredit, 1);
       }
+      console.log("indexcredit")
+      console.log(indexcredit)
     }
     //this.cartList.push(data);
     this.cartList.unshift(data);
@@ -135,9 +130,7 @@ export class HeaderComponent implements OnInit {
   myCartList(req) {
 
     var tempArray = [];
-    var amount = 0;
-    var standardAmount = this.standartReportAmount;
-    var platiumAmount = this.platiumReportAmount;
+    let standardAmount = this.standartReportAmount;
     const distinctReports = req.reports.filter(
       (report, i, arr) => arr.findIndex(r => r.geo_id === report.geo_id) === i
     );
@@ -151,7 +144,7 @@ export class HeaderComponent implements OnInit {
           "lon": value.lon,
           "lat": value.lat,
           "geo_id": value.geo_id,
-          "price": value.report_type == 'platinum' ? platiumAmount : standardAmount,
+          "price": standardAmount,
           "quantity": ''
         }
       );
@@ -234,23 +227,6 @@ export class HeaderComponent implements OnInit {
     this.date_Provider_Service.getcartData();
     this.shared_service.stopLoading();
 
-    // this.shared_service.startLoading();
-    // const request = {
-    //  "delete_ids": [id]
-    // };
-    // this.cart_service.deleteReportFromCart(request).pipe(takeUntil(this.isActive)).subscribe((res: any) => {
-    //   if (!res.isError) {
-    //     this.cartList = this.cartList.filter(item => item.id !== id);
-    //     this.itemCount = this.cartList.length;
-    //     this.calculateItemSum();
-    //    //this.alert_service.success('item removed from cart');
-    //     this.shared_service.stopLoading();
-    //   }
-    // }, (err) => {
-
-    //   this.shared_service.stopLoading();
-    //   this.alert_service.error('Error while deletiing items.');
-    // });
   }
 
 
@@ -278,8 +254,7 @@ export class HeaderComponent implements OnInit {
 
   calculateItemSum() {
     var total:number = 0;
-    var creditAmount = 0;
-    var amount = 0;
+
     //var creditAmounts = this.getCreditTotalPrice(1,2);
 
 
@@ -304,7 +279,6 @@ export class HeaderComponent implements OnInit {
 
     this.shopify.getProducts().then(data => {
       this.standartReportAmount = data.find(e => e.handle === `standard-report`).variants[0].price;
-      this.platiumReportAmount = data.find(e => e.handle === `platinum-report`).variants[0].price;
     });
   }
 

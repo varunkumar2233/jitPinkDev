@@ -51,8 +51,7 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
   selectedCountry: any = null;
   lat = 0;
   lon = 0;
-  platinumReportPrice:number;
-  standardReportPrice:number;
+  standardReportPrice:number=0;
   countries = null;
   headers = ["Location/Name", "Type", "Date"];
   rows = [
@@ -82,6 +81,8 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
  }
 
   ngOnInit(): void {
+    console.log("environment.mapbox.accessToken")
+    console.log(environment.mapbox.accessToken)
     //console.log("number of reports:" + this.rows.length)
     //this.shopify.getAuthenticatedCheckoutUrl().then(data => console.log(data))
     //console.log('get all products data');
@@ -239,6 +240,9 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
       // get image-start
       this.selectedPlaceImageURL = "https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/["+res.result.bbox+"]/100x100?padding=5,1,20&access_token="+environment.mapbox.accessToken+""
       console.log(this.selectedPlaceImageURL)
+  
+
+      
       // get image- end
       try {
         const data: any = await this.map.getAvailability(iso3, lon, lat).toPromise()
@@ -257,13 +261,14 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
             zoom: 15.5
           })
           this.shopify.getProducts().then(data => {
+            
             console.log("data")
             console.log(data)
             //JSON.stringify(data)
             if(data[3].handle=="standard-report"){
-              this.standardReportPrice = data[3].variants[0].price;
+              this.standardReportPrice = Number(data[3].variants[0].price);
             }else if(data[2].handle=="standard-report"){
-              this.standardReportPrice = data[2].variants[0].price;
+              this.standardReportPrice = Number(data[2].variants[0].price);
             }
           })
           this.map.showFoundReportMarker(lon, lat)
@@ -291,6 +296,7 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
 }
 
   onExploreReports() {
+    
     console.log("explore clicked")
 
     this.availableReportData['standardReportPrice'] =  this.standardReportPrice;

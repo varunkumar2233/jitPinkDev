@@ -1,4 +1,3 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { AlertServiceService } from '../../shared/services/alert-service.service';
@@ -19,8 +18,7 @@ import { UserRegService } from '../../shared/services/user-reg.service';
 export class PurchaseReportsComponent implements OnInit {
   reportsdata:any;
   cartData : any = {};
-  standartReportAmount : any;
-  platiumReportAmount : any;
+  standartReportAmount : number = 0;
   standardbuttondisabled : boolean = false;
   platiumbuttondisabled : boolean = false;
   address : any;
@@ -84,7 +82,6 @@ initializeFieldsData()
   this.lon= this.reportsdata.lon,
   this.geo = this.reportsdata.geo_id,
   this.standartReportAmount= this.reportsdata.standardReportPrice,
-  this.platiumReportAmount= this.reportsdata.platinumReportPrice,
   this.countryCode= this.reportsdata.selectedCountryCode
 }
 

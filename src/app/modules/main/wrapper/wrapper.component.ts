@@ -10,7 +10,7 @@ export class WrapperComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("lazy");
+   
   }
 
 }

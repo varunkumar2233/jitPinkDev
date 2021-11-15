@@ -11,7 +11,7 @@ const securekey = '?code=$ecureKeyDevPinkerton1'
 export const environment = {
 	production: true,
 	mapbox: {
-		accessToken: 'pk.eyJ1IjoicGlua2VydG9uYWRtaW4iLCJhIjoiY2tyYnoycTZ1NDA2bzJ3czZmeWh5MHQ3OCJ9.4pKizBbOspg8XDBZL2iacQ'
+		accessToken: 'pk.eyJ1IjoicGlua2VydG9uYWRtaW4iLCJhIjoiY2tzcWNiNHQxMGFhbTJwcWhzYzJnOG0zNSJ9.bSVwbRPS2DUv-FQfKbm2sg'
 	},
 	apiUrl,
 	webUrl,

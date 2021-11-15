@@ -120,7 +120,7 @@
                     </p>
                     <p class="typeofreport" *ngIf="report.id!=0">{{report.report_type}} <span
                         class="d-none">{{report.quantity}}</span> </p>
-                    <p class="price">$ {{report.price}}</p>
+                    <p class="price">{{report.price | currency }}</p>
                   </div>
                 </div>
               </div>
@@ -130,7 +130,7 @@
                   <div class="col-md-8">
                     <h4 class="subtotal">Subtotal ( {{itemCount}} {{this.itemCount === 1 ? 'item' : 'items'}} )</h4>
                   </div>
-                  <div class="col-md-4 price">$ {{totalAmount}}</div><br>
+                  <div class="col-md-4 price">{{totalAmount | currency }}</div><br>
                   <div class="col-md-4 viewcartbtn">
                     <button (click)="viewcart()" class="btn default-btn">VIEW CART</button>
                   </div>
