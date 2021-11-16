@@ -7,7 +7,7 @@
   .login-panel {
     background: #444;
     color: #fff;
-    padding: 50px 80px;
+    padding: 10px 80px;
   }
 
   .form-field {
@@ -95,8 +95,8 @@ input.form-control.ng-dirty {
   color: #ffaba0;
   font-size: 12px;
 }
-.mb-3.form-group.phone{
-  width: 99%;
+.mb-2.form-group.phone{
+  width: 100%;
 }
 .phoneBox{
   margin: 0 5px;
@@ -111,7 +111,7 @@ input.form-control.ng-dirty {
 }
 
 .bottom-link {
-  padding: 50px 40px;
+  padding: 30px 40px 25px;
 }
 
 a.link {
@@ -124,13 +124,27 @@ a.link {
 
 .right-footer {
   background: #444;
+  padding: 10px 15px;
 }
 
 .copyright {
-  padding: 50px 145px;
+  padding: 20px 145px 0;
   font-size: 14px;
   color: #888;
   font-weight: bold;
+}
+
+
+
+.phone label.form-label {
+  padding-left: 5px;
+}
+
+@media (min-width: 768px) {
+.container-fluid.footer-container {
+  position: absolute;
+  bottom: 0;
+}
 }
 
 @media (max-width: 767px) {
@@ -178,6 +192,7 @@ footer .copyright {
     background: #ADCBFA;
     color: #05206A;
     border: 1px solid #ADCBFA;
+    margin-top: 5px;
 }
 
 .default-btn:hover {
