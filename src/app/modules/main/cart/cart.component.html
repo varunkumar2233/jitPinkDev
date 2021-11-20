@@ -38,8 +38,8 @@
                                             </div>
                                             <div class="item-field" *ngFor="let report of cartList">
                                                 
-                                                    <span class="close-field" (click)="deleteReportFromCartLatest(report.id,report.report_type)">
-                                                        <i class="ion-ios-close"></i></span>
+                                                    <span class="close-field">
+                                                        <i class="ion-ios-close" (click)="deleteReportFromCartLatest(report.id,report.report_type)"></i></span>
                                                       
                                                 <div class="row">
                                                     <div class="col-md-3">
@@ -182,8 +182,8 @@
                                             </label>
                                             <br>
                                             <div *ngIf="submitted && f.has_agreed_tos.errors" class="invalid-feedback">
-                                                <div>Please first check that you have read and understand the <a
-                                                        href='https://riskportal.pinkerton.com/pages/terms'
+                                                <div>Please first check that you have read and understand the <a routerLink="./../terms-condition"
+                                                       
                                                         target="_self">terms &amp; conditions</a></div>
                                             </div>
                                             <br>

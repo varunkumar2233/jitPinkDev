@@ -6,6 +6,7 @@ import { addToCartServie } from '../services/add-to-cart.service';
 import { Subscription, Subject } from 'rxjs';
 import { AlertServiceService } from '../../shared/services/alert-service.service';
 import { UserRegService } from '../../shared/services/user-reg.service';
+import { NotificationsService } from '../services/notifications.service';
 
 @Component({
   selector: 'app-order-confirmation',
@@ -21,12 +22,16 @@ export class OrderConfirmationComponent implements OnInit {
 
   orderSummary: any;
   userdetails:any;
+  counter: number;
+  userNotificationList: any;
+  new_Report_count: number;
 
   constructor(private route: ActivatedRoute,
     private UserRegService: UserRegService,
     private shared_service: SharedService,
     private service: addToCartServie,
-    private alert_service: AlertServiceService
+    private alert_service: AlertServiceService,
+    private notification_Service: NotificationsService
 
   ) { }
 
@@ -37,6 +42,7 @@ export class OrderConfirmationComponent implements OnInit {
       this.order_ID = params['order_id']
     });
     this.getOrderSummary();
+    
     this.shared_service.stopLoading();
 
     this.UserRegService.getUserInfo().pipe(takeUntil(this.isActive)).subscribe((res: any) => {
@@ -44,7 +50,7 @@ export class OrderConfirmationComponent implements OnInit {
         console.log(res)
         this.userdetails = res;
       }
-  })
+  });
 
   }
 
@@ -57,7 +63,24 @@ export class OrderConfirmationComponent implements OnInit {
       console.log(orderSummaryDetails)
       this.orderSummary = orderSummaryDetails;
       this.bindOrderSummaryDetails(orderSummaryDetails);
+      this.getNotification();
     });
+  }
+
+
+  getNotification(){
+    this.notification_Service.updateNotification();
+    console.log("after behaviour subject triggred " + this.new_Report_count)
+//     this.notification_Service.getNotificationList().subscribe(data=>{
+//       this.new_Report_count = this.userNotificationList[1].new_report_count;
+//       console.log("Order confirmation Api call " + this.new_Report_count)
+//       this.notification_Service.updateNotification();
+//       console.log("after behaviour subject triggred " + this.new_Report_count)
+//     //   this.notification_Service.notificationListUrl().pipe(takeUntil(this.isActive)).subscribe((data:any) =>{
+//     //   console.log(data);
+//     //   data = this.userNotificationList[1].new_report_count; 
+//     // }) 
+// })
   }
 
   bindOrderSummaryDetails(req) {

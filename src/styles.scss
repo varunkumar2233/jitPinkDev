@@ -506,9 +506,12 @@ a.active-link {
         background-color: #222222;
     }
 
-   .credit-tab-panel .ngx-slider .ngx-slider-bar {
+    .credit-tab-panel .ngx-slider .ngx-slider-bar {
         height: 2px;
-        background: #888888;
+        background: #ADCBFA;
+    }
+    .ngx-slider.animate .ngx-slider-selection{
+        background-color: #888;
     }
 
     .credit-tab-panel .ngx-slider .ngx-slider-bubble {

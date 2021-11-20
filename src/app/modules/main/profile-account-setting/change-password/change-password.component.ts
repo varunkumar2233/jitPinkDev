@@ -9,6 +9,7 @@ import { environment } from '../../../../../environments/environment';
 import { AlertServiceService } from '../../../shared/services/alert-service.service'
 import { UserRegService } from '../../../shared/services/user-reg.service';
 import { MustMatch } from '../../../shared/services/passwordvalidatorhelper';
+
 @Component({
   selector: 'change-password',
   templateUrl: './change-password.component.html',
@@ -21,6 +22,10 @@ export class ChangePasswordComponent implements OnInit {
   abc: string;
   passwordVal: string;
   new_password: string;
+  newPasswordModel: string;
+  confirmNewPasswordModel: string;
+  oldPasswordModel: string;
+
   constructor(
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
@@ -48,6 +53,19 @@ export class ChangePasswordComponent implements OnInit {
 }
   get f() { return this.changepassForm.controls; }
 
+  getFormValueToMatchPassword(FormValue : any)
+  {
+    // if((this.oldPasswordModel.length>7) &&(this.newPasswordModel.length>7) && this.oldPasswordModel == this.newPasswordModel){
+    //   this.alertService.error("Your new password must be different from your current password.");
+    //   this.checkFormValid = true;
+    // }
+  //  if((this.newPasswordModel.length >7) && (this.confirmNewPasswordModel.length>7) && this.newPasswordModel != this.confirmNewPasswordModel)
+  //   {
+  //     this.alertService.error('New Password and Confirm Password must be match.', { keepAfterRouteChange: true });
+  //     return;
+  //   }
+  }
+
   abcz(abc: any)
   {
     console.log(abc)
@@ -59,7 +77,10 @@ export class ChangePasswordComponent implements OnInit {
     if (this.changepassForm.invalid) {
       this.checkFormValid= true;
       this.alertService.error('New Password and Confirm Password must be match.', { keepAfterRouteChange: true });
+      this.checkFormValid= false;
+      // this.changepassForm. = false;
         return;
+      
     }
 
     const request = {
@@ -71,15 +92,20 @@ export class ChangePasswordComponent implements OnInit {
         .pipe(first())
         .subscribe({
             next: (data) => {
+              console.log("data message " +data);
                // localStorage.clear(); 
                this.sharedService.stopLoading();
                 this.alertService.success('Password changed successful.', { keepAfterRouteChange: true });
                 //this.router.navigate(['../'], { relativeTo: this.route });
             },
             error: error => {
-              
+              console.log("error message " + error);
+              // if(this.oldPasswordModel == this.newPasswordModel)
+              // {
+              //   this.alertService.error("Your new password must be different from your current password.")
+              // }
               this.sharedService.stopLoading();
-              this.alertService.error(error.error.detail, { keepAfterRouteChange: true });
+              // this.alertService.error(  error, { keepAfterRouteChange: true });
             }
         });
   }

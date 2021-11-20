@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { environment } from '../../../../environments/environment';
+import { CartComponent } from '../cart/cart.component';
 import { addToCartServie } from '../services/add-to-cart.service';
 import { SharedService } from '../../../modules/shared/services/shared-service.service'
 import { AlertServiceService } from '../../shared/services/alert-service.service';
@@ -25,13 +26,16 @@ export class HeaderComponent implements OnInit {
   cartList: Array<any> = [];
   totalAmount: number;
   itemCount: any;
-  standartReportAmount: number;
+  standartReportAmount: any;
+  platiumReportAmount: any;
   private isActive = new Subject();
   userNotificationList: any;
   numberofUnSeenNotifications: number;
   unReadNotifications: number;
   new_Report_count: number;
   private accessToken : string;
+  orderSummaryUpdate : number;
+
   constructor(private modalService: BsModalService, private router: Router,
     private cart_service: addToCartServie,
     private firstLogin :  HomeService,
@@ -44,6 +48,12 @@ export class HeaderComponent implements OnInit {
       this.updateBasketAfterAddtoCart(data);
     });
 
+    this.servNotification.notificationListUrl.subscribe((data) =>{
+      setTimeout(() => {
+        this.getNotification();
+        this.loadCartData();
+      }, 1000);
+ })
   }
 
   updateCartData(){
@@ -72,28 +82,31 @@ export class HeaderComponent implements OnInit {
       }
     })
   }
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this.accessToken = localStorage.getItem('AccessToken');
     this.openWelcomeOnFirstLogin()
+    this.getNotification();
     //alert('cart list');
     this.getReportPricesfromShopify();
     setTimeout(() => {
       this.loadCartData();
     }, 1);
-
-  this.servNotification.getNotificationList().subscribe(data=>{
-    this.userNotificationList = data;
-    console.log("userNotificationList")
-    console.log(this.userNotificationList)
-    this.new_Report_count = this.userNotificationList[1].new_report_count;
-
-  })
-    //console.log('cart list data');
-    //console.log(this.cartList);
   }
   onClick() {
     window.location.href = environment.logoutUrl;
   }
+
+  getNotification(){
+    this.shared_service.startLoading();
+    this.servNotification.getNotificationList().subscribe(data=>{
+      this.userNotificationList = data;
+      console.log(this.userNotificationList)
+      this.shared_service.stopLoading();
+      this.new_Report_count = this.userNotificationList[1].new_report_count;
+      console.log("header component Api call " + this.new_Report_count)
+    })
+  }
+
 
   loadCartData() {
     this.cart_service.displayCartData().pipe(takeUntil(this.isActive)).subscribe(data => {
@@ -108,29 +121,24 @@ export class HeaderComponent implements OnInit {
       if (indexcredit > -1) {
         this.cartList.splice(indexcredit, 1);
       }
-      console.log("indexcredit")
-      console.log(indexcredit)
     }
     //this.cartList.push(data);
     this.cartList.unshift(data);
     this.itemCount = this.cartList.length;
 
+this.calculateItemSum();
+let elementBtn:HTMLElement = document.getElementById('auto_trigger') as HTMLElement;
+    elementBtn.click();
 
-    
- setTimeout(() => {
-  this.calculateItemSum();
-    }, 1);
-    let elementBtn:HTMLElement = document.getElementById('auto_trigger') as HTMLElement;
-    setTimeout(() => {
-      elementBtn.click();
-    }, 1);
     
   }
 
   myCartList(req) {
 
     var tempArray = [];
-    let standardAmount = this.standartReportAmount;
+    var amount = 0;
+    var standardAmount = this.standartReportAmount;
+    var platiumAmount = this.platiumReportAmount;
     const distinctReports = req.reports.filter(
       (report, i, arr) => arr.findIndex(r => r.geo_id === report.geo_id) === i
     );
@@ -144,7 +152,7 @@ export class HeaderComponent implements OnInit {
           "lon": value.lon,
           "lat": value.lat,
           "geo_id": value.geo_id,
-          "price": standardAmount,
+          "price": value.report_type == 'platinum' ? platiumAmount : standardAmount,
           "quantity": ''
         }
       );
@@ -227,6 +235,23 @@ export class HeaderComponent implements OnInit {
     this.date_Provider_Service.getcartData();
     this.shared_service.stopLoading();
 
+    // this.shared_service.startLoading();
+    // const request = {
+    //  "delete_ids": [id]
+    // };
+    // this.cart_service.deleteReportFromCart(request).pipe(takeUntil(this.isActive)).subscribe((res: any) => {
+    //   if (!res.isError) {
+    //     this.cartList = this.cartList.filter(item => item.id !== id);
+    //     this.itemCount = this.cartList.length;
+    //     this.calculateItemSum();
+    //    //this.alert_service.success('item removed from cart');
+    //     this.shared_service.stopLoading();
+    //   }
+    // }, (err) => {
+
+    //   this.shared_service.stopLoading();
+    //   this.alert_service.error('Error while deletiing items.');
+    // });
   }
 
 
@@ -254,22 +279,14 @@ export class HeaderComponent implements OnInit {
 
   calculateItemSum() {
     var total:number = 0;
-
+    var creditAmount = 0;
+    var amount = 0;
     //var creditAmounts = this.getCreditTotalPrice(1,2);
 
 
     for (var i = 0; i < this.cartList.length; i++) {
-      // creditAmount =0;
-      //creditAmount = this.getCreditTotalPrice(this.cartList[i].quantity,this.cartList[i].report_type);
-      //amount = creditAmount ==0 ? parseInt(this.cartList[i].price) : creditAmount;
       total += parseInt(this.cartList[i].price);
     }
-
-    //    this.cartList.forEach(function(val) {
-    //     creditAmount = this.getCreditTotalPrice(val.quantity,val.report_type);
-
-    //     total += amount;
-    // });
     this.totalAmount = total;
   }
   getReportPricesfromShopify() {

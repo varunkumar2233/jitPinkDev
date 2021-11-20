@@ -21,11 +21,11 @@ import { ColumnMode, SelectionType, SortType } from '@swimlane/ngx-datatable';
   templateUrl: './map-home.component.html',
   styleUrls: ['./map-home.component.scss']
 })
-export class MapHomeComponent implements OnInit, OnDestroy  {
+export class MapHomeComponent implements OnInit, OnDestroy {
   @ViewChild('geocoderContainer') geocoderContainer: ElementRef<HTMLDivElement>;
   bsModalRef!: BsModalRef;
   crimeIndex: number = 0;
-  empList= [];
+  empList = [];
   crimeScore: number = 0;
 
   loadingIndicator = true;
@@ -45,13 +45,13 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
     private alertService: AlertServiceService,) { }
   private isActive = new Subject();
   addressselected!: string;
-  ViewIcon : boolean;
+  ViewIcon: boolean;
   countryselected!: string;
   countryCode!: string;
   selectedCountry: any = null;
   lat = 0;
   lon = 0;
-  standardReportPrice:number=0;
+  standardReportPrice: number = 0;
   countries = null;
   headers = ["Location/Name", "Type", "Date"];
   rows = [
@@ -74,15 +74,14 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
       this.crimeScore = selected[0].crimeIndex;
     }, 50);
   }
-  getRowClass(row:any){
+  getRowClass(row: any) {
     return {
-      'highlightTR':  row.is_seen == false
+      'highlightTR': row.is_seen == false
     };
- }
+  }
 
   ngOnInit(): void {
-    console.log("environment.mapbox.accessToken")
-    console.log(environment.mapbox.accessToken)
+
     //console.log("number of reports:" + this.rows.length)
     //this.shopify.getAuthenticatedCheckoutUrl().then(data => console.log(data))
     //console.log('get all products data');
@@ -92,7 +91,7 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
     //this.map.downloadReportCSV();
     this.map.getCountryList().pipe(takeUntil(this.isActive)).subscribe(data => {
       this.countries = data;
-      
+
 
       //do not delete this line below
       // this.bsModalRef = this.modalService.show(WelcomePinkertonComponent, Object.assign({}, { class: 'welcome-popup' }));
@@ -105,10 +104,10 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
     this.bindMyReportsData();
 
 
-  this.datasubcription =  this.reportStore.getCartNotificationData().subscribe(data=>{
+    this.datasubcription = this.reportStore.getCartNotificationData().subscribe(data => {
       console.log("Subscribed Data for notification")
       console.log(data)
-      if(data.new_report_count>0){
+      if (data.new_report_count > 0) {
         this.isResponseFromNotification = true;
       }
     });
@@ -118,36 +117,35 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
     this.datasubcription.unsubscribe();
   }
   myreportList(response) {
-    if(response.length == 0)
-    {
+    if (response.length == 0) {
       this.myReportListStaging = [];
-    }else{
+    } else {
       var TempArray = [];
-    this.myReportListStaging = [];
-    response.forEach(function (value) {
-      TempArray.push(value);
-    })
+      this.myReportListStaging = [];
+      response.forEach(function (value) {
+        TempArray.push(value);
+      })
 
-    this.rows = TempArray;
-    if(!this.isResponseFromNotification){
-      console.log("this.isResponseFromNotification")
-      this.rows = this.rows.filter(function( obj ) {
-        delete obj.is_seen;
-        return obj;
-    });
+      this.rows = TempArray;
+      if (!this.isResponseFromNotification) {
+        console.log("this.isResponseFromNotification")
+        this.rows = this.rows.filter(function (obj) {
+          delete obj.is_seen;
+          return obj;
+        });
 
-    }
-    if(this.rows) {
-      for(var i in this.rows)  {
-        for(var x in this.rows[i].crimescore_set)  {
-          if(this.rows[i].crimescore_set[x].crime_type == 'total') {
-            this.rows[i]['crimeIndex'] =  this.rows[i].crimescore_set[x].crime_index;
-            console.log(this.rows['crimeIndex']);
-          }
       }
-     }
-    }
-    this.myReportListStaging = TempArray;
+      if (this.rows) {
+        for (var i in this.rows) {
+          for (var x in this.rows[i].crimescore_set) {
+            if (this.rows[i].crimescore_set[x].crime_type == 'total') {
+              this.rows[i]['crimeIndex'] = this.rows[i].crimescore_set[x].crime_index;
+              console.log(this.rows['crimeIndex']);
+            }
+          }
+        }
+      }
+      this.myReportListStaging = TempArray;
     }
     this.map.addLocationMarkers(this.myReportListStaging)
   }
@@ -170,14 +168,13 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
     //   //this.rows=this.myReportListStaging;
     // }
   }
-  bindMyReportsData(countryCode? : string) {
+  bindMyReportsData(countryCode?: string) {
     this.sharedService.startLoading();
     this.map.getMyReports().pipe(takeUntil(this.isActive)).subscribe((res: any) => {
       console.log("res")
       console.log(res)
-      if(countryCode!=null)
-      {
-        res= res.filter(countryFilter=> countryFilter.country == countryCode);
+      if (countryCode != null) {
+        res = res.filter(countryFilter => countryFilter.country == countryCode);
       }
       if (!res.isError) {
         this.myreportList(res);
@@ -185,18 +182,18 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
       }
     }, (err) => {
       console.log('my report api stach trace below');
-          console.log(err);
+      console.log(err);
       this.sharedService.stopLoading();
       this.alertService.error('Error while fetching reports.');
     });
   }
 
-  getScore(crimeIndex){
+  getScore(crimeIndex) {
     this.crimeScore = 0;
     setTimeout(() => {
       this.crimeScore = crimeIndex;
     }, 50);
-    
+
   }
 
   hideSearch() {
@@ -215,13 +212,13 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
       //this.countries.push({name:"Select All", iso2:"", iso3:""});
       // autoselect usa
       const usa = data.find(e => e.iso3 === 'usa')
-     // this.onCountrySelection(usa)
+      // this.onCountrySelection(usa)
       // allow search in all available countries
       this.map.geocoder.setCountries(this.countries.map(e => e.iso2).join(','))
       //do not delete this line below
       // this.bsModalRef = this.modalService.show(WelcomePinkertonComponent, Object.assign({}, { class: 'welcome-popup' }));
       // this.bsModalRef.content.closeBtnName = 'Close';
-       this.countries.push({name:"Select All", iso2:"", iso3:null});
+      this.countries.push({ name: "Select All", iso2: "", iso3: null });
     });
 
 
@@ -234,15 +231,15 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
       const iso3 = this.countries.find(e => e.iso2 === iso2).iso3
       //this.selectedAddress = res.result.
       this.selectedAddress = res.result.place_name;
-      this.selectedCountryCode= iso3;
+      this.selectedCountryCode = iso3;
       // console.log("iso3")
       // console.log(iso3)
       // get image-start
-      this.selectedPlaceImageURL = "https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/["+res.result.bbox+"]/100x100?padding=5,1,20&access_token="+environment.mapbox.accessToken+""
+      this.selectedPlaceImageURL = "https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/[" + res.result.bbox + "]/100x100?padding=5,1,20&access_token=" + environment.mapbox.accessToken + ""
       console.log(this.selectedPlaceImageURL)
-  
 
-      
+
+
       // get image- end
       try {
         const data: any = await this.map.getAvailability(iso3, lon, lat).toPromise()
@@ -261,14 +258,20 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
             zoom: 15.5
           })
           this.shopify.getProducts().then(data => {
-            
+
             console.log("data")
             console.log(data)
             //JSON.stringify(data)
-            if(data[3].handle=="standard-report"){
-              this.standardReportPrice = Number(data[3].variants[0].price);
-            }else if(data[2].handle=="standard-report"){
+            if (data[0].handle == "standard-report") {
+              this.standardReportPrice = Number(data[0].variants[0].price);
+            } else if (data[1].handle == "standard-report") {
+              this.standardReportPrice = Number(data[1].variants[0].price);
+            }
+            else if (data[2].handle == "standard-report") {
               this.standardReportPrice = Number(data[2].variants[0].price);
+            }
+            else if (data[3].handle == "standard-report") {
+              this.standardReportPrice = Number(data[3].variants[0].price);
             }
           })
           this.map.showFoundReportMarker(lon, lat)
@@ -284,27 +287,27 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
   }
 
   onCountrySelection = (item: any) => {
-    if(item.name  == "Select All")
-    {
+    if (item.name == "Select All") {
       this.bindMyReportsData(item.iso3);
-    }else{
+      this.selectedCountry = item;
+    } else {
       this.selectedCountry = item;
       this.map.map.fitBounds(item.bbox)
       this.map.geocoder.setCountries(this.selectedCountry.iso2);
       this.bindMyReportsData(this.selectedCountry.iso3);
+    }
   }
-}
 
   onExploreReports() {
-    
+
     console.log("explore clicked")
 
-    this.availableReportData['standardReportPrice'] =  this.standardReportPrice;
+    this.availableReportData['standardReportPrice'] = this.standardReportPrice;
 
-    this.availableReportData['selectedAddress'] =  this.selectedAddress;
-    this.availableReportData['selectedCountryCode'] =  this.selectedCountryCode;
+    this.availableReportData['selectedAddress'] = this.selectedAddress;
+    this.availableReportData['selectedCountryCode'] = this.selectedCountryCode;
 
-    this.availableReportData['selectedPlaceImageURL'] =  this.selectedPlaceImageURL;
+    this.availableReportData['selectedPlaceImageURL'] = this.selectedPlaceImageURL;
 
     this.reportStore.storeAvailableReport(this.availableReportData);
     this.router.navigate(['purchaseReports'], { relativeTo: this.activevateRoute });
@@ -319,41 +322,40 @@ export class MapHomeComponent implements OnInit, OnDestroy  {
     this.sharedService.startLoading();
     this.map.getDocumentSasUrlByUrl(match[1]).pipe(takeUntil(this.isActive)).subscribe((res: any) => {
       if (res.url) {
-        if(ViewIcon) {
-       window.open(res.url, '_blank');  } 
-         else 
-         {
+        if (ViewIcon) {
+          window.open(res.url, '_blank');
+        }
+        else {
           this.sharedService.startLoading();
           this.alertService.success("Your report started downloading");
-            //Create XMLHTTP Request.
-            var req = new XMLHttpRequest();
-            req.open("GET", res.url, true);
-            req.responseType = "blob";
-            req.onload = function () {
-                //Convert the Byte Data to BLOB object.
-                var blob = new Blob([req.response], { type: "application/pdf" });
-                //Check the Browser type and download the File.
-                    var url = window.URL || window.webkitURL;
-                    var link = url.createObjectURL(blob);
-                    var a = document.createElement("a");
-                    a.setAttribute("download", res.filename);
-                    a.setAttribute("href", link);
-                      document.body.appendChild(a);
-                      a.click();
-                      document.body.removeChild(a);   
-                }
-           req.send();            
-            }
+          //Create XMLHTTP Request.
+          var req = new XMLHttpRequest();
+          req.open("GET", res.url, true);
+          req.responseType = "blob";
+          req.onload = function () {
+            //Convert the Byte Data to BLOB object.
+            var blob = new Blob([req.response], { type: "application/pdf" });
+            //Check the Browser type and download the File.
+            var url = window.URL || window.webkitURL;
+            var link = url.createObjectURL(blob);
+            var a = document.createElement("a");
+            a.setAttribute("download", res.filename);
+            a.setAttribute("href", link);
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
           }
-          this.sharedService.stopLoading();  
+          req.send();
+        }
+      }
+      this.sharedService.stopLoading();
     }, (err) => {
       this.alertService.error('Error while downloading report.');
       this.sharedService.stopLoading();
     });
-    }
+  }
 
-  downloadexl()
-  {
+  downloadexl() {
 
     this.sharedService.startLoading();
     this.map.downloadReportCSV();

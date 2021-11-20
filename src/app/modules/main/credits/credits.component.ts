@@ -62,7 +62,8 @@ export class CreditsComponent implements OnInit {
   platiumvalue: number=1;
   options: Options = {
     floor: 1,
-    ceil: 100
+    ceil: 100,
+    showSelectionBarEnd: true
   };
   standardCredit :number;
   platiumCredit :number;
@@ -89,6 +90,19 @@ if(this.standardValue == 100) {
   // get discount(): any {
   //   return (this.standardValue + 10);
   //   }
+
+  getStandardDiscountPerReport()
+  {
+    if(this.standardValue>=25 && this.standardValue <=49)
+    {
+      return 250;
+    } else if(this.standardValue>=50) {
+      return 200;
+    } else
+    {
+      return 350;
+    }
+  }
 
   getStandardDiscount()
   {

@@ -1,0 +1,95 @@
+.cookie-box {
+    background: #444444;
+    border-radius: 0px;
+    color: #fff;
+    min-height: 100px;
+    font-size: 20px;
+    width: 100%;
+    font-family: arial;
+    font-weight: 400;
+    float: left;
+	line-height: 24px;
+    position: fixed;
+    bottom: 0;
+    z-index: 99;
+}
+
+.text-field {
+    float: left;
+    width: calc(100% - 470px);
+    padding: 27px 27px 27px 50px;
+}
+
+.btn-field {
+    float: right;
+    width: 400px;
+    text-align: right;
+    padding: 27px 40px 27px 27px;
+}
+
+button.c_btn {
+    height: 46px;
+    border: 0;
+    background: #ADCBFA;
+    color: #05206A;
+    min-width: 125px;
+    font-size: 14px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-family: arial;
+    padding-left: 25px;
+    padding-right: 25px;
+	transition: all 0.5s;
+	cursor: pointer;
+}
+
+button.c_btn:hover {
+    background: #05206A;
+    color: #fff;
+}
+
+.btn-field button.c_btn + .c_btn {
+    margin-left: 15px;
+}
+
+a.learn_more {
+    color: #ADCBFA;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+.cookie-box {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+a.learn_more {
+    margin-top: 20px;
+    display: block;
+}
+
+.btn-field {
+    float: none;
+    width: auto;
+    text-align: center;
+    padding: 35px;
+}
+
+button.c_btn {
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+}
+
+.btn-field button.c_btn + .c_btn {
+    margin: 25px auto 0;
+    width: 100%;
+}
+
+.text-field {
+    float: none;
+    width: auto;
+    padding: 35px 35px 0;
+}
+
+}

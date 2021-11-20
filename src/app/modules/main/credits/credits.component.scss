@@ -224,4 +224,24 @@ button.btn.default-btn.gs-btn:hover {
     border: 1px solid #05206A;
     color: #fff;
 }
+ngx-slider::after { 
+    content: "";
+    display: inline-block; 
+    width: 2px; 
+    background-color:#adcbfa; 
+    height: 10px; position: absolute; 
+    left: 89px; 
+    top: -4px;
+    z-index: 99;
+  }
 
+  ngx-slider::before { 
+    content: "";
+    display: inline-block; 
+    width: 2px; 
+    background-color:#adcbfa; 
+    height: 10px; position: absolute; 
+    left: 172px; 
+    top: -4px;
+    z-index: 99;
+  }

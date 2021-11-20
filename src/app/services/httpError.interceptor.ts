@@ -9,11 +9,13 @@ import {
 import { Observable, throwError, Subject } from 'rxjs';
 import { retry, catchError, takeUntil } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { AlertServiceService } from '../modules/shared/services/alert-service.service';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
 
     constructor(
+        private alertService:AlertServiceService
     ) {
      
     }
@@ -32,6 +34,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                         // this.loaderService.stopLoading();
                         if (error.error) {
                             console.log(error.error);
+                            if(error.error.detail){
+                                this.alertService.error(error.error.detail);
+                            }
+                            
                             // if (error.error.errorCode === 'APP08') {
                             //     this.alertService.error(error.error.messages);
                             // } else if (error.error.errorCode === 'APP56') {
