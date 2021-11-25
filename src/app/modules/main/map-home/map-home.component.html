@@ -157,18 +157,17 @@
           <ngx-datatable 
           class="bootstrap striped"
           style="top: 20px; height: 380px;"
-       
           [rows]="myReportListStaging | filter:filterTerm"
           [columnMode]="ColumnMode.force"
-        [headerHeight]="50"
-        [footerHeight]="50"
-        rowHeight="auto"
-        [selected]="selected"
-        (select)="onSelect($event)"
-        [selectionType]="SelectionType.single"
-          [rowClass]="getRowClass" >
-        
-          
+          [headerHeight]="50"
+          [footerHeight]="50"
+          rowHeight="auto"
+          [selected]="selected"
+          (select)="onSelect($event)"
+          [selectionType]="SelectionType.single"
+          [rowClass]="getRowClass"
+          [sorts]="[{prop: 'timestamp', dir: 'desc'}]">
+
           <ngx-datatable-column prop="address" name="Location" [width]="300"></ngx-datatable-column>
           <ngx-datatable-column prop="crimeIndex" name="Crime Score"></ngx-datatable-column>
           <ngx-datatable-column  prop="timestamp" name="Date">

@@ -35,7 +35,10 @@ export class HeaderComponent implements OnInit {
   new_Report_count: number;
   private accessToken : string;
   orderSummaryUpdate : number;
-
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true
+  };
   constructor(private modalService: BsModalService, private router: Router,
     private cart_service: addToCartServie,
     private firstLogin :  HomeService,
@@ -63,7 +66,7 @@ export class HeaderComponent implements OnInit {
   }
 
   openWelcomeScreen() {
-    this.modalService.show(WelcomePinkertonComponent, Object.assign({}, { class: 'welcome-popup' }));
+    this.modalService.show(WelcomePinkertonComponent, Object.assign({}, this.config, { class: 'welcome-popup' }));
   }
   openWelcomeOnFirstLogin(){
     var header = {
@@ -100,9 +103,12 @@ export class HeaderComponent implements OnInit {
     this.shared_service.startLoading();
     this.servNotification.getNotificationList().subscribe(data=>{
       this.userNotificationList = data;
-      console.log(this.userNotificationList)
       this.shared_service.stopLoading();
-      this.new_Report_count = this.userNotificationList[1].new_report_count;
+      if(this.userNotificationList[1])
+      {
+        this.new_Report_count = this.userNotificationList[1].new_report_count;
+      }
+     
       console.log("header component Api call " + this.new_Report_count)
     })
   }

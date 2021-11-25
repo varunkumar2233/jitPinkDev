@@ -14,8 +14,9 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <br>
-                                    <h4>You have <span class="count"> {{this.itemCount}} </span> <span> {{this.itemCount === 1 ? 'item' : 'items'}} </span> in your cart</h4>
-                                   
+                                    <h4>You have <span class="count"> {{this.itemCount}} </span> <span> {{this.itemCount
+                                            === 1 ? 'item' : 'items'}} </span> in your cart</h4>
+
                                 </div>
                             </div>
                             <div class="row" *ngIf="this.itemCount !=0; else itemzero">
@@ -37,15 +38,18 @@
                                                 </div>
                                             </div>
                                             <div class="item-field" *ngFor="let report of cartList">
-                                                
-                                                    <span class="close-field">
-                                                        <i class="ion-ios-close" (click)="deleteReportFromCartLatest(report.id,report.report_type)"></i></span>
-                                                      
+
+                                                <span class="close-field">
+                                                    <i class="ion-ios-close"
+                                                        (click)="deleteReportFromCartLatest(report.id,report.report_type)"></i></span>
+
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <div class="img">
                                                             <img *ngIf="report.id!=0" src="{{report.preview_img}}" />
-                                                            <img *ngIf="report.id==0" src="./../../../../assets/images/credit-icon.png" style="height: 96px;" />
+                                                            <img *ngIf="report.id==0"
+                                                                src="./../../../../assets/images/credit-icon.png"
+                                                                style="height: 96px;" />
                                                         </div>
                                                     </div>
                                                     <div class="col-md-5">
@@ -54,10 +58,10 @@
                                                             <p class="location-name">{{report.address}}</p>
                                                             <p *ngIf="report.id==0">Credits</p>
                                                             <p *ngIf="report.id!=0" class="format">Format: PDF</p>
-                                                            <p class="typeofreport">Standard Credits</p>
+                                                            <p  *ngIf="report.id==0" class="typeofreport">Standard Credits</p>
                                                             <!-- <p *ngIf="report.id==0" class=""><a> Quantity
                                                                     {{counter}}</a></p> -->
-                                                           
+
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4 pl-0">
@@ -67,10 +71,17 @@
                                                         <br>
                                                         <p *ngIf="report.id==0" class="creditQuantity">
                                                             Quantity
-                                                            <button class = "hideButton" (click) = "decrementCreditQuantity()">-</button>
-                                                             <span class = "counter" type="number" min="0">{{counter}}</span>
-                                                             <button class = "hideButton plus-btn" (click) ="incrementCreditQuantity()">+</button>
+                                                            <button class="hideButton"
+                                                                (click)="decrementCreditQuantity()">-</button>
+                                                            <span class="counter" type="number"
+                                                                min="0">{{counter}}</span>
+                                                            <button class="hideButton plus-btn"
+                                                                (click)="incrementCreditQuantity()">+</button>
+                                                            <button class="reachUsBtn default-btn btn float-right"
+                                                                *ngIf="wantMoreCredits">Reach us for more
+                                                                credits</button>
                                                         </p>
+
                                                         <!-- <div>
                                                             <p *ngIf="report.id==0" class="creditQuantity">Quantity <button class = "hideButton" (click) ="incrementCreditQuantity()">+</button>
                                                                 <span class = "counter" type="number" min="0">{{counter}}</span><button class = "hideButton" (click) = "decrementCreditQuantity()">-</button>
@@ -79,8 +90,8 @@
                                                         </div> -->
 
                                                     </div>
-                                                
-                                                    
+
+
                                                 </div>
                                             </div>
                                             <div class="sub-total text-right">
@@ -114,7 +125,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="row">
                                                     <div class="col-md-12 col-12 taxLocation">
                                                         <small>Tax applicable depending on billing
@@ -147,15 +158,15 @@
                                                             You have no items in your cart
                                                         </div>
                                                     </div>
-                                                   
+
                                                 </div>
                                             </div>
                                             <button class="default-btn btn" routerLink="/main">Explore</button>
-                                           
+
                                         </div>
                                     </div>
                                 </div>
-                              </ng-template>
+                            </ng-template>
 
 
                             <div class="row">
@@ -163,11 +174,13 @@
                                     <hr>
                                 </div>
                                 <div class="col-md-4 mt-2 text-left" *ngIf="this.itemCount == 0;">
-                                    <div class="back" (click)="backClicked()"><i class="ion-ios-arrow-back"></i>Back</div>
+                                    <div class="back" (click)="backClicked()"><i class="ion-ios-arrow-back"></i>Back
+                                    </div>
                                 </div>
                             </div>
 
-                            <form [formGroup]="termsConditionForm" (ngSubmit)="checkoutfinal()" *ngIf="this.itemCount !=0;">
+                            <form [formGroup]="termsConditionForm" (ngSubmit)="checkoutfinal()"
+                                *ngIf="this.itemCount !=0;">
                                 <div class="row tc-checkbox-field">
                                     <div class="col-md-12">
                                         <div class="form-check pl-2">
@@ -182,16 +195,17 @@
                                             </label>
                                             <br>
                                             <div *ngIf="submitted && f.has_agreed_tos.errors" class="invalid-feedback">
-                                                <div>Please first check that you have read and understand the <a routerLink="./../terms-condition"
-                                                       
-                                                        target="_self">terms &amp; conditions</a></div>
+                                                <div>Please first check that you have read and understand the <a
+                                                        routerLink="./../terms-condition" target="_self">terms &amp;
+                                                        conditions</a></div>
                                             </div>
                                             <br>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4 mt-2 text-left">
-                                        <div class="back" (click)="backClicked()"><i class="ion-ios-arrow-back"></i>Back</div>
+                                        <div class="back" (click)="backClicked()"><i class="ion-ios-arrow-back"></i>Back
+                                        </div>
                                     </div>
                                     <div class="col-md-8">
                                         <button class="default-btn btn float-right">Checkout</button>

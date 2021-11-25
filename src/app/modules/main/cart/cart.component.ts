@@ -6,11 +6,12 @@ import { AlertServiceService } from '../../shared/services/alert-service.service
 import { ShopifyService } from '../services/shopify.service';
 import { DataProviderService } from '../services/data-provider.service';
 import { debug } from 'console';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, timeout } from 'rxjs/operators';
 import { Subscription, Subject, Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Location} from '@angular/common';
 import { Router } from '@angular/router';
+import { IfTermsAcceptedService } from '../../home/if-terms-accepted.service';
 
 @Component({
   selector: 'app-cart',
@@ -25,7 +26,7 @@ export class CartComponent implements OnInit {
   totalAmount: any;
   itemCount: any;
   standartReportAmount: any;
-  platiumReportAmount: any;
+  wantMoreCredits: boolean = false;
   termsConditionForm: FormGroup;
   isTermsAccepted: boolean = false;
   isActive: Subject<boolean> = new Subject();   // Subject used to take until the component is alive.
@@ -36,6 +37,7 @@ export class CartComponent implements OnInit {
     private fb: FormBuilder,
     private shared_service: SharedService,
     private alert_service: AlertServiceService,
+    private ifTermsAccepted:IfTermsAcceptedService,
     private shopify: ShopifyService,
     private _location: Location,
     private router: Router,
@@ -51,6 +53,7 @@ export class CartComponent implements OnInit {
   
 
   ngOnInit(): void {
+    this.ifTermsAccepted.ifTermsAccepted();
     this.InitializeFormCheckbox();
     this.getReportPricesfromShopify();
     setTimeout(() => {
@@ -78,13 +81,13 @@ export class CartComponent implements OnInit {
 
     this.shopify.getProducts().then(data => {
       this.standartReportAmount = data.find(e => e.handle === `standard-report`).variants[0].price;
-      this.platiumReportAmount = data.find(e => e.handle === `platinum-report`).variants[0].price;
     });
   }
  
   
 
   loadCartData() {
+    this.shared_service.startLoading();
     this.cart_service.displayCartData().pipe(takeUntil(this.isActive)).subscribe(data => {
       this.myCartList(data);
       if(this.pageLoadInitialized)
@@ -92,6 +95,7 @@ export class CartComponent implements OnInit {
         this.counter = data.standard_credits;
       }
       this.date_Provider_Service.updateCartData(this.cartList);
+      this.shared_service.stopLoading();
     });
   }
 
@@ -101,7 +105,6 @@ export class CartComponent implements OnInit {
     var tempArray = [];
     var amount = 0;
     var standardAmount = this.standartReportAmount;
-    var platiumAmount = this.platiumReportAmount;
     req.reports.forEach(function (value) { // report data
       tempArray.push(
         {
@@ -112,7 +115,8 @@ export class CartComponent implements OnInit {
           "lon": value.lon,
           "lat": value.lat,
           "geo_id": value.geo_id,
-          "price": value.report_type == 'platinum' ? platiumAmount : standardAmount,
+          "price": standardAmount,
+          //"price": value.report_type == 'platinum' ? platiumAmount : standardAmount,
           "quantity": '',
           "preview_img": value.preview_img
         }
@@ -137,22 +141,9 @@ export class CartComponent implements OnInit {
       tempArray.push(standareCreditRequest);
     }
 
-    if (premCred != 0) {
-      var platiumCreditRequest = { // we can show the add to cart data for credits & reports.
-        "id": 0,
-        "address": '', // this will change...
-        "report_type": 'Platinum Credits',
-        "country": '',
-        "lon": '',
-        "lat": '',
-        "geo_id": '',
-        "price": this.getCreditTotalPrice(premCred, 'platinum_credits'),
-        'quantity': premCred
-      };
-      tempArray.push(platiumCreditRequest);
-    }
     this.cartList = tempArray;
     this.itemCount = this.cartList.length;
+    console.log("item count in myCart List block" + this.itemCount)
     this.calculateItemSum();
   }
 
@@ -223,8 +214,13 @@ export class CartComponent implements OnInit {
   }
 
   incrementCreditQuantity(){
+    if(this.counter<100){
     this.counter = this.counter+1;
     this.incrementDecrementCreditQuantity(this.counter);  
+    }else if(this.counter==100){
+this.wantMoreCredits = true;
+
+    }
   }
 
   decrementCreditQuantity(){
@@ -233,6 +229,7 @@ export class CartComponent implements OnInit {
       return;
     }
     this.counter = this.counter-1;
+    this.wantMoreCredits = false;
     this.incrementDecrementCreditQuantity(this.counter);
   }
   
@@ -261,10 +258,11 @@ export class CartComponent implements OnInit {
     }
   }
 
-  addUpdateCreditToCartDB(reportsdata) {
+    addUpdateCreditToCartDB(reportsdata) {
+    this.shared_service.startLoading();
     this.cart_service.addCreditToCartDB(reportsdata).pipe(takeUntil(this.isActive)).subscribe(
       data =>{
-      console.log(data);
+        console.log("response after deleting credit " + "" + data )
     },
     error => {
       this.alert_service.error('error while upsating quantity of credit.');
@@ -279,6 +277,7 @@ export class CartComponent implements OnInit {
    if (indexcredit > -1) {
      this.cartList.splice(indexcredit, 1);
      this.itemCount = this.cartList.length;
+     console.log("item count in delete report from cart block" + this.itemCount)
      this.calculateItemSum();
      this.addUpdateCreditToCartDB(removeCredObj);
    }
@@ -288,7 +287,8 @@ export class CartComponent implements OnInit {
 
 deleteReportFromCartLatest(id, type) {
   this.shared_service.startLoading();
-  if (type === 'Standard Credits') {
+  console.log("Value of ID " + " " + id + " " + type);
+  if (type === 'Standard Credits' || type === 'standard_credits') {
     var removeCredObj = {
         "standard_credits": 0
       };
@@ -296,9 +296,11 @@ deleteReportFromCartLatest(id, type) {
     let indexcredit = this.cartList.findIndex(x => x.id === id);
     if (indexcredit > -1) {
       this.cartList.splice(indexcredit, 1);
-      this.itemCount = this.cartList.length;
+      this.itemCount = 0;
+      console.log("item count in first if block" + this.itemCount)
       this.calculateItemSum();
       this.addUpdateCreditToCartDB(removeCredObj);
+      this.date_Provider_Service.updateCartData('report');
     }
   }
   else {
@@ -306,16 +308,18 @@ deleteReportFromCartLatest(id, type) {
     if (indexcredit > -1) {
       this.cartList.splice(indexcredit, 1);
       this.itemCount = this.cartList.length;
+      console.log("item count in second else block" + this.itemCount)
       this.calculateItemSum();
       this.removeItemFromDB(id);
       this.date_Provider_Service.updateCartData('report');
     }
   }
-  this.date_Provider_Service.setViewCartDetailData(this.cartList);
+  
   setTimeout(() => {
     this.loadCartData();
+    this.date_Provider_Service.setViewCartDetailData(this.cartList);
   }, 100); 
-  this.shared_service.stopLoading();
+  
 
 }
 

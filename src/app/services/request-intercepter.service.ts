@@ -74,7 +74,7 @@ export class RequestIntercepterService implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  private RefreshAccessToken(request: HttpRequest<any>, next: HttpHandler) {
+  RefreshAccessToken(request: HttpRequest<any>, next: HttpHandler) {
     const currentDate = new Date();
     console.log('Refresh token updated - ' + currentDate);
     if (!this.isRefreshing) {

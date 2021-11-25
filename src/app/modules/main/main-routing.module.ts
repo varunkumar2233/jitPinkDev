@@ -15,6 +15,7 @@ import { WrapperComponent } from './wrapper/wrapper.component';
 import { GetSampleReportsComponent } from './get-sample-reports/get-sample-reports.component';
 import { SampleReportCartComponent } from './sample-reports/sample-reportcart.component';
 import { PurchaseHistoryComponent } from './purchase-history/purchase-history.component';
+import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 const routes: Routes = [
   {
  path: '', component: WrapperComponent,
@@ -30,8 +31,8 @@ const routes: Routes = [
     { path: 'purchasedReports', component: PurchasedReportsComponent},
     { path: 'orderConfirmation', component: OrderConfirmationComponent},
     { path: 'getSampleReports', component: GetSampleReportsComponent},
-    { path: 'sampleReports', component: SampleReportCartComponent}
-
+    { path: 'sampleReports', component: SampleReportCartComponent},
+    { path: '**', component: PageNotFoundComponent }
     
     
 

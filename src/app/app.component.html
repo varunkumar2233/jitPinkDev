@@ -2,20 +2,20 @@
 <router-outlet></router-outlet>
 <app-page-loader></app-page-loader>
 
-<!-- 
-<div class="cookie-box" *ngIf="!isConsented">
+
+<div class="cookie-box"*ngIf="!isEnablaedCookies">
     <div class="text-field">Your browser has cookies disabled. Make sure your cookies are enabled and try again. <a
-            class="learn_more" href="#">Learn More.</a></div>
+            class="learn_more" target="_black" href="https://policies.google.com/technologies/cookies?hl=en-US">Learn More.</a></div>
     <div class="btn-field">
-        <button class="c_btn">TRY AGAIN</button>
+        <button class="c_btn" (click)="reloadme()">TRY AGAIN</button>
 
     </div>
-</div> -->
-<div class="cookie-box">
+</div>
+<div class="cookie-box" *ngIf="!isConsented">
     <div class="text-field">We use cookies to help personalize content, tailor and measure ads, and provide a better
         experience. By clicking accept, you are agreeing to our Cookie Policy.</div>
     <div class="btn-field">
         <button class="c_btn" (click)='setCookie("COOKIE-CONSENT-NAME", "privateCookiesVALUE", 1, "http://localhost")'>ACCEPT</button>
-        <button class="c_btn">PREFERENCES</button>
+        <!-- <button class="c_btn">PREFERENCES</button> -->
     </div>
 </div>

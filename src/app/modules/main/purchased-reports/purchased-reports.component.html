@@ -98,7 +98,7 @@
                         <div class="report-panel">
                             <div class="report-details">
                                 <div class="row">
-                                  <div  *ngIf ="rows?.length==0; else elseBlock" class="col-md-12">
+                                  <div  *ngIf ="(rows?.length==0 && onPageLoad == false); else elseBlock" class="col-md-12">
                                     <h4>Purchase history not available</h4>
                                 </div>
                                 <ng-template #elseBlock class="col-md-12">

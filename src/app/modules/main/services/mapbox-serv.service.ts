@@ -135,6 +135,9 @@ export class MapboxServService {
           ${totalCrimeIndex}x
         </span>
       </p>
+      <p>
+      <a target = "_blank" href="${location.direct_download_url}"> <img src="assets/images/icon-view-active.svg"></a>
+      </p>
     </div>
     `
     const popup = new mapboxgl.Popup({

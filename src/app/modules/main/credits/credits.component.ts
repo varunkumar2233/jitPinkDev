@@ -9,8 +9,7 @@ import { Subscription, Subject } from 'rxjs';
 import { SharedService } from '../../shared/services/shared-service.service';
 import { AlertServiceService } from '../../shared/services/alert-service.service';
 import { TabDirective } from 'ngx-bootstrap/tabs';
-
-
+import { IfTermsAcceptedService } from '../../home/if-terms-accepted.service';
 
 @Component({
   selector: 'app-credits',
@@ -54,6 +53,7 @@ export class CreditsComponent implements OnInit {
   });
   productList: Array<any>;
   constructor(private shopify_service: ShopifyService,
+    private ifTermsAccepted:IfTermsAcceptedService,
     private shared_service : SharedService,
     private cartInfo: addToCartServie,
     private alert_service : AlertServiceService,
@@ -78,6 +78,7 @@ export class CreditsComponent implements OnInit {
   //premiumProduct :any[];
   
   ngOnInit(): void {
+    this.ifTermsAccepted.ifTermsAccepted();
       this.getCreditsProduct();
 if(this.standardValue == 100) {
   this.reachusFlag = false;

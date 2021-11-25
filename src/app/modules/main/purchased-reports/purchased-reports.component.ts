@@ -15,6 +15,7 @@ import { link } from 'fs';
 export class PurchasedReportsComponent implements OnInit {
 
   private isActive = new Subject();
+  onPageLoad : boolean;
   rows = [
   ]
   filterTerm: string;
@@ -24,6 +25,7 @@ export class PurchasedReportsComponent implements OnInit {
     private alertService: AlertServiceService,) { }
 
   ngOnInit(): void {
+    this.onPageLoad = true;
     this.bindMyReportsData();
   }
 
@@ -52,6 +54,7 @@ export class PurchasedReportsComponent implements OnInit {
     })
 
     this.rows = TempArray;
+    this.onPageLoad = false;
     //console.log(this.rows);
     // return TempArray;
 

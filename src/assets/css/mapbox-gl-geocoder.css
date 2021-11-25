@@ -228,6 +228,9 @@
     border-bottom-left-radius: 10px;
     max-width: 420px;
   }
+  .mapboxgl-popup.mapboxgl-popup-anchor-bottom{
+    z-index: 999;
+  }
   .mapboxgl-ctrl-geocoder .suggestions {
     font-size: 13px;
   }

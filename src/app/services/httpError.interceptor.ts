@@ -10,12 +10,13 @@ import { Observable, throwError, Subject } from 'rxjs';
 import { retry, catchError, takeUntil } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AlertServiceService } from '../modules/shared/services/alert-service.service';
+import { RequestIntercepterService } from './request-intercepter.service'; 
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
 
     constructor(
-        private alertService:AlertServiceService
+        private alertService:AlertServiceService, private requestIntercepterService: RequestIntercepterService
     ) {
      
     }
@@ -35,7 +36,13 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                         if (error.error) {
                             console.log(error.error);
                             if(error.error.detail){
-                                this.alertService.error(error.error.detail);
+                                if(error.error.detail =="JWT error: ExpiredSignatureError")
+                                {
+                                  const accessToken = localStorage.getItem('AccessToken');
+                                  this.requestIntercepterService.RefreshAccessToken(request, next);
+                                }else{
+                                    this.alertService.error(error.error.detail);
+                                }
                             }
                             
                             // if (error.error.errorCode === 'APP08') {

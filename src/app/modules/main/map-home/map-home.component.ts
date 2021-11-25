@@ -15,6 +15,7 @@ import { DataProviderService } from '../services/data-provider.service';
 import { ShopifyService } from '../services/shopify.service';
 import { AlertServiceService } from '../../shared/services/alert-service.service';
 import { ColumnMode, SelectionType, SortType } from '@swimlane/ngx-datatable';
+import { IfTermsAcceptedService } from '../../home/if-terms-accepted.service';
 
 @Component({
   selector: '.mapHOmepage',
@@ -42,6 +43,7 @@ export class MapHomeComponent implements OnInit, OnDestroy {
     private sharedService: SharedService,
     private shopify: ShopifyService,
     private reportStore: DataProviderService,
+    private ifTermsAccepted:IfTermsAcceptedService,
     private alertService: AlertServiceService,) { }
   private isActive = new Subject();
   addressselected!: string;
@@ -82,13 +84,7 @@ export class MapHomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    //console.log("number of reports:" + this.rows.length)
-    //this.shopify.getAuthenticatedCheckoutUrl().then(data => console.log(data))
-    //console.log('get all products data');
-
-    //console.log('checkout url.......');
-    //this.shopify.getAuthenticatedCheckoutUrl().then(data => console.log(data));
-    //this.map.downloadReportCSV();
+    this.ifTermsAccepted.ifTermsAccepted();
     this.map.getCountryList().pipe(takeUntil(this.isActive)).subscribe(data => {
       this.countries = data;
 
@@ -127,14 +123,16 @@ export class MapHomeComponent implements OnInit, OnDestroy {
       })
 
       this.rows = TempArray;
-      if (!this.isResponseFromNotification) {
-        console.log("this.isResponseFromNotification")
-        this.rows = this.rows.filter(function (obj) {
-          delete obj.is_seen;
-          return obj;
-        });
+      //if (!this.isResponseFromNotification) {
+        // console.log("this.isResponseFromNotification")
+        // this.rows = this.rows.filter(function (obj) {
+        //   delete obj.is_seen;
+        //   console.log("obj")
+        //   console.log(obj)
+        //   return obj;
+        // });
 
-      }
+      //}
       if (this.rows) {
         for (var i in this.rows) {
           for (var x in this.rows[i].crimescore_set) {

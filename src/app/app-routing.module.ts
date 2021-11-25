@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EmailConfirmComponent } from './modules/email-confirm/email-confirm.component';
 import { MainModule } from './modules/main/main.module';
+import { PageNotFoundComponent } from './modules/page-not-found/page-not-found.component';
 import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
@@ -29,7 +30,13 @@ const routes: Routes = [
 	{
 		path: 'main',
 		loadChildren: () => import('./modules/main/main.module').then((m) => m.MainModule),canActivate: [AuthGuard]
-	}
+	},
+
+	{ path: '**', redirectTo: 'main/pageNotFound' },
+	{ path: 'main/pageNotFound', component: PageNotFoundComponent }
+	
+	//{ path: 'pageNotFound', component: PageNotFoundComponent },
+//	{ path: 'pageNotFound', component: PageNotFoundComponent }
 	// {
 	// 	path: 'msal',
 	// 	loadChildren: () => import('./modules/auth/auth.module').then((m) => m.AuthModule),
@@ -53,8 +60,8 @@ const routes: Routes = [
 //   },
 
 //   // otherwise redirect to home,
-//   { path: 'pageNotFound', component: PageNotFoundComponent },
-//   { path: '**', redirectTo: 'pageNotFound' }
+ //  { path: 'pageNotFound', component: PageNotFoundComponent },
+ //  { path: '**', redirectTo: 'pageNotFound' }
 // ];
 
 @NgModule({
