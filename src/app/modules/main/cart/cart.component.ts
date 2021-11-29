@@ -166,7 +166,7 @@ export class CartComponent implements OnInit {
 
   getCreditTotalPrice(quantity, credittype) {
     if (credittype === 'standard_credits') {
-      if (quantity >= 25 && quantity <= 49) {
+      if (quantity >= 26 && quantity <= 49) {
         return quantity * 250;
 
       } else if (quantity >= 50) {
@@ -177,7 +177,7 @@ export class CartComponent implements OnInit {
       }
     }
     else {
-      if (quantity >= 25 && quantity <= 49) {
+      if (quantity >= 26 && quantity <= 49) {
         return quantity * 770;
 
       } else if (quantity >= 50) {

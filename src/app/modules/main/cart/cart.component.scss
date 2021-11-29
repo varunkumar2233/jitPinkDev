@@ -91,6 +91,7 @@ a.nav-link:hover:before,
     p.creditQuantity{
        align-items: right;
        padding-right: 10px;
+    
 }
 
     .savelater a {
@@ -298,6 +299,10 @@ button.hideButton.plus-btn {
 p.creditQuantity {
     font-size: 14px;
     font-weight: 400;
+    display: block;
+       width: 120px;
+       float: right;
+    
 }
 
 .creditQuantity button {

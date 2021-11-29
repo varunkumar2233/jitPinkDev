@@ -58,7 +58,7 @@
                                                             <p class="location-name">{{report.address}}</p>
                                                             <p *ngIf="report.id==0">Credits</p>
                                                             <p *ngIf="report.id!=0" class="format">Format: PDF</p>
-                                                            <p  *ngIf="report.id==0" class="typeofreport">Standard Credits</p>
+                                                            <!-- <p  *ngIf="report.id==0" class="typeofreport">Standard Credits</p> -->
                                                             <!-- <p *ngIf="report.id==0" class=""><a> Quantity
                                                                     {{counter}}</a></p> -->
 
@@ -77,7 +77,7 @@
                                                                 min="0">{{counter}}</span>
                                                             <button class="hideButton plus-btn"
                                                                 (click)="incrementCreditQuantity()">+</button>
-                                                            <button class="reachUsBtn default-btn btn float-right"
+                                                            <button routerLink="/main/getintouch"  class="reachUsBtn default-btn btn float-right"
                                                                 *ngIf="wantMoreCredits">Reach us for more
                                                                 credits</button>
                                                         </p>

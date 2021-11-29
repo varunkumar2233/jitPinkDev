@@ -94,7 +94,7 @@ if(this.standardValue == 100) {
 
   getStandardDiscountPerReport()
   {
-    if(this.standardValue>=25 && this.standardValue <=49)
+    if(this.standardValue>=26 && this.standardValue <=49)
     {
       return 250;
     } else if(this.standardValue>=50) {
@@ -111,7 +111,7 @@ if(this.standardValue == 100) {
   
    
     //discount = 100 * (original_price - discounted_price) / original_price
-    if(this.standardValue>=25 && this.standardValue <=49)
+    if(this.standardValue>=26 && this.standardValue <=49)
     {
       return Math.round(100 * ((this.standardValue * 350) - (this.standardValue * 250)) / ((this.standardValue * 350)));
     

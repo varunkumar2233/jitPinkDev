@@ -811,13 +811,16 @@ li {
     min-height: auto;
 
 
-.map-form-field {
-    position: absolute;
-    top: 25px;
-    z-index: 99;
-    width: 100%;
-    left: 10px;
-}
+    .map-form-field {
+        position: absolute;
+        top: 25px;
+        z-index: 99;
+        width: 82%;
+        left: 10px;
+        .mapboxgl-ctrl-geocoder--input {
+            border-radius: 10px;
+        }
+    }
 .mapboxgl-ctrl-geocoder{
     margin-top:10px;
     background:none;
@@ -828,6 +831,7 @@ li {
 
     .reports-grid-view {
         overflow-x: auto;
+        overflow-y: hidden;
     }
 
 }
@@ -983,6 +987,7 @@ button[disabled]{
 .mapboxgl-popup-content {
     background-color: #222222;
     text-align: center;
+    padding-top: 20px;
 }
 
 .mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
@@ -1006,6 +1011,7 @@ button[disabled]{
 
 .mapboxgl-popup-close-button {
     color: #eee;
+    display: block;
 }
 .typeofreport{
     text-transform: capitalize;

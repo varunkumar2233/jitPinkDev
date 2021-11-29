@@ -159,6 +159,7 @@ export class SignUpComponent implements OnInit {
           this.isSignUpClicked = false;
           this.alertService.error(error.error["email"], { keepAfterRouteChange: true });
           this.alertService.error(error.error["phone"], { keepAfterRouteChange: true });
+          this.alertService.error(error.error["detail"], { keepAfterRouteChange: true });
           if(error.error["detail"]=="User failed the reCAPTCHA test."){
             this.alertService.error("Could not activate your account. Please contact support for help");
           }

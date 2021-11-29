@@ -16,6 +16,7 @@ import { ShopifyService } from '../services/shopify.service';
 import { AlertServiceService } from '../../shared/services/alert-service.service';
 import { ColumnMode, SelectionType, SortType } from '@swimlane/ngx-datatable';
 import { IfTermsAcceptedService } from '../../home/if-terms-accepted.service';
+import { NotificationsService } from '../services/notifications.service';
 
 @Component({
   selector: '.mapHOmepage',
@@ -44,7 +45,8 @@ export class MapHomeComponent implements OnInit, OnDestroy {
     private shopify: ShopifyService,
     private reportStore: DataProviderService,
     private ifTermsAccepted:IfTermsAcceptedService,
-    private alertService: AlertServiceService,) { }
+    private alertService: AlertServiceService,
+    private notificationsService: NotificationsService) { }
   private isActive = new Subject();
   addressselected!: string;
   ViewIcon: boolean;
@@ -351,6 +353,7 @@ export class MapHomeComponent implements OnInit, OnDestroy {
       this.alertService.error('Error while downloading report.');
       this.sharedService.stopLoading();
     });
+    this.notificationsService.updateNotification();
   }
 
   downloadexl() {

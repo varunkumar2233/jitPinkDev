@@ -107,22 +107,27 @@ export class HeaderComponent implements OnInit {
       if(this.userNotificationList[1])
       {
         this.new_Report_count = this.userNotificationList[1].new_report_count;
+      } else {
+        if(this.userNotificationList.length == 1)
+        {
+          this.new_Report_count = 0
+        }
       }
-     
-      console.log("header component Api call " + this.new_Report_count)
     })
   }
 
 
   loadCartData() {
+    this.shared_service.startLoading();
     this.cart_service.displayCartData().pipe(takeUntil(this.isActive)).subscribe(data => {
       this.myCartList(data);
     });
+    this.shared_service.stopLoading();
   }
 
 
   updateBasketAfterAddtoCart(data) {
-    if (data.report_type === 'standard_credits' || data.report_type === 'platinum_credits') {
+    if (data.report_type === 'standard_credits') {
       var indexcredit = this.cartList.findIndex(x => x.report_type === data.report_type);
       if (indexcredit > -1) {
         this.cartList.splice(indexcredit, 1);
