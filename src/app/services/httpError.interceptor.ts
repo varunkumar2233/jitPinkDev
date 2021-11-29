@@ -38,8 +38,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                             if(error.error.detail){
                                 if(error.error.detail =="JWT error: ExpiredSignatureError")
                                 {
-                                  const accessToken = localStorage.getItem('AccessToken');
-                                  this.requestIntercepterService.RefreshAccessToken(request, next);
+                                  //const accessToken = localStorage.getItem('AccessToken');
+                                  this.requestIntercepterService.RefreshAccessToken(request, next);          
                                 }else{
                                     this.alertService.error(error.error.detail);
                                 }
@@ -54,6 +54,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                             // }
                         } else {
                             //this.alertService.error(this.translateService.instant('messages.serviceUnavailable'));
+                        }
+                        if(error.error.detail =="JWT error: ExpiredSignatureError" || error.error.detail == "Authentication credentials were not provided.")
+                        {
+                            location.reload();
                         }
                         errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
                         console.log(errorMessage);

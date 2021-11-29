@@ -301,7 +301,7 @@ export class GetSampleReportsComponent implements OnInit {
     const { lon, lat } = loc
     this.isBothReportAvaible = true;
     this.selectedAddres = loc.address;
-    this.selectedCountryCode= loc.country;
+    this.selectedCountryCode= loc.address;
     //this.selectedCountry= loc.name;
     this.isAnyReportAvaible = true;
     this.map.map.flyTo({

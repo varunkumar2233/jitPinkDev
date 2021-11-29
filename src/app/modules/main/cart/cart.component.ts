@@ -123,7 +123,7 @@ export class CartComponent implements OnInit {
       );
     });
     // credit data.
-    var premCred = req.platinum_credits;
+    //var premCred = req.platinum_credits;
     var standCred = req.standard_credits;
 
     if (standCred != 0) {
@@ -296,7 +296,7 @@ deleteReportFromCartLatest(id, type) {
     let indexcredit = this.cartList.findIndex(x => x.id === id);
     if (indexcredit > -1) {
       this.cartList.splice(indexcredit, 1);
-      this.itemCount = 0;
+      this.itemCount = this.cartList.length;
       console.log("item count in first if block" + this.itemCount)
       this.calculateItemSum();
       this.addUpdateCreditToCartDB(removeCredObj);
@@ -317,10 +317,9 @@ deleteReportFromCartLatest(id, type) {
   
   setTimeout(() => {
     this.loadCartData();
-    this.date_Provider_Service.setViewCartDetailData(this.cartList);
-  }, 100); 
+  }, 1000); 
   
-
+  this.date_Provider_Service.setViewCartDetailData(this.cartList);
 }
 
 async removeItemFromDB(id) {
