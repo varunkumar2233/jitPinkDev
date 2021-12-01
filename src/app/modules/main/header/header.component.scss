@@ -236,6 +236,17 @@ span.badge.notification-count-99{
 //     color: #333;
 //   }
 
+@media (min-width: 768px) and (max-width: 850px) {
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+    right: auto !important;
+    top: 120px !important;
+}
+
+.navbar-expand-lg .navbar-nav .dropdown-menu.cartSection {
+    right: 0 !important;
+}
+
+}
 
 @media screen and (max-width: 767px) {
     .navbar-expand-lg .navbar-nav .dropdown-menu {
