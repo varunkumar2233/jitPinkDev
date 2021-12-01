@@ -179,16 +179,16 @@
           <ngx-datatable-column name="Preview"  [sortable]="false">
             <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
               <div [ngClass]="{'activeOne': row.is_seen===false}">
-                <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, false)"
+                <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row, false)"
                   class="download-icon activeOne" src="assets/images/icon-download-active.svg" />
   
-                <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, true)"
+                <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row, true)"
                   class="view-icon activeOne" src="assets/images/icon-view-active.svg" />
               </div>
               <div [ngClass]="{'activeNone': row.is_seen===true}">
-                <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, false)"
+                <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row, false)"
                   class="download-icon activeNone" src="assets/images/icon-download.svg" />
-                <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, true)"
+                <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row, true)"
                   class="view-icon activeNone" src="assets/images/icon-view.svg" />
               </div>
   
@@ -235,16 +235,16 @@
                   <td  width="20%" style="text-align: center;" class="action-icon">
 
                     <div [ngClass]="{'activeOne': row.is_seen===false}">
-                      <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, false)"
+                      <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row, false)"
                         class="download-icon activeOne" src="assets/images/icon-download-active.svg" />
 
-                      <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, true)"
+                      <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row, true)"
                         class="view-icon activeOne" src="assets/images/icon-view-active.svg" />
                     </div>
                     <div [ngClass]="{'activeNone': row.is_seen===true}">
-                      <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, false)"
+                      <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row, false)"
                         class="download-icon activeNone" src="assets/images/icon-download.svg" />
-                      <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row.download_url, true)"
+                      <img *ngIf="row.download_url" (click)="fileDownloadViaSasUrl(row, true)"
                         class="view-icon activeNone" src="assets/images/icon-view.svg" />
                     </div>
 

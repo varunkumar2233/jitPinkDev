@@ -22,6 +22,8 @@ export class AppComponent implements OnInit{
         this.isConsented = false;
       }else if(location.pathname == "/main"){
         this.isConsented = true;
+      }else if(location.pathname == "/main/terms-condition"){
+        this.isConsented = true;
       }
   }
 

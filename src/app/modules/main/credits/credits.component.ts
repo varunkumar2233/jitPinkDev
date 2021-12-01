@@ -63,6 +63,7 @@ export class CreditsComponent implements OnInit {
   options: Options = {
     floor: 1,
     ceil: 100,
+    ticksArray: [26, 50],
     showSelectionBarEnd: true
   };
   standardCredit :number;

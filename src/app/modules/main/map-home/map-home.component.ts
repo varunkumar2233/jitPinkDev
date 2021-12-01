@@ -315,10 +315,10 @@ export class MapHomeComponent implements OnInit, OnDestroy {
     console.log(this.availableReportData)
   }
 
-  fileDownloadViaSasUrl(req, ViewIcon) {
+  fileDownloadViaSasUrl(selectedRow, ViewIcon) {
 
     var myRegexp = /(\d+)\D*$/g;
-    var match = myRegexp.exec(req);
+    var match = myRegexp.exec(selectedRow.download_url);
     this.sharedService.startLoading();
     this.map.getDocumentSasUrlByUrl(match[1]).pipe(takeUntil(this.isActive)).subscribe((res: any) => {
       if (res.url) {
@@ -354,6 +354,7 @@ export class MapHomeComponent implements OnInit, OnDestroy {
       this.sharedService.stopLoading();
     });
     this.notificationsService.updateNotification();
+    selectedRow.is_seen = true;
   }
 
   downloadexl() {
