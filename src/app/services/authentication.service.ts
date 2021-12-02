@@ -5,6 +5,7 @@ import { MsalService } from '@azure/msal-angular';
 import { userOfflineTimeOut, environment, services, b2cPolicies } from '../../environments/environment';
 import { BehaviorSubject, defer, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AlertServiceService } from '../modules/shared/services/alert-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class AuthenticationService {
 
   constructor(
     private http: HttpClient,
-    private msalService: MsalService
+    private msalService: MsalService,
+    private alertServiceService: AlertServiceService
   ) { 
   }
 
@@ -37,7 +39,7 @@ export class AuthenticationService {
     }
     const loginRequest = {
       scopes: scopes,
-      loginHint: localStorage.getItem('LoggedInUserName')
+      loginHint: this.accountInfo.idToken.emails[0] 
     };
     const currentDate = new Date();
     const addedHours = new Date().setHours(currentDate.getHours()+1);
@@ -49,19 +51,27 @@ export class AuthenticationService {
         localStorage.setItem('AccessToken', accessTokenResponse.accessToken);
         localStorage.setItem('LoggedInName', accessTokenResponse.account.name);
         localStorage.setItem('RefreshToken',btoa(newExpDate.toString()));
+        localStorage.setItem ('AccessTokenExpireTime', btoa(accessTokenResponse.expiresOn.toString()));
       }, (error: any) => {
-        this.msalService.acquireTokenPopup(loginRequest).then((token)=>{
-          localStorage.setItem('LoggedInUserName',  localStorage.getItem('authType')=='client'? (token.account ? token.account.idToken.emails[0]:''):(token.account?token.account.userName:''));
-          localStorage.setItem('AccessToken', token.accessToken);
-          localStorage.setItem('LoggedInName',  token.account ? token.account.name : '');
-          localStorage.setItem('RefreshToken',btoa(newExpDate.toString()));
-        });
+        console.log(error);
+        this.alertServiceService.error("Session Expired.. Please login again.");
+        setTimeout(() => {
+          this.logout();
+      }, 500);
+        //window.location.href = environment.postLoginRedirectUri.landingMain;
+        // this.msalService.acquireTokenPopup(loginRequest).then((token)=>{
+        //   localStorage.setItem('LoggedInUserName',  localStorage.getItem('authType')=='client'? (token.account ? token.account.idToken.emails[0]:''):(token.account?token.account.userName:''));
+        //   localStorage.setItem('AccessToken', token.accessToken);
+        //   localStorage.setItem('LoggedInName',  token.account ? token.account.name : '');
+        //   localStorage.setItem('RefreshToken',btoa(newExpDate.toString()));
+        // });
       }));
   }
 
   public get isUserLoggedIn(): boolean {
     this.accountInfo = this.msalService.getAccount();
     const accessToken = localStorage.getItem('AccessToken');
+    //const expireTime = localStorage.getItem('AccessTokenExpireTime');
    const jwtHelper = new JwtHelperService();
     if (accessToken) {
       if (jwtHelper.isTokenExpired(accessToken)) {

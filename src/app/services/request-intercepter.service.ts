@@ -59,7 +59,7 @@ export class RequestIntercepterService implements HttpInterceptor {
     return next.handle(request);
   }
 
-  private setToken(request, accessToken) {
+   setToken(request, accessToken) {
     //const roles = localStorage.getItem('RoleCode');
     //const authType = localStorage.getItem('AuthType');
     return request.clone({

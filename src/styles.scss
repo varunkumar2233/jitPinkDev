@@ -1225,3 +1225,15 @@ border-top-right-radius: 7px;
     font-weight: normal;
     font-size: 11px;
 }
+
+.ngx-slider .ngx-slider-tick {
+    text-align: center;
+    cursor: pointer;
+    width: 2px !important;
+    height: 10px !important;
+    background-color:#adcbfa !important;
+    border-radius: 0% !important;
+    position: absolute;
+    left: 0;
+    margin-left: 11px;
+}

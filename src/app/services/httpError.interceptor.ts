@@ -3,20 +3,20 @@ import {
     HttpInterceptor,
     HttpHandler,
     HttpRequest,
-    HttpResponse,
     HttpErrorResponse
 } from '@angular/common/http';
-import { Observable, throwError, Subject } from 'rxjs';
-import { retry, catchError, takeUntil } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AlertServiceService } from '../modules/shared/services/alert-service.service';
 import { RequestIntercepterService } from './request-intercepter.service'; 
+import { AuthenticationService } from './authentication.service';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
 
     constructor(
-        private alertService:AlertServiceService, private requestIntercepterService: RequestIntercepterService
+        private alertService:AlertServiceService, private requestIntercepterService: RequestIntercepterService, private authenticationService : AuthenticationService
     ) {
      
     }
@@ -38,8 +38,13 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                             if(error.error.detail){
                                 if(error.error.detail =="JWT error: ExpiredSignatureError")
                                 {
-                                  //const accessToken = localStorage.getItem('AccessToken');
-                                  this.requestIntercepterService.RefreshAccessToken(request, next);          
+                                    error.error.detail = "Session Expired.. Please login again.";
+                                    this.alertService.error("Session Expired.. Please login again.")
+                                    setTimeout(() => {
+                                        this.authenticationService.logout();
+                                    }, 1000);
+                                //   //const accessToken = localStorage.getItem('AccessToken');
+                                //   this.requestIntercepterService.RefreshAccessToken(request, next);          
                                 }else{
                                     this.alertService.error(error.error.detail);
                                 }
@@ -55,11 +60,16 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                         } else {
                             //this.alertService.error(this.translateService.instant('messages.serviceUnavailable'));
                         }
-                        if(error.error.detail =="JWT error: ExpiredSignatureError" || error.error.detail == "Authentication credentials were not provided.")
+                        if(error.error.detail == "Authentication credentials were not provided.")
                         {
-                            location.reload();
+
+                            this.alertService.error("Session Expired.. Please login again.")
+                            setTimeout(() => {
+                                this.authenticationService.logout();
+                            }, 1000);
                         }
-                        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+                       // errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+                       errorMessage = error.error.detail;
                         console.log(errorMessage);
                     }
                     return throwError(errorMessage);
