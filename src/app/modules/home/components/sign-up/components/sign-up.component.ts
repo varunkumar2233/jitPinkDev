@@ -151,6 +151,7 @@ export class SignUpComponent implements OnInit {
           localStorage.clear();
           this.isSignUpClicked = false;
           this.alertService.success('If the email address entered was used to create an account, instructions will be sent to you. Please check your email.', { keepAfterRouteChange: true });
+          this.addNewSignUpToPipeDriveLead();
           this.router.navigate(['../'], { relativeTo: this.route });
           this.sharedService.stopLoading();
         },
@@ -159,7 +160,15 @@ export class SignUpComponent implements OnInit {
           this.isSignUpClicked = false;
           this.alertService.error(error.error["email"], { keepAfterRouteChange: true });
           this.alertService.error(error.error["phone"], { keepAfterRouteChange: true });
-          this.alertService.error(error.error["detail"], { keepAfterRouteChange: true });
+          if(error.error["first_name"])
+          {
+            this.alertService.error("Ensure First Name has no more than 150 characters.");
+          };
+          if(error.error["last_name"])
+          {
+            this.alertService.error("Ensure Last Name has no more than 150 characters.");
+          };
+          //this.alertService.error(error.error["first_name"], {keepAfterRouteChange: true});
           if(error.error["detail"]=="User failed the reCAPTCHA test."){
             this.alertService.error("Could not activate your account. Please contact support for help");
           }
@@ -170,6 +179,25 @@ export class SignUpComponent implements OnInit {
         }
       });
     this.sharedService.stopLoading();
+  }
+
+  addNewSignUpToPipeDriveLead(){
+
+    var requestModel = {
+      email : this.emailField,
+      fullName: this.firstNameModel + " " + this.lastName,
+      phone: this.phoneNumber.e164Number
+    }
+    this.addPipedriveLead(requestModel); 
+  }
+
+  addPipedriveLead(leadDataRequest) {
+    this.homeService.addPipedriveLead(leadDataRequest).pipe(takeUntil(this.isActive)).subscribe(data =>{
+      console.log(data);
+    },error => {
+      this.alertService.error('error while adding new lead to pipedrive.');
+      this.sharedService.stopLoading();
+    });
   }
 
   validateLoginStatus() {

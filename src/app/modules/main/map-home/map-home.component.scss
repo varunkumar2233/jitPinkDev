@@ -25,6 +25,7 @@
         padding: 15px 20px;
         border-radius: 6px;
         box-shadow: 0 0 5px #222;
+        padding-bottom: 40px;
     }
 .inner-box{
     position: relative;
@@ -236,8 +237,9 @@ h3 {
     margin-bottom: 8px;
 }
 .view-report {
-    display: none;
+    margin-top: 10px;
 }
+
 
 .report-panel td.action-icon {
     text-align: center;

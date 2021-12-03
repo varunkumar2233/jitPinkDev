@@ -9,6 +9,8 @@ logoUri: './assets/images/';
 const apiUrl = 'https://func-riskportalapi-dev-01.azurewebsites.net/'
 const webUrl = 'http://localhost:4200'
 const securekey = '?code=$ecureKeyDevPinkerton1'
+const pipeDriveApiUrl = 'https://func-riskportalmiddleware-dev-01.azurewebsites.net/api/'
+
 
 export const environment = {
 	production: false,
@@ -43,6 +45,7 @@ export const environment = {
 	getLocationList: `${apiUrl}report/sample-list/${securekey}`,
 	getPurchaceHistory: `${apiUrl}/report/purchase-history/${securekey}`,
 	updateCreditByOne: `${apiUrl}report/create/${securekey}`,
+	addNewPipedriveLead: `${pipeDriveApiUrl}/CreatePipedriveLead/${securekey}&clientId=development`,
 	postLoginRedirectUri: {
 		landingMain: `${webUrl}/main`,
 		landingHome: `${webUrl}`,

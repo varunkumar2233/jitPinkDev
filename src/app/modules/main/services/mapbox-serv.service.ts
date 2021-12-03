@@ -136,7 +136,7 @@ export class MapboxServService {
         </span>
       </p>
       <p>
-      <a target = "_blank" href="${location.direct_download_url}"> <img src="assets/images/icon-view-active.svg"></a>
+      <a target = "_blank" href="${location.direct_download_url}"> <img src="assets/images/icon-view-active-light.svg"></a>
       </p>
     </div>
     `

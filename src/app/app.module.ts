@@ -24,19 +24,6 @@ import { SharedModule } from './modules/shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { RequestIntercepterService } from './services/request-intercepter.service';
 import { EmailConfirmComponent } from './modules/email-confirm/email-confirm.component';
-// import { MapOnHomeComponent } from './map-on-home/map-on-home.component';
-areCookiesEnabled();
-function areCookiesEnabled() {
-  try {
-    document.cookie = 'cookietest';
-    var cookiesEnabled = document.cookie.indexOf('cookietest') !== -1;
-    if(cookiesEnabled){
-    localStorage.setItem("cookiesEnabled", "true")
-    }
-  } catch (e) {
-    localStorage.setItem("cookiesEnabled", "false")
-  }
-}
 
 function getMsalConfig() {
   let config: Configuration;

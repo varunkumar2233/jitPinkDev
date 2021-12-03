@@ -26,4 +26,8 @@ export class HomeService {
       headers: { 'x-recaptcha-token': request.recaptcha }
     });
   }
+
+  addPipedriveLead(request){
+    return this.http.post(`${environment.addNewPipedriveLead}`,request);
+  }
 }
