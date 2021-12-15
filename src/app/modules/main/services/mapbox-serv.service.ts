@@ -46,6 +46,7 @@ export class MapboxServService {
     this.geocoder = new MapboxGeocoder({
       accessToken: mapboxgl.accessToken,
       mapboxgl: mapboxgl,
+      externalGeocoder: (addr, results) => this.getSupplementalGeocoderResults(addr, results)
     });
     this.geocoder.addTo(geocoderContainer.nativeElement)
   }
@@ -111,7 +112,7 @@ export class MapboxServService {
       .sort((a, b) => b.lat - a.lat)
       .map(e => this.createLocationMarkerSample(e))
   }
-  
+
   createLocationMarker(location) {
     let totalCrimeIndex
     try {
@@ -199,7 +200,7 @@ export class MapboxServService {
   }
   createMarkerElementForLocationSample(location) {
     // get fill color based on crime index, default to kate blue
-    
+
     return this.createMarkerElement('#ADCBFA')
   }
   // create a pinkerton blue marker element
@@ -222,12 +223,12 @@ export class MapboxServService {
   getRiskColor(val, pureRed) {
     if (pureRed && val > 3) return 'red'
     const cutoffs = [
-      {'color': '#59AD24', 'start': 0},
-      {'color': '#CBD12F', 'start': 1},
-      {'color': '#F3E439', 'start': 2},
-      {'color': '#E2A93D', 'start': 3},
-      {'color': '#C7320E', 'start': 5},
-      {'color': '#881111', 'start': 10},
+      { 'color': '#59AD24', 'start': 0 },
+      { 'color': '#CBD12F', 'start': 1 },
+      { 'color': '#F3E439', 'start': 2 },
+      { 'color': '#E2A93D', 'start': 3 },
+      { 'color': '#C7320E', 'start': 5 },
+      { 'color': '#881111', 'start': 10 },
     ]
 
     // find min/max color, bins
@@ -260,5 +261,22 @@ export class MapboxServService {
 
   getReportCreditPurchaseHistory() {
     return this.httpRequest.get(`${environment.getReportCreditPurchaseHistory}`);
+  }
+
+  async getSupplementalGeocoderResults(addr: string, currentFeatures: Array<any>) {
+    if (addr.length < 8) {
+      return currentFeatures;
+    }
+    let extraResults: any = []
+    try {
+      extraResults = await this.httpRequest.get(environment.geocodeSupplement, { params: { addr } }).toPromise()
+    } catch (e) {
+      // if there is any error with request, leave extraResults empty (just return mapbox's features)
+      console.error(e)
+    }
+    if (extraResults.length > 0) {
+      currentFeatures[0] = extraResults[0]
+    }
+    return currentFeatures
   }
 }

@@ -218,7 +218,7 @@ export class MapHomeComponent implements OnInit, OnDestroy {
       //do not delete this line below
       // this.bsModalRef = this.modalService.show(WelcomePinkertonComponent, Object.assign({}, { class: 'welcome-popup' }));
       // this.bsModalRef.content.closeBtnName = 'Close';
-      this.countries.push({ name: "Select All", iso2: "", iso3: null });
+      this.countries.unshift({ name: "Select All", iso2: "", iso3: null });
     });
 
 

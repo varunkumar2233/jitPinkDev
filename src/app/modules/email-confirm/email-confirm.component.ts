@@ -91,10 +91,13 @@ export class EmailConfirmComponent implements OnInit {
     try {
       const res = await this.http.post(environment.emailConfirmUrl, { code }).toPromise();
       this.status = 'Email confirmed, redirecting to login page...'
-      localStorage.clear();  // temprary remove check.
-      localStorage.removeItem('AuthType');
-      localStorage.setItem('AuthType', 'client');
-      this.router.navigateByUrl(`/auth?username=${'clientuser'}`, { skipLocationChange: true });
+      setTimeout(() => {
+        localStorage.clear();  // temprary remove check.
+        localStorage.removeItem('AuthType');
+        localStorage.setItem('AuthType', 'client');
+        this.router.navigateByUrl(`/auth?username=${'clientuser'}`, { skipLocationChange: true });
+      }, 500);
+     return
     }
     catch (e) {
       this.alert_service.error('Invalid confirmation code.');

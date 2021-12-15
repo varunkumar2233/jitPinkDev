@@ -35,7 +35,7 @@
   }
 
   .login-wrapper {
-    background-image: url('../../../../../assets/images/pinkerton_bg.jpg');
+    /* background-image: url('../../../../../assets/images/pinkerton_bg.jpg'); */
     width: 100%;
     position: relative;
     margin: 0 auto;

@@ -7,12 +7,15 @@ import { Alert } from './modules/shared/models/alert';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  isConsented: boolean = false;
+  isConsented: boolean = true;
   constructor() {
 
   }
   ngOnInit(): void {
-    this.checkCookie()
+    setTimeout(() => {
+      this.checkCookie()
+    }, 5000);
+    
   }
   setCookie(cname,cvalue,exdays) {
 

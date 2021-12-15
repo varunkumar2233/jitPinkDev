@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpHeaders } from '@angular/common/http';
-import { takeUntil, first } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { SharedService } from '../../../shared/services/shared-service.service';
-import { environment } from '../../../../../environments/environment';
 import { AlertServiceService } from '../../../shared/services/alert-service.service'
 import { UserRegService } from '../../../shared/services/user-reg.service';
-import { MustMatch } from '../../../shared/services/passwordvalidatorhelper';
 //import { ProfileAccountSetting } from '../../../../modules/main/profile-account-setting/service/profile-account-setting.service';
 
 @Component({
@@ -84,15 +81,14 @@ export class InformationOverviewComponent implements OnInit {
             phoneNumber: res.phone,
           });
           this.alertService.success("User profile updated successfully.");
-
-        } else {
-          this.sharedService.stopLoading();
-          this.alertService.error("Unable to update user profile.");
         }
-      }, (err) => {
+      }, 
+      error => {
+        console.log(error);
+        this.alertService.error(error);
+        
         this.sharedService.stopLoading();
       });
-
     }
     else {
       this.alertService.error("Please fill required field.");

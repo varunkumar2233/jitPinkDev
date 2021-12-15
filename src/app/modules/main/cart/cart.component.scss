@@ -246,6 +246,12 @@ li.nav-item {
 }
 .item-field .img img {
     border-radius: 10px;
+    width: 100%;
+    height: auto !important;
+}
+
+.item-field .col-md-5 {
+    padding-left: 0;
 }
 .form-check .form-check-input{
     height: 16px;
@@ -300,9 +306,16 @@ p.creditQuantity {
     font-size: 14px;
     font-weight: 400;
     display: block;
-       width: 120px;
+       width: 150px;
        float: right;
+       text-align: right;
+       position: absolute;
+       right: 15px;
+       top: 30px;
     
+}
+p.creditQuantity span{
+    display: inline !important;
 }
 
 .creditQuantity button {

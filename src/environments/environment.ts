@@ -40,12 +40,13 @@ export const environment = {
 	getrateReport: `${apiUrl}report/generate/`,
 	logoutUrl: `${webUrl}/auth/logout`, // web endpoint logout redirection.
 	emailConfirmUrl: `${apiUrl}user/confirm-email/${securekey}`,
-	sendConfermationEmail : `${apiUrl}user/send-confirmation-email/${securekey}`,
+	sendConfermationEmail: `${apiUrl}user/send-confirmation-email/${securekey}`,
 	notificationListUrl: `${apiUrl}user/notifications/${securekey}`,
 	getLocationList: `${apiUrl}report/sample-list/${securekey}`,
 	getPurchaceHistory: `${apiUrl}/report/purchase-history/${securekey}`,
 	updateCreditByOne: `${apiUrl}report/create/${securekey}`,
-	addNewPipedriveLead: `${pipeDriveApiUrl}/CreatePipedriveLead/${securekey}&clientId=development`,
+	geocodeSupplement: `${apiUrl}report/geocode-supplement/${securekey}`,
+	addNewPipedriveLead: `${pipeDriveApiUrl}/CreatePipedriveLead/${securekey}`,
 	postLoginRedirectUri: {
 		landingMain: `${webUrl}/main`,
 		landingHome: `${webUrl}`,

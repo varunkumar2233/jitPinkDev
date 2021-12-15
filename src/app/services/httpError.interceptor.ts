@@ -67,9 +67,15 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                             setTimeout(() => {
                                 this.authenticationService.logout();
                             }, 1000);
-                        }
+                        } else if(error.error["first_name"]){
+                            errorMessage = "Ensure First Name field has no more than 150 characters";
+                        } else if(error.error["last_name"]){
+                            errorMessage = "Ensure Last name field has no more than 150 characters";
+                        }else {
+                            errorMessage = error.error.detail;
+                        }               
                        // errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-                       errorMessage = error.error.detail;
+                      
                         console.log(errorMessage);
                     }
                     return throwError(errorMessage);
